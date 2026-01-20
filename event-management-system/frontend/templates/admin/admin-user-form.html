@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage User - Infinity Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8c25f4',
+                        dark: '#191022'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400;
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-dark font-display text-white">
+    <div class="flex h-screen">
+        <!-- Sidebar (Simplified/Shared) -->
+        <aside class="w-64 bg-[#1a1023] p-4 flex flex-col justify-between border-r border-white/10">
+            <div class="flex flex-col gap-8">
+                <div class="flex items-center gap-3 px-2">
+                    <img src="https://i.pravatar.cc/40?img=15" alt="Admin" class="w-10 h-10 rounded-full">
+                    <div>
+                        <h1 class="text-white text-base font-medium">Infinity Events</h1>
+                        <p class="text-purple-300 text-sm">Admin Panel</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2">
+                    <a href="admin-dashboard.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a href="admin-events.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">event</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a href="admin-users.html"
+                        class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium">Users</p>
+                    </a>
+                    <a href="admin-tickets.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">confirmation_number</span>
+                        <p class="text-sm font-medium">Tickets</p>
+                    </a>
+                    <a href="admin-reports.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                    <a href="admin-settings.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </a>
+                </nav>
+            </div>
+            <div class="flex flex-col gap-2">
+                <a href="../index.html"
+                    class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium">Logout</p>
+                </a>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-8 overflow-y-auto">
+            <div class="max-w-3xl mx-auto">
+                <!-- Header -->
+                <div class="flex items-center gap-4 mb-8">
+                    <a href="admin-users.html"
+                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 text-white transition">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </a>
+                    <div>
+                        <h1 class="text-3xl font-bold" id="pageTitle">Add New User</h1>
+                        <p class="text-white/60 mt-1" id="pageDesc">Create a new user account</p>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form id="userForm" class="space-y-6">
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-6 space-y-6">
+                        <h3 class="text-lg font-semibold border-b border-white/10 pb-4">Account Details</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-white/70 mb-2">First Name *</label>
+                                <input type="text" id="firstName" required
+                                    class="w-full bg-[#1a1023] border border-white/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-white/70 mb-2">Last Name *</label>
+                                <input type="text" id="lastName" required
+                                    class="w-full bg-[#1a1023] border border-white/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-white/70 mb-2">Email Address *</label>
+                                <input type="email" id="email" required
+                                    class="w-full bg-[#1a1023] border border-white/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                            </div>
+                            <div class="md:col-span-2" id="passwordContainer">
+                                <label class="block text-sm font-medium text-white/70 mb-2">Password *</label>
+                                <input type="password" id="password" required minlength="6"
+                                    class="w-full bg-[#1a1023] border border-white/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                                <p class="text-xs text-white/40 mt-1">Must be at least 6 characters</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-6 space-y-6">
+                        <h3 class="text-lg font-semibold border-b border-white/10 pb-4">Permissions</h3>
+
+                        <div>
+                            <label class="block text-sm font-medium text-white/70 mb-2">Role *</label>
+                            <select id="role" required
+                                class="w-full bg-[#1a1023] border border-white/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition appearance-none">
+                                <option value="CUSTOMER">Customer</option>
+                                <option value="ADMIN">Administrator</option>
+                            </select>
+                            <p
+                                class="text-sm text-white/50 mt-2 bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
+                                <span class="material-symbols-outlined align-bottom text-base mr-1">info</span>
+                                <strong>Admin:</strong> Can assume all management tasks.<br>
+                                <strong>Customer:</strong> Standard user access for bookings.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 pt-4">
+                        <button type="button" onclick="window.location.href='admin-users.html'"
+                            class="px-6 py-2.5 rounded-lg border border-white/10 hover:bg-white/5 transition font-medium">
+                            Cancel
+                        </button>
+                        <button type="submit" id="submitBtn"
+                            class="px-6 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-white font-medium flex items-center gap-2 transition">
+                            <span class="material-symbols-outlined text-lg">save</span>
+                            Save User
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id');
+        const isEditMode = !!userId;
+
+        // UI Updates based on mode
+        if (isEditMode) {
+            document.getElementById('pageTitle').textContent = 'Edit User';
+            document.getElementById('pageDesc').textContent = 'Update user details and permissions';
+            document.getElementById('passwordContainer').style.display = 'none';
+            document.getElementById('password').removeAttribute('required');
+            document.getElementById('email').disabled = true; // Email usually immutable or special handling
+            document.getElementById('email').classList.add('opacity-50', 'cursor-not-allowed');
+
+            loadUserData();
+        }
+
+        async function loadUserData() {
+            try {
+                const token = sessionStorage.getItem('access_token') || localStorage.getItem('access_token');
+                const res = await fetch(`${API_BASE_URL}/admin/users/${userId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!res.ok) throw new Error('Failed to fetch user');
+
+                const user = await res.json();
+                document.getElementById('firstName').value = user.first_name;
+                document.getElementById('lastName').value = user.last_name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('role').value = user.role;
+
+            } catch (error) {
+                console.error(error);
+                alert('Error loading user data');
+                window.location.href = 'admin-users.html';
+            }
+        }
+
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = sessionStorage.getItem('access_token') || localStorage.getItem('access_token');
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="animate-spin material-symbols-outlined text-lg">progress_activity</span> Saving...';
+
+            const data = {
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                role: document.getElementById('role').value
+            };
+
+            let url = `${API_BASE_URL}/admin/users`;
+            let method = 'POST';
+
+            if (isEditMode) {
+                url = `${API_BASE_URL}/admin/users/${userId}`;
+                method = 'PATCH';
+                // Email not updated in edit for simplicity, password not handled in edit here
+            } else {
+                data.email = document.getElementById('email').value;
+                data.password = document.getElementById('password').value;
+            }
+
+            try {
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.detail || 'Operation failed');
+                }
+
+                alert(isEditMode ? 'User updated successfully!' : 'User created successfully!');
+                window.location.href = 'admin-users.html';
+
+            } catch (error) {
+                console.error(error);
+                alert(error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="material-symbols-outlined text-lg">save</span> Save User';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Participants - Infinity Events</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #8c25f4;
+            --secondary-color: #6b21a8;
+            --accent-color: #a855f7;
+            --dark-bg: #0f0118;
+            --dark-light: #1a0b2e;
+        }
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 1, 24, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .page-header {
+            margin-top: 100px;
+            margin-bottom: 40px;
+        }
+        
+        .participant-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .participant-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-color);
+        }
+        
+        .participant-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            margin-right: 20px;
+            object-fit: cover;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background: rgba(25, 135, 84, 0.2);
+            color: #198754;
+            border: 1px solid rgba(25, 135, 84, 0.5);
+        }
+        
+        footer {
+            margin-top: auto;
+            background: var(--dark-light);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (Simplified) -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-music-note-beamed me-2"></i>Infinity Events
+            </a>
+            <div class="d-flex">
+                <a href="event_list.html" class="btn btn-outline-light btn-sm">Back to Events</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container page-header">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-5 fw-bold mb-2">Event Participants</h1>
+                <p class="text-white-50" id="eventTitle">Loading event details...</p>
+            </div>
+            <div class="text-end">
+                <h3 class="fw-bold mb-0 text-primary" id="participantCount">0</h3>
+                <small class="text-white-50">Confirmed Attendees</small>
+            </div>
+        </div>
+
+        <div class="row g-4" id="participantsList">
+            <!-- Loading State -->
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4">
+        <div class="container text-center">
+            <small class="text-white-50">&copy; 2026 Infinity Events. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+
+        function getEventIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        async function loadParticipants() {
+            const eventId = getEventIdFromURL();
+            if (!eventId) {
+                document.getElementById('participantsList').innerHTML = '<div class="col-12 text-center text-danger">Event ID not found</div>';
+                return;
+            }
+
+            try {
+                // Fetch Event Details for Title
+                const eventResponse = await fetch(`${API_BASE_URL}/events/${eventId}`);
+                if (eventResponse.ok) {
+                    const event = await eventResponse.json();
+                    document.getElementById('eventTitle').textContent = event.title;
+                }
+
+                // Fetch Participants
+                const response = await fetch(`${API_BASE_URL}/events/${eventId}/participants`);
+                if (!response.ok) throw new Error('Failed to load participants');
+                
+                const bookings = await response.json();
+                renderParticipants(bookings);
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('participantsList').innerHTML = `
+                    <div class="col-12 text-center text-white-50">
+                        <i class="bi bi-exclamation-circle mb-2 fs-3 d-block"></i>
+                        Unable to load participants list
+                    </div>
+                `;
+            }
+        }
+
+        function renderParticipants(bookings) {
+            const container = document.getElementById('participantsList');
+            const confirmedBookings = bookings.filter(b => b.status === 'CONFIRMED');
+            
+            document.getElementById('participantCount').textContent = confirmedBookings.length;
+
+            if (confirmedBookings.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-people display-1 text-white-50 mb-3"></i>
+                        <h4 class="text-white-50">No participants yet</h4>
+                        <p class="text-white-50">Be the first to join!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = confirmedBookings.map(booking => {
+                const user = booking.user || { name: 'Unknown User', email: 'N/A' };
+                // Using a deterministic avatar based on name
+                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=8c25f4&color=fff`;
+
+                return `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="participant-card">
+                            <img src="${avatarUrl}" alt="${user.name}" class="participant-avatar">
+                            <div>
+                                <h5 class="fw-bold mb-1">${user.name}</h5>
+                                <p class="text-white-50 mb-1 small"><i class="bi bi-ticket-perforated me-1"></i>${booking.quantity} Ticket(s)</p>
+                                <span class="status-badge status-confirmed">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadParticipants);
+    </script>
+</body>
+</html>

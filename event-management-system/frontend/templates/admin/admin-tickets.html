@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets Management - Infinity Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8c25f4',
+                        dark: '#191022'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400;
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-[#1a1023] p-4 flex flex-col justify-between border-r border-white/10">
+            <div class="flex flex-col gap-8">
+                <div class="flex items-center gap-3 px-2">
+                    <img id="sidebarAdminImg" src="https://i.pravatar.cc/40?img=15" alt="Admin"
+                        class="w-10 h-10 rounded-full object-cover">
+                    <div>
+                        <h1 id="sidebarAdminName" class="text-white text-base font-medium">Infinity Events</h1>
+                        <p class="text-purple-300 text-sm">Admin Panel</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2">
+                    <a href="admin-dashboard.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a href="admin-events.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">event</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a href="admin-users.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium">Users</p>
+                    </a>
+                    <a href="admin-tickets.html"
+                        class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-white rounded-lg">
+                        <span class="material-symbols-outlined">confirmation_number</span>
+                        <p class="text-sm font-medium">Tickets</p>
+                    </a>
+                    <a href="admin-reports.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                    <a href="admin-settings.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </a>
+                </nav>
+            </div>
+            <div class="flex flex-col gap-2">
+                <a href="admin-support.html"
+                    class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                    <span class="material-symbols-outlined">help_outline</span>
+                    <p class="text-sm font-medium">Support</p>
+                </a>
+                <a href="#" id="logoutBtn"
+                    class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium">Logout</p>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col">
+            <div class="p-8 flex-1">
+                <!-- Page Heading -->
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <p class="text-4xl font-black">Ticket Management</p>
+                        <p class="text-white/60 text-sm mt-1">Total Bookings: <span id="totalBookings">0</span></p>
+                    </div>
+                </div>
+
+                <!-- Toolbar -->
+                <div
+                    class="flex flex-wrap justify-between items-center gap-4 px-4 py-3 bg-white/5 rounded-lg border border-white/10 mb-6">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="relative w-64">
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/50">search</span>
+                            <input type="search" id="searchInput" placeholder="Search bookings..."
+                                class="w-full h-10 pl-10 pr-4 bg-transparent border border-white/20 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                        </div>
+                        <select id="statusFilter"
+                            class="h-10 px-4 bg-transparent border border-white/20 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="">All Status</option>
+                            <option value="CONFIRMED">Confirmed</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                        <select id="eventFilter"
+                            class="h-10 px-4 bg-transparent border border-white/20 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="">All Events</option>
+                            <!-- Events loaded dynamically -->
+                        </select>
+                        <div class="flex items-center gap-1 h-10 px-3 bg-transparent border border-white/20 rounded-lg">
+                            <span class="material-symbols-outlined text-white/50 text-lg">calendar_today</span>
+                            <select id="dateFilter"
+                                class="h-full bg-transparent text-white text-sm focus:outline-none border-none">
+                                <option value="">All Time</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month" selected>Last 30 Days</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="loadBookings()"
+                            class="flex items-center gap-2 px-4 h-10 rounded-lg text-white/80 hover:bg-white/10 border border-white/20 transition">
+                            <span class="material-symbols-outlined text-lg">refresh</span>
+                            <span class="text-sm">Refresh</span>
+                        </button>
+                        <button onclick="toggleFilters()"
+                            class="flex items-center gap-2 px-4 h-10 rounded-lg text-white/80 hover:bg-white/10 border border-white/20 transition">
+                            <span class="material-symbols-outlined text-lg">tune</span>
+                            <span class="text-sm">Filters</span>
+                        </button>
+                        <button onclick="exportAllTickets()"
+                            class="flex items-center gap-2 px-4 h-10 rounded-lg bg-primary/20 text-primary hover:bg-primary/40 border border-primary/30 transition font-medium">
+                            <span class="material-symbols-outlined text-lg">download</span>
+                            <span class="text-sm">Export All</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white/5 rounded-xl border border-white/10 overflow-hidden flex-1">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-white/5">
+                                <tr>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">ID</th>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">User</th>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">Event</th>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">Quantity</th>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">Total Price</th>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">Status</th>
+                                    <th class="px-4 py-3 text-white text-sm font-medium">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookingsTableBody" class="divide-y divide-white/10">
+                                <!-- Loading State -->
+                                <tr>
+                                    <td colspan="7" class="px-4 py-8 text-center">
+                                        <div class="flex flex-col items-center gap-2">
+                                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary">
+                                            </div>
+                                            <p class="text-white/60 text-sm">Loading bookings...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="paginationContainer" class="flex items-center justify-center p-4 border-t border-white/10">
+                        <!-- Pagination will be generated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed top-4 right-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg px-4 py-3 shadow-xl hidden">
+        <p id="toastMessage" class="text-white text-sm"></p>
+    </div>
+
+    <script src="../../static/js/admin_profile.js"></script>
+    <script src="../../static/js/admin_tickets_script.js"></script>
+</body>
+
+</html>
