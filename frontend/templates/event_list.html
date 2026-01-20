@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Infinity Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8c25f4;
+            --secondary-color: #6b21a8;
+            --accent-color: #a855f7;
+            --dark-bg: #0f0118;
+            --dark-light: #1a0b2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 1, 24, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+            background: rgba(140, 37, 244, 0.2);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+
+        .dropdown-menu {
+            background: rgba(15, 1, 24, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .dropdown-item {
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            margin: 3px 0;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(140, 37, 244, 0.2);
+            color: #fff;
+        }
+
+        .dropdown-item.text-danger:hover {
+            background: rgba(220, 53, 69, 0.2);
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(rgba(15, 1, 24, 0.8), rgba(15, 1, 24, 0.9)),
+                url('https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1600');
+            background-size: cover;
+            background-position: center;
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            opacity: 0.2;
+            top: -250px;
+            right: -250px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+
+        /* Filter Card */
+        .filter-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .form-select,
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus,
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 0 0 0.25rem rgba(140, 37, 244, 0.25);
+        }
+
+        .form-select option {
+            background: var(--dark-light);
+            color: #fff;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Event Cards */
+        .event-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(140, 37, 244, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .event-card img {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+            transition: all 0.4s ease;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .badge-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(140, 37, 244, 0.4);
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .wishlist-btn:hover {
+            background: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .wishlist-btn.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 12px 24px;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(140, 37, 244, 0.4);
+        }
+
+        .btn-outline-light {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline-light.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* View Toggle Buttons */
+        .btn-group .btn {
+            padding: 10px 16px;
+        }
+
+        /* Pagination */
+        .pagination {
+            gap: 8px;
+        }
+
+        .page-item .page-link {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .page-item .page-link:hover {
+            background: rgba(140, 37, 244, 0.2);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .page-item.active .page-link {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .page-item.disabled .page-link {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-light);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+        }
+
+        /* Mobile Responsive
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(15, 1, 24, 0.98);
+                padding: 20px;
+                border-radius: 15px;
+                margin-top: 15px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                margin: 5px 0;
+            }
+
+            .navbar .d-flex {
+                margin-top: 15px;
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .navbar .d-flex .btn {
+                width: 100%;
+                margin: 0;
+            }
+
+            .navbar .dropdown {
+                width: 100%;
+            }
+
+            .navbar .dropdown-toggle {
+                width: 100%;
+                justify-content: center;
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+            }
+        } */
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 120px 0 60px;
+            }
+
+            .display-2 {
+                font-size: 2.5rem;
+            }
+
+            .filter-card {
+                padding: 20px;
+            }
+
+            .event-card img {
+                height: 200px;
+            }
+
+            .btn-group {
+                width: 100%;
+            }
+
+            .btn-group .btn {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .display-2 {
+                font-size: 2rem;
+            }
+
+            .filter-card {
+                padding: 15px;
+            }
+
+            .event-card h4 {
+                font-size: 1.1rem;
+            }
+
+            .badge-category {
+                padding: 6px 15px;
+                font-size: 0.75rem;
+            }
+
+            .wishlist-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="d-flex align-items-center text-decoration-none p-2" href="index.html"
+                style="width: 60px; height: 60px;">
+                <img src="../static/img/logo.jpeg" alt="Infinity Events"
+                    class="w-100 h-100 rounded-circle object-fit-cover shadow-sm border border-2 border-white">
+            </a>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span class="fw-bold">Infinity Events</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="event_list.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ticket_list.html">My Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wishlist.html">
+                            <i class="bi bi-heart me-1"></i>Wishlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="support.html">Support</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="guest-nav">
+                        <a href="signup.html" class="btn btn-outline-light btn-sm">Sign Up</a>
+                        <a href="login.html" class="btn btn-outline-light btn-sm">Login</a>
+                    </div>
+                    <div id="auth-nav" style="display: none;">
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                                <img src="https://i.pravatar.cc/40?img=12" alt="User" class="user-avatar">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="profile.html"><i
+                                            class="bi bi-person-circle me-2"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="ticket_list.html"><i class="bi bi-ticket me-2"></i>My
+                                        Tickets</a></li>
+                                <li><a class="dropdown-item" href="wishlist.html"><i
+                                            class="bi bi-heart me-2"></i>Wishlist</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="admin/admin_login.html" id="admin-link"
+                                        style="display: none;"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="#" id="logout-btn"><i
+                                            class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner text-center">
+        <div class="container position-relative" style="z-index: 10;">
+            <h1 class="display-2 fw-bold mb-3">Discover Events</h1>
+            <p class="lead text-white-50 mb-0">Find your perfect musical experience from thousands of live events</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+
+            <!-- Filters -->
+            <div class="filter-card mb-5">
+                <div class="row g-3">
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label"><i class="bi bi-calendar3 me-2"></i>Date</label>
+                        <select class="form-select" id="dateFilter">
+                            <option>All Dates</option>
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>Next Month</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label"><i class="bi bi-music-note me-2"></i>Category</label>
+                        <select class="form-select" id="categoryFilter">
+                            <option>All Categories</option>
+                            <!-- <option>Rock</option>
+                            <option>Jazz</option>
+                            <option>Electronic</option>
+                            <option>Classical</option> -->
+                            <option>Conference</option>
+                            <option>Workshop</option>
+                            <option>Seminar</option>
+                            <option>Meetup</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label"><i class="bi bi-geo-alt me-2"></i>Location</label>
+                        <select class="form-select" id="locationFilter">
+                            <option>All Locations</option>
+                            <option>Colombo</option>
+                            <option>Panadura</option>
+                            <option>Nigombo</option>
+                            <option>Rathnapura</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label"><i class="bi bi-search me-2"></i>Search</label>
+                        <input type="search" class="form-control" id="searchInput" placeholder="Search events...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <h5 class="mb-0">
+                    Showing <span class="text-primary fw-bold">12</span> events
+                </h5>
+                <div class="btn-group">
+                    <button class="btn btn-outline-light active" id="gridView">
+                        <i class="bi bi-grid"></i>
+                    </button>
+                    <button class="btn btn-outline-light" id="listView">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="row g-4" id="eventsContainer">
+                <!-- Event 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="event-card">
+                        <div class="position-relative">
+                            <img src="../static/img/e-2.jpg" alt="Summer Rock Festival">
+                            <span class="badge-category">Rock</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                                <i class="bi bi-heart-fill"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="fw-bold mb-3">Summer Rock Festival</h4>
+                            <div class="d-flex align-items-center text-white-50 mb-2">
+                                <i class="bi bi-calendar3 me-2"></i>
+                                <small>August 22, 2026 • 7:30 PM</small>
+                            </div>
+                            <div class="d-flex align-items-center text-white-50 mb-3">
+                                <i class="bi bi-geo-alt me-2"></i>
+                                <small>Arena Stadium, Rathnapura</small>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div>
+                                    <small class="text-white-50 d-block">From</small>
+                                    <h4 class="mb-0 text-primary">RS 2,800</h4>
+                                </div>
+                                <a href="event_details.html" class="btn btn-primary">
+                                    <i class="bi bi-ticket me-2"></i>Book
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="mt-5" aria-label="Event pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">4</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary rounded-3 p-2 me-2">
+                            <i class="bi bi-music-note-beamed fs-4"></i>
+                        </div>
+                        <span class="fw-bold fs-4">Infinity Events</span>
+                    </div>
+                    <p class="text-white-50 mb-4">Your gateway to unforgettable musical experiences. Connecting artists
+                        and fans worldwide.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
+                        </li>
+                        <li class="mb-2"><a href="event_list.html" class="text-white-50 text-decoration-none">Events</a>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Help Center</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none">Contact
+                                Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQs</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Safety</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Cookie Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Licenses</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Download App</h5>
+                    <a href="#" class="btn btn-outline-light btn-sm d-block mb-2 text-start">
+                        <i class="bi bi-apple me-2"></i>App Store
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-sm d-block text-start">
+                        <i class="bi bi-google-play me-2"></i>Play Store
+                    </a>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary opacity-25">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="text-white-50 mb-0">
+                        <i class="bi bi-heart-fill text-danger me-1"></i>
+                        &copy; 2026 Infinity Events. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="text-white-50 mb-0">
+                        Made with passion for music lovers worldwide
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/auth.js"></script>
+
+    <script>
+        // ==================== API Configuration ====================
+        let allEvents = [];
+        let filteredEvents = [];
+        let currentPage = 1;
+        const eventsPerPage = 9;
+
+        // ==================== Format Functions ====================
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function formatTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        // ==================== Authentication Functions ====================
+        function getToken() {
+            return localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+        }
+
+        function getUser() {
+            const userStr = localStorage.getItem('user') || sessionStorage.getItem('user');
+            return userStr ? JSON.parse(userStr) : null;
+        }
+
+        function updateAuthUI() {
+            const token = getToken();
+            const user = getUser();
+            const guestNav = document.getElementById('guest-nav');
+            const authNav = document.getElementById('auth-nav');
+            const adminLink = document.getElementById('admin-link');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            if (token && user) {
+                // Show authenticated navigation
+                guestNav.style.display = 'none';
+                authNav.style.display = 'flex';
+
+                // Update user avatar with profile image
+                if (user.profile_image) {
+                    const imgUrl = user.profile_image.startsWith('http')
+                        ? user.profile_image
+                        : `http://127.0.0.1:8000${user.profile_image}`;
+
+                    document.querySelectorAll('.user-avatar').forEach(img => {
+                        img.src = imgUrl;
+                        // Remove old error handler if exists
+                        img.onerror = null;
+                        // Add error handler fallback
+                        img.onerror = function () {
+                            this.src = 'https://i.pravatar.cc/40?img=12';
+                        };
+                    });
+                } else if (user.email) {
+                    // Use avatar with email hash
+                    document.querySelectorAll('.user-avatar').forEach(img => {
+                        img.src = `https://i.pravatar.cc/40?u=${user.email}`;
+                    });
+                }
+
+                // Show admin link only if user is admin
+                if (user.role === 'ADMIN') {
+                    adminLink.style.display = 'block';
+                } else {
+                    adminLink.style.display = 'none';
+                }
+
+                // Setup logout
+                if (logoutBtn) {
+                    logoutBtn.onclick = (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('access_token');
+                        sessionStorage.removeItem('access_token');
+                        localStorage.removeItem('user');
+                        sessionStorage.removeItem('user');
+                        window.location.href = 'login.html';
+                    };
+                }
+
+                // Load wishlist status for all events
+                loadWishlist();
+            } else {
+                // Show guest navigation
+                guestNav.style.display = 'flex';
+                authNav.style.display = 'none';
+            }
+        }
+
+        // ==================== Load Events from API ====================
+        async function loadEvents() {
+            try {
+                showLoading();
+
+                const response = await fetch(`${API_BASE_URL}/events/?limit=1000`);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+
+                allEvents = await response.json();
+                filteredEvents = [...allEvents];
+
+                // Populate category dropdown with actual categories from events
+                populateCategoryFilter();
+
+                displayEvents();
+                updateEventCount();
+
+            } catch (error) {
+                console.error('Error loading events:', error);
+                showError('Failed to load events. Please try again later.');
+            }
+        }
+
+        // ==================== Populate Category Filter ====================
+        function populateCategoryFilter() {
+            const categoryFilter = document.getElementById('categoryFilter');
+
+            // Get unique categories from all events
+            const categories = [...new Set(allEvents.map(event => event.category))].filter(Boolean).sort();
+
+            // Keep "All Categories" and add actual categories
+            categoryFilter.innerHTML = '<option>All Categories</option>' +
+                categories.map(cat => `<option>${cat}</option>`).join('');
+        }
+
+        // ==================== Display Events ====================
+        function displayEvents() {
+            const container = document.getElementById('eventsContainer');
+
+            if (filteredEvents.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <i class="bi bi-calendar-x display-1 text-white-50 mb-3"></i>
+                            <h3 class="text-white-50">No events found</h3>
+                            <p class="text-white-50">Try adjusting your filters</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Pagination
+            const startIndex = (currentPage - 1) * eventsPerPage;
+            const endIndex = startIndex + eventsPerPage;
+            const paginatedEvents = filteredEvents.slice(startIndex, endIndex);
+
+            container.innerHTML = paginatedEvents.map(event => {
+                const imageUrl = event.poster_url
+                    ? `${API_BASE_URL}${event.poster_url}`
+                    : '../static/img/e-wallpaper.jpeg';
+
+                const price = event.ga_ticket_price || event.vip_ticket_price || event.pa_ticket_price || 0;
+
+                return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="event-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="${imageUrl}" 
+                                alt="${event.title}"
+                                onerror="this.src='../static/img/e-wallpaper.jpeg'">
+                            <span class="badge-category">${event.category}</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, ${event.id})">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="fw-bold mb-3">${event.title}</h4>
+                            <div class="d-flex align-items-center text-white-50 mb-2">
+                                <i class="bi bi-calendar3 me-2"></i>
+                                <small>${formatDate(event.starts_at)} • ${formatTime(event.starts_at)}</small>
+                            </div>
+                            <div class="d-flex align-items-center text-white-50 mb-3">
+                                <i class="bi bi-geo-alt me-2"></i>
+                                <small>${event.location}</small>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div>
+                                    <small class="text-white-50 d-block">From</small>
+                                    <h4 class="mb-0 text-primary">RS ${price.toLocaleString()}</h4>
+                                </div>
+                                <a href="event_details.html?id=${event.id}" class="btn btn-primary">
+                                    <i class="bi bi-ticket me-2"></i>Book
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            updatePagination();
+            loadWishlist(); // Load wishlist state after displaying events
+        }
+
+        // ==================== Show Loading State ====================
+        function showLoading() {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="text-white-50 mt-3">Loading amazing events...</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== Show Error ====================
+        function showError(message) {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        ${message}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== Update Event Count ====================
+        function updateEventCount() {
+            const countElement = document.querySelector('h5 .text-primary');
+            if (countElement) {
+                countElement.textContent = filteredEvents.length;
+            }
+        }
+
+        // ==================== Filter Events ====================
+        function applyFilters() {
+            const dateFilter = document.getElementById('dateFilter').value;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredEvents = allEvents.filter(event => {
+                // Date filter
+                let dateMatch = true;
+                if (dateFilter !== 'All Dates') {
+                    const eventDate = new Date(event.starts_at);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    if (dateFilter === 'Today') {
+                        dateMatch = eventDate.toDateString() === today.toDateString();
+                    } else if (dateFilter === 'This Week') {
+                        const weekEnd = new Date(today);
+                        weekEnd.setDate(today.getDate() + 7);
+                        dateMatch = eventDate >= today && eventDate <= weekEnd;
+                    } else if (dateFilter === 'This Month') {
+                        dateMatch = eventDate.getMonth() === today.getMonth() &&
+                            eventDate.getFullYear() === today.getFullYear();
+                    } else if (dateFilter === 'Next Month') {
+                        const nextMonth = new Date(today);
+                        nextMonth.setMonth(today.getMonth() + 1);
+                        dateMatch = eventDate.getMonth() === nextMonth.getMonth() &&
+                            eventDate.getFullYear() === nextMonth.getFullYear();
+                    }
+                }
+
+                // Category filter
+                const categoryMatch = categoryFilter === 'All Categories' ||
+                    event.category === categoryFilter;
+
+                // Location filter
+                const locationMatch = locationFilter === 'All Locations' ||
+                    event.location.includes(locationFilter);
+
+                // Search filter
+                const searchMatch = searchInput === '' ||
+                    event.title.toLowerCase().includes(searchInput) ||
+                    event.description.toLowerCase().includes(searchInput) ||
+                    event.location.toLowerCase().includes(searchInput);
+
+                return dateMatch && categoryMatch && locationMatch && searchMatch;
+            });
+
+            currentPage = 1;
+            displayEvents();
+            updateEventCount();
+        }
+
+        // ==================== Pagination ====================
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+            const paginationContainer = document.querySelector('.pagination');
+
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let html = `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `
+                        <li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                        </li>
+                    `;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                }
+            }
+
+            html += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            `;
+
+            paginationContainer.innerHTML = html;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+            if (page < 1 || page > totalPages) return;
+
+            currentPage = page;
+            displayEvents();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==================== Toggle Wishlist ====================
+        async function toggleWishlist(button, eventId) {
+            const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+            if (!token) {
+                // Determine layout intent: simplified alert or redirect
+                if (confirm("Please login to add items to your wishlist.")) {
+                    window.location.href = 'login.html';
+                }
+                return;
+            }
+
+            const isActive = button.classList.contains('active');
+            const willAdd = !isActive;
+
+            try {
+                if (willAdd) {
+                    const response = await fetch(`${API_BASE_URL}/wishlist/?event_id=${eventId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (response.status === 401) {
+                        localStorage.removeItem('access_token');
+                        sessionStorage.removeItem('access_token');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    if (!response.ok) throw new Error('Failed to add to wishlist');
+                } else {
+                    const response = await fetch(`${API_BASE_URL}/wishlist/${eventId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (response.status === 401) {
+                        localStorage.removeItem('access_token');
+                        sessionStorage.removeItem('access_token');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    if (!response.ok) throw new Error('Failed to remove from wishlist');
+                }
+
+                // Update UI upon success
+                button.classList.toggle('active');
+                const icon = button.querySelector('i');
+                if (willAdd) {
+                    icon.classList.remove('bi-heart');
+                    icon.classList.add('bi-heart-fill');
+                } else {
+                    icon.classList.remove('bi-heart-fill');
+                    icon.classList.add('bi-heart');
+                }
+
+                // Animation
+                icon.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1)';
+                }, 200);
+
+                showToast(willAdd ? 'Added to wishlist' : 'Removed from wishlist');
+
+            } catch (error) {
+                console.error(error);
+                showToast('Error updating wishlist');
+            }
+        }
+
+        // ==================== Wishlist Storage ====================
+        // Renamed/Removed saveWishlist as we use API directly
+
+        async function loadWishlist() {
+            const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+            if (!token) return; // No wishlist for guests
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/wishlist/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 401) {
+                    // Unauthorized - clear stored token
+                    localStorage.removeItem('access_token');
+                    sessionStorage.removeItem('access_token');
+                    return;
+                }
+
+                if (response.ok) {
+                    const wishlistItems = await response.json();
+                    const wishlistEventIds = wishlistItems.map(item => item.event_id);
+
+                    // Mark wishlisted events
+                    document.querySelectorAll('.wishlist-btn').forEach(button => {
+                        const onclickAttr = button.getAttribute('onclick');
+                        if (onclickAttr) {
+                            const match = onclickAttr.match(/toggleWishlist\(this,\s*(\d+)\)/);
+                            if (match && match[1]) {
+                                const eventId = parseInt(match[1]);
+                                if (wishlistEventIds.includes(eventId)) {
+                                    button.classList.add('active');
+                                    const icon = button.querySelector('i');
+                                    icon.classList.remove('bi-heart');
+                                    icon.classList.add('bi-heart-fill');
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to load wishlist", error);
+                // Silently fail - wishlist is non-critical
+            }
+        }
+
+        // ==================== Show Toast ====================
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed top-0 start-50 translate-middle-x mt-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert" 
+                    style="background: rgba(40, 167, 69, 0.2); border: 1px solid rgba(40, 167, 69, 0.5); 
+                            color: #fff; border-radius: 12px; backdrop-filter: blur(10px);">
+                    <i class="bi bi-check-circle me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // ==================== View Toggle ====================
+        // Will be initialized in DOMContentLoaded
+
+        // ==================== Navbar Scroll Effect ====================
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(15, 1, 24, 0.98)';
+                navbar.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.background = 'rgba(15, 1, 24, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // ==================== Mobile Menu ====================
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
+                }
+            });
+        });
+
+        // ==================== Event Listeners ====================
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('dateFilter').addEventListener('change', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('locationFilter').addEventListener('change', applyFilters);
+
+        // ==================== Initialize ====================
+        document.addEventListener('DOMContentLoaded', function () {
+            updateAuthUI();
+            loadEvents();
+
+            // ==================== View Toggle ====================
+            const gridView = document.getElementById('gridView');
+            const listView = document.getElementById('listView');
+            const eventsContainer = document.getElementById('eventsContainer');
+
+            if (gridView && listView && eventsContainer) {
+                gridView.addEventListener('click', function () {
+                    gridView.classList.add('active');
+                    listView.classList.remove('active');
+                    eventsContainer.className = 'row g-4';
+                    document.querySelectorAll('.event-card').forEach(card => {
+                        const col = card.closest('[class*="col-"]');
+                        if (col) col.className = 'col-md-6 col-lg-4';
+                    });
+                });
+
+                listView.addEventListener('click', function () {
+                    listView.classList.add('active');
+                    gridView.classList.remove('active');
+                    eventsContainer.className = 'row g-3';
+                    document.querySelectorAll('.event-card').forEach(card => {
+                        const col = card.closest('[class*="col-"]');
+                        if (col) col.className = 'col-12';
+                    });
+                });
+            }
+
+            // Add social icon styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .social-icon {
+                    width: 45px;
+                    height: 45px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    color: #fff;
+                }
+                
+                .social-icon:hover {
+                    background: var(--primary-color);
+                    transform: translateY(-5px);
+                    color: #fff;
+                }
+
+                footer a {
+                    transition: all 0.3s ease;
+                }
+
+                footer a:hover {
+                    color: var(--primary-color) !important;
+                    padding-left: 5px;
+                }
+                
+                .wishlist-btn i {
+                    transition: all 0.2s ease;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+
+</html>

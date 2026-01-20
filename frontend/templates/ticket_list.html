@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tickets - Infinity Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8c25f4;
+            --secondary-color: #6b21a8;
+            --dark-bg: #0f0118;
+            --dark-light: #1a0b2e;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 1, 24, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+            background: rgba(140, 37, 244, 0.2);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .user-avatar:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .dropdown-menu {
+            background: rgba(15, 1, 24, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-item {
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            margin: 3px 0;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(140, 37, 244, 0.2);
+            color: #fff;
+        }
+
+        .dropdown-item.text-danger:hover {
+            background: rgba(220, 53, 69, 0.2);
+        }
+
+        .dropdown-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+            margin: 8px 0;
+        }
+
+        .page-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, rgba(140, 37, 244, 0.15), rgba(107, 33, 168, 0.15));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            opacity: 0.1;
+            top: -200px;
+            right: -200px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .stats-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stats-box:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(140, 37, 244, 0.3);
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .ticket-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Ticket Perforation Effect */
+        .ticket-card::before,
+        .ticket-card::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--dark-bg);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .ticket-card::before {
+            left: -15px;
+        }
+
+        .ticket-card::after {
+            right: -15px;
+        }
+
+        .ticket-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 50px rgba(140, 37, 244, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .ticket-divider {
+            border-left: 2px dashed rgba(255, 255, 255, 0.15);
+            height: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        .qr-code-container {
+            width: 140px;
+            height: 140px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-code-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .status-badge {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-upcoming {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .status-completed {
+            background: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+            border: 1px solid rgba(108, 117, 125, 0.3);
+        }
+
+        .status-cancelled {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .status-processing {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(140, 37, 244, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(140, 37, 244, 0.5);
+        }
+
+        .nav-pills .nav-link {
+            color: #fff;
+            border-radius: 15px;
+            padding: 12px 28px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pills .nav-link:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 5px 20px rgba(140, 37, 244, 0.4);
+        }
+
+        .event-thumbnail {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .action-btn:hover {
+            background: rgba(140, 37, 244, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .empty-state {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+        }
+
+        .countdown-timer {
+            background: rgba(140, 37, 244, 0.1);
+            border: 1px solid rgba(140, 37, 244, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .seat-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-light);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            color: #fff;
+        }
+
+        footer a {
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary-color) !important;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="d-flex align-items-center text-decoration-none p-2" href="index.html"
+                style="width: 60px; height: 60px;">
+                <img src="../static/img/logo.jpeg" alt="Infinity Events"
+                    class="w-100 h-100 rounded-circle object-fit-cover shadow-sm border border-2 border-white">
+            </a>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span class="fw-bold">Infinity Events</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="event_list.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="ticket_list.html">My Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wishlist.html">
+                            <i class="bi bi-heart me-1"></i>Wishlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="support.html">Support</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="guest-nav">
+                        <a href="signup.html" class="btn btn-outline-light btn-sm">Sign Up</a>
+                        <a href="login.html" class="btn btn-outline-light btn-sm">Login</a>
+                    </div>
+                    <div id="auth-nav" style="display: none;">
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                                <img src="https://i.pravatar.cc/40?img=12" alt="User" class="user-avatar">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="profile.html"><i
+                                            class="bi bi-person-circle me-2"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="ticket_list.html"><i class="bi bi-ticket me-2"></i>My
+                                        Tickets</a></li>
+                                <li><a class="dropdown-item" href="wishlist.html"><i
+                                            class="bi bi-heart me-2"></i>Wishlist</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="admin/admin_login.html" id="admin-link"
+                                        style="display: none;"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="#" id="logout-btn"><i
+                                            class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h1 class="display-3 fw-black mb-3">
+                        <i class="bi bi-ticket-perforated-fill text-primary me-3"></i>
+                        My Tickets
+                    </h1>
+                    <p class="lead text-white-50 mb-0">Manage all your event tickets in one place</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stats-box">
+                                <div class="stats-number" id="totalTickets">0</div>
+                                <small class="text-white-50">Total Tickets</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stats-box">
+                                <div class="stats-number" id="upcomingTickets">0</div>
+                                <small class="text-white-50">Upcoming</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+
+            <!-- Filter Tabs -->
+            <div class="mb-4">
+                <ul class="nav nav-pills justify-content-center" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#upcoming">
+                            <i class="bi bi-calendar-check me-2"></i>Upcoming <span id="countUpcoming">(0)</span>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-2" role="presentation">
+                        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#completed">
+                            <i class="bi bi-check-circle me-2"></i>Completed <span id="countCompleted">(0)</span>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-2" role="presentation">
+                        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cancelled">
+                            <i class="bi bi-x-circle me-2"></i>Cancelled <span id="countCancelled">(0)</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+
+                <!-- Upcoming Tickets -->
+                <div class="tab-pane fade show active" id="upcoming">
+                    <div class="row g-4" id="upcomingList">
+                        <!-- Dynamic Content -->
+                        <div class="col-12 text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Tickets -->
+                <div class="tab-pane fade" id="completed">
+                    <div class="row g-4" id="completedList">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+                <!-- Cancelled Tickets -->
+                <div class="tab-pane fade" id="cancelled">
+                    <div class="row g-4" id="cancelledList">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary rounded-3 p-2 me-2">
+                            <i class="bi bi-music-note-beamed fs-4"></i>
+                        </div>
+                        <span class="fw-bold fs-4">Infinity Events</span>
+                    </div>
+                    <p class="text-white-50 mb-4">Your gateway to unforgettable musical experiences. Connecting artists
+                        and fans worldwide.</p>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="fw-bold mb-3">Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="event_list.html" class="text-white-50 text-decoration-none">Events</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary opacity-25">
+            <div class="text-center">
+                <p class="text-white-50 mb-0">&copy; 2026 Infinity Events. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="../static/js/auth.js"></script>
+    <style media="print">
+        @page {
+            size: auto;
+            margin: 0;
+        }
+
+        body {
+            background: white !important;
+            color: black !important;
+        }
+
+        .no-print,
+        nav,
+        footer,
+        .page-header,
+        .nav-pills {
+            display: none !important;
+        }
+
+        .ticket-card {
+            border: 2px solid black !important;
+            color: black !important;
+            background: white !important;
+            box-shadow: none !important;
+            margin: 20px;
+            page-break-inside: avoid;
+        }
+
+        .ticket-card * {
+            color: black !important;
+        }
+
+        .ticket-divider {
+            border-color: black !important;
+        }
+
+        .qr-code-container {
+            border: 1px solid black !important;
+        }
+
+        main {
+            padding: 0 !important;
+        }
+    </style>
+    <script>
+        function printTicket(btn) {
+            // Hide all other tickets
+            const allTickets = document.querySelectorAll('.ticket-card');
+            allTickets.forEach(t => t.parentElement.style.display = 'none');
+
+            // Show only this ticket
+            const card = btn.closest('.ticket-card');
+            card.parentElement.style.display = 'block';
+            card.parentElement.classList.remove('col-12'); // Expand to full width for print
+
+            window.print();
+
+            // Restore
+            allTickets.forEach(t => t.parentElement.style.display = 'block');
+            card.parentElement.classList.add('col-12');
+        }
+        function downloadTicket(btn) {
+            const card = btn.closest('.ticket-card');
+            const originalBtnText = btn.innerHTML;
+
+            // Visual feedback
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+            btn.disabled = true;
+
+            // Clone to remove buttons for capture
+            const clone = card.cloneNode(true);
+            clone.querySelector('.no-print').remove();
+
+            // Style clone for better capture
+            clone.style.position = 'absolute';
+            clone.style.left = '-9999px';
+            clone.style.width = '800px'; // Fixed width for consistent quality
+            clone.style.background = '#1a0b2e'; // Ensure dark background is captured
+            clone.style.color = 'white';
+            clone.style.padding = '30px';
+            clone.style.borderRadius = '20px';
+            document.body.appendChild(clone);
+
+            // Capture
+            html2canvas(clone, {
+                backgroundColor: '#0f0118',
+                scale: 2, // High resolution
+                useCORS: true, // Enable CORS to handle cross-origin images
+                allowTaint: true
+            }).then(canvas => {
+                // Download
+                const link = document.createElement('a');
+                link.download = `Ticket-InfinityEvents-${Date.now()}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+
+                // Cleanup
+                document.body.removeChild(clone);
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+            }).catch(err => {
+                console.error(err);
+                alert("Failed to download ticket image: " + err.message);
+
+                // Cleanup even on error
+                if (document.body.contains(clone)) {
+                    document.body.removeChild(clone);
+                }
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+            });
+        }
+
+
+
+
+
+        // Auth Helpers
+        function getToken() {
+            return localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+        }
+
+        function checkAuth() {
+            const token = getToken();
+            if (!token) {
+                window.location.href = 'login.html';
+                return null;
+            }
+            return token;
+        }
+
+        // Format Date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                month: 'long', day: 'numeric', year: 'numeric'
+            });
+        }
+
+        function formatTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleTimeString('en-US', {
+                hour: 'numeric', minute: '2-digit', hour12: true
+            });
+        }
+
+        // Load Tickets
+        async function loadTickets() {
+            const token = checkAuth();
+            if (!token) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings/user/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.status === 401) {
+                    localStorage.removeItem('access_token');
+                    sessionStorage.removeItem('access_token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                if (!response.ok) throw new Error('Failed to fetch tickets');
+
+                const bookings = await response.json();
+                renderTickets(bookings);
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('upcomingList').innerHTML = `<div class="col-12 text-center text-danger">Failed to load tickets</div>`;
+            }
+        }
+
+        function renderTickets(bookings) {
+            const upcomingList = document.getElementById('upcomingList');
+            const completedList = document.getElementById('completedList');
+            const cancelledList = document.getElementById('cancelledList');
+
+            // Clear loading
+            upcomingList.innerHTML = '';
+            completedList.innerHTML = '';
+            cancelledList.innerHTML = '';
+
+            const now = new Date();
+            let upCount = 0, compCount = 0, cancCount = 0;
+
+            if (bookings.length === 0) {
+                upcomingList.innerHTML = getEmptyState('No upcoming tickets', 'bi-ticket-perforated');
+                return;
+            }
+
+            bookings.forEach((booking, index) => {
+                const event = booking.event || {};
+                const eventDate = new Date(event.starts_at || Date.now());
+                const isPast = eventDate < now;
+                const isCancelled = booking.status === 'CANCELLED';
+
+                let targetList = upcomingList;
+                let statusBadge = '<span class="status-badge status-upcoming mb-3 d-inline-flex"><i class="bi bi-clock-history"></i> Upcoming</span>';
+
+                if (isCancelled) {
+                    targetList = cancelledList;
+                    statusBadge = '<span class="status-badge status-cancelled mb-3 d-inline-flex"><i class="bi bi-x-circle"></i> Cancelled</span>';
+                    cancCount++;
+                } else if (isPast) {
+                    targetList = completedList;
+                    statusBadge = '<span class="status-badge status-completed mb-3 d-inline-flex"><i class="bi bi-check-circle"></i> Completed</span>';
+                    compCount++;
+                } else {
+                    upCount++;
+                }
+
+                let imageUrl;
+                if (event.poster_url) {
+                    if (event.poster_url.startsWith('http')) {
+                        imageUrl = event.poster_url;
+                    } else {
+                        // Safe URL construction
+                        let cleanPath = event.poster_url.replace(/\\/g, '/').replace(/^\/+/, '');
+                        const baseUrl = API_BASE_URL.replace(/\/+$/, '');
+                        imageUrl = `${baseUrl}/${cleanPath}`;
+                    }
+                    // Add cache buster to force fresh request with CORS
+                    imageUrl += `?t=${Date.now()}`;
+                } else {
+                    imageUrl = '../static/img/e-wallpaper.jpeg';
+                }
+
+                // Unique ID for QR container
+                const qrId = `qrcode-${booking.id}`;
+
+                targetList.innerHTML += `
+                    <div class="col-12">
+                        <div class="ticket-card p-4">
+                            <div class="ticket-divider" style="left: 62%;"></div>
+                            <div class="row align-items-center">
+                                <div class="col-lg-7 pe-lg-5">
+                                    <div class="d-flex gap-3 mb-4">
+                                        <img src="${imageUrl}" class="event-thumbnail" crossOrigin="anonymous" onerror="this.src='../static/img/e-wallpaper.jpeg'">
+                                        <div class="flex-grow-1">
+                                            ${statusBadge}
+                                            <h3 class="fw-bold mb-2">${event.title || 'Unknown Event'}</h3>
+                                            <div class="d-flex flex-wrap gap-3 mb-3">
+                                                <div class="d-flex align-items-center text-white-50">
+                                                    <i class="bi bi-calendar3 me-2"></i>
+                                                    <span>${formatDate(event.starts_at)}</span>
+                                                </div>
+                                                <div class="d-flex align-items-center text-white-50">
+                                                    <i class="bi bi-clock me-2"></i>
+                                                    <span>${formatTime(event.starts_at)}</span>
+                                                </div>
+                                            </div>
+                                            <div class="seat-info">
+                                                <i class="bi bi-ticket-perforated"></i>
+                                                <span>Qty: <strong>${booking.quantity}</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-6 col-md-3">
+                                            <div class="info-item">
+                                                <span class="info-label">Booking ID</span>
+                                                <span class="info-value">#${booking.id}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="info-item">
+                                                <span class="info-label">Total Paid</span>
+                                                <span class="info-value text-primary">RS ${booking.amount_total || 0}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-3 no-print d-flex gap-2">
+                                            <button class="btn btn-outline-light btn-sm" onclick="printTicket(this)">
+                                                <i class="bi bi-printer me-1"></i> Print PDF
+                                            </button>
+                                            <button class="btn btn-outline-info btn-sm" onclick="downloadTicket(this)">
+                                                <i class="bi bi-download me-1"></i> Save Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 ps-lg-5 mt-4 mt-lg-0 text-center">
+                                    <div class="qr-code-container mx-auto mb-3 d-flex justify-content-center align-items-center" style="background: white; padding: 10px;">
+                                        <div id="${qrId}"></div>
+                                    </div>
+                                    <p class="text-white-50 small mb-4">Scan at entrance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Generate QR Code after a brief delay to ensure DOM is ready
+                setTimeout(() => {
+                    const el = document.getElementById(qrId);
+                    if (el) {
+                        el.innerHTML = ''; // Clear
+                        new QRCode(el, {
+                            text: String(booking.id),
+                            width: 120,
+                            height: 120,
+                            colorDark: "#000000",
+                            colorLight: "#ffffff",
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                    }
+                }, 100);
+            });
+
+            // Update Counts
+            document.getElementById('totalTickets').textContent = bookings.length;
+            document.getElementById('upcomingTickets').textContent = upCount;
+            document.getElementById('countUpcoming').textContent = `(${upCount})`;
+            document.getElementById('countCompleted').textContent = `(${compCount})`;
+            document.getElementById('countCancelled').textContent = `(${cancCount})`;
+
+            // Empty states
+            if (upCount === 0) upcomingList.innerHTML = getEmptyState('No upcoming tickets', 'bi-ticket-perforated');
+            if (compCount === 0) completedList.innerHTML = getEmptyState('No completed events', 'bi-check-circle');
+            if (cancCount === 0) cancelledList.innerHTML = getEmptyState('No cancelled tickets', 'bi-x-circle');
+        }
+
+        function getEmptyState(msg, icon) {
+            return `
+                <div class="col-12 py-5 text-center">
+                    <div class="empty-state">
+                        <div class="empty-icon mx-auto mb-3" style="width:80px;height:80px;background:rgba(255,255,255,0.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;">
+                            <i class="bi ${icon}"></i>
+                        </div>
+                        <h4 class="text-white-50">${msg}</h4>
+                        <a href="event_list.html" class="btn btn-primary mt-3">Browse Events</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadTickets);
+    </script>
+</body>
+
+</html>

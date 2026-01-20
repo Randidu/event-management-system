@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Tickets - Infinity Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8c25f4',
+                        dark: '#191022'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400;
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-gray-300">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-[#1a1023] p-4 flex flex-col justify-between border-r border-white/10">
+            <div class="flex flex-col gap-8">
+                <div class="flex items-center gap-3 px-2">
+                    <img id="sidebarAdminImg" src="https://i.pravatar.cc/40?img=15" alt="Admin" class="w-10 h-10 rounded-full object-cover">
+                    <div>
+                        <h1 id="sidebarAdminName" class="text-white text-base font-medium">Infinity Events</h1>
+                        <p class="text-purple-300 text-sm">Admin Panel</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2">
+                    <a href="admin-dashboard.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a href="admin-events.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">event</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a href="admin-users.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium">Users</p>
+                    </a>
+                    <a href="admin-tickets.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">confirmation_number</span>
+                        <p class="text-sm font-medium">Tickets</p>
+                    </a>
+                    <a href="admin-reports.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                    <a href="admin-settings.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </a>
+                </nav>
+            </div>
+            <div class="flex flex-col gap-2">
+                <a href="admin-support.html"
+                    class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-white rounded-lg">
+                    <span class="material-symbols-outlined">help_outline</span>
+                    <p class="text-sm font-medium">Support</p>
+                </a>
+                <a href="#" id="logoutBtn"
+                    class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium">Logout</p>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="flex-1 flex flex-col">
+            <!-- Header -->
+            <header class="sticky top-0 z-10 flex items-center justify-between px-8 py-3 bg-[#1a1023] border-b border-[#362249]">
+                <h2 class="text-white text-lg font-bold">Support Tickets</h2>
+                <img id="headerAdminImg" src="https://i.pravatar.cc/40?img=15" alt="User" class="w-10 h-10 rounded-full object-cover">
+            </header>
+
+            <main class="flex-1 px-8 py-8 overflow-hidden">
+            <div class="max-w-screen-2xl mx-auto h-full">
+                <div class="flex flex-col md:flex-row gap-6 h-full">
+                    <!-- Left: Ticket List -->
+                    <div class="w-full md:w-2/5 lg:w-1/3 flex flex-col gap-4 h-full">
+                        <div class="flex justify-between items-center gap-3">
+                            <p class="text-white text-3xl font-black">Support Tickets</p>
+                        </div>
+
+                        <!-- Search & Filter -->
+                        <div class="flex gap-2">
+                            <div class="relative flex-1">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/50 text-sm">search</span>
+                                <input type="search" id="searchInput" placeholder="Search..."
+                                    class="w-full h-10 pl-9 pr-4 bg-white/5 border border-white/20 rounded-lg text-white text-sm focus:outline-none focus:border-primary transition">
+                            </div>
+                            <select id="statusFilter"
+                                class="bg-white/5 border border-white/20 rounded-lg text-white text-sm px-2 focus:outline-none focus:border-primary">
+                                <option value="ALL">All</option>
+                                <option value="OPEN" selected>Open</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                                <option value="RESOLVED">Resolved</option>
+                                <option value="CLOSED">Closed</option>
+                            </select>
+                        </div>
+
+                        <!-- Ticket Cards -->
+                        <div class="flex-1 overflow-y-auto pr-2 space-y-2" id="ticketList">
+                            <div class="text-center py-10 text-white/50">Loading tickets...</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Ticket Detail -->
+                    <div class="w-full md:w-3/5 lg:w-2/3 bg-white/5 rounded-xl p-6 flex flex-col h-full hidden"
+                        id="detailView">
+                        <!-- Detail Header -->
+                        <div class="flex justify-between items-start gap-4 pb-4 border-b border-white/10 shrink-0">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                                    <span id="detailSubject">...</span>
+                                    <span class="text-base font-normal text-white/50" id="detailId">#...</span>
+                                </h3>
+                                <p class="text-sm text-white/60 mt-1">
+                                    Opened by <span class="font-medium text-white/80" id="detailRequester">...</span> on
+                                    <span id="detailDate">...</span>
+                                </p>
+                                <div class="mt-2 text-white/80 text-sm bg-white/5 p-3 rounded-lg"
+                                    id="detailDescription">
+
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end gap-2">
+                                <span id="detailStatus"
+                                    class="px-3 py-1.5 rounded-lg bg-green-500/20 text-green-400 text-sm font-semibold whitespace-nowrap">...</span>
+                            </div>
+                        </div>
+
+                        <!-- Messages -->
+                        <div class="flex-1 overflow-y-auto space-y-4 py-6 px-2" id="msgContainer">
+                            <!-- Messages injected here -->
+                        </div>
+
+                        <!-- Reply Box -->
+                        <div class="pt-4 border-t border-white/10 shrink-0">
+                            <textarea id="replyInput" placeholder="Type your reply here..." rows="3"
+                                class="w-full rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/50 p-4 focus:outline-none focus:ring-2 focus:ring-primary mb-3"></textarea>
+                            <div class="flex justify-end items-center gap-3">
+                                <button onclick="changeStatus('CLOSED')"
+                                    class="h-9 px-4 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 text-sm font-medium transition flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">block</span> Close Ticket
+                                </button>
+                                <button onclick="sendReply()"
+                                    class="h-9 px-6 rounded-lg bg-primary text-white hover:bg-primary/90 text-sm font-bold transition flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">send</span> Reply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State for Detail -->
+                    <div class="w-full md:w-3/5 lg:w-2/3 bg-white/5 rounded-xl p-6 flex flex-col items-center justify-center h-full text-center"
+                        id="emptyState">
+                        <span class="material-symbols-outlined text-6xl text-white/20 mb-4">chat</span>
+                        <h3 class="text-xl font-bold text-white/80">Select a Ticket</h3>
+                        <p class="text-white/50 max-w-sm mt-2">Choose a ticket from the list to view conversation
+                            history and reply.</p>
+                    </div>
+                </div>
+            </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+        let currentTicketId = null;
+        let allTickets = [];
+
+        // Auth Check
+        const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+        if (!token) window.location.href = '../login.html';
+
+        async function loadTickets() {
+            try {
+                const res = await fetch(`${API_BASE_URL}/admin/tickets`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error('Failed to load tickets');
+                allTickets = await res.json();
+                renderTicketList();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('ticketList').innerHTML = '<div class="text-center py-10 text-red-400">Failed to load tickets</div>';
+            }
+        }
+
+        function renderTicketList() {
+            const filterStatus = document.getElementById('statusFilter').value;
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const listEl = document.getElementById('ticketList');
+
+            const filtered = allTickets.filter(t => {
+                const matchesStatus = filterStatus === 'ALL' || t.status === filterStatus;
+                const matchesSearch = t.subject.toLowerCase().includes(search) ||
+                    (t.requester?.email || '').toLowerCase().includes(search) ||
+                    String(t.id).includes(search);
+                return matchesStatus && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = '<div class="text-center py-10 text-white/50">No tickets found</div>';
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(t => {
+                const activeClass = currentTicketId === t.id ? 'border-primary bg-primary/10' : 'border-transparent bg-white/5 hover:border-primary/50';
+                return `
+                <div onclick="selectTicket(${t.id})" class="p-4 rounded-lg border cursor-pointer transition ${activeClass}">
+                    <div class="flex justify-between items-start gap-2">
+                        <p class="font-bold text-white truncate text-sm">#${t.id} - ${t.subject}</p>
+                        <p class="text-xs text-white/50 whitespace-nowrap">${timeAgo(t.created_at)}</p>
+                    </div>
+                    <p class="text-xs text-white/70 mt-1 truncate">By: ${t.requester ? t.requester.first_name + ' ' + t.requester.last_name : 'Unknown'}</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${getStatusColor(t.status)}">${t.status}</span>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        async function selectTicket(id) {
+            currentTicketId = id;
+            renderTicketList(); // Re-render to update active state
+
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('detailView').classList.remove('hidden');
+            document.getElementById('msgContainer').innerHTML = '<div class="text-center text-white/50">Loading discussion...</div>';
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/support/tickets/${id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error("Failed to load details");
+
+                const ticket = await res.json();
+                renderDetail(ticket);
+            } catch (e) {
+                console.error(e);
+                alert('Error loading details');
+            }
+        }
+
+        function renderDetail(ticket) {
+            // Header
+            document.getElementById('detailSubject').textContent = ticket.subject;
+            document.getElementById('detailId').textContent = `#${ticket.id}`;
+            document.getElementById('detailRequester').textContent = ticket.requester ? `${ticket.requester.first_name} ${ticket.requester.last_name} (${ticket.requester.email})` : 'Unknown';
+            document.getElementById('detailDate').textContent = new Date(ticket.created_at).toLocaleString();
+            document.getElementById('detailDescription').textContent = ticket.description;
+
+            const statusEl = document.getElementById('detailStatus');
+            statusEl.textContent = ticket.status;
+            statusEl.className = `px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap ${getStatusColor(ticket.status)}`;
+
+            // Comments
+            const msgContainer = document.getElementById('msgContainer');
+            if (ticket.comments.length === 0) {
+                msgContainer.innerHTML = '<div class="text-center text-white/30 italic py-4">No comments yet. Start the conversation!</div>';
+            } else {
+                msgContainer.innerHTML = ticket.comments.map(c => {
+                    const isAdmin = c.author.role === 'ADMIN';
+                    // Or check if author.id === currentAdminId, but role check is safer visual cue
+
+                    return `
+                    <div class="flex gap-4 ${isAdmin ? 'flex-row-reverse' : ''}">
+                        <img src="${c.author.profile_image ? (c.author.profile_image.startsWith('http') ? c.author.profile_image : API_BASE_URL + c.author.profile_image) : 'https://i.pravatar.cc/40?u=' + c.author.email}" 
+                             class="w-8 h-8 rounded-full border border-white/10 self-start mt-1">
+                        <div class="flex-1 max-w-[80%]">
+                            <div class="p-3 rounded-xl text-sm ${isAdmin ? 'bg-primary/20 rounded-tr-none border border-primary/30' : 'bg-white/10 rounded-tl-none order-border-white/10'}">
+                                <div class="flex justify-between items-center mb-1 gap-4">
+                                    <p class="font-bold ${isAdmin ? 'text-primary-300' : 'text-white'} text-xs">${c.author.first_name} ${c.author.last_name} ${isAdmin ? '(Agent)' : ''}</p>
+                                    <p class="text-[10px] text-white/40">${timeAgo(c.created_at)}</p>
+                                </div>
+                                <p class="text-white/80 whitespace-pre-wrap">${c.body}</p>
+                            </div>
+                        </div>
+                    </div>
+                `}).join('');
+            }
+            // Scroll to bottom
+            setTimeout(() => {
+                msgContainer.scrollTop = msgContainer.scrollHeight;
+            }, 50);
+        }
+
+        async function sendReply() {
+            const body = document.getElementById('replyInput').value.trim();
+            if (!body || !currentTicketId) return;
+
+            // Get current user ID from token or session? 
+            // The backend endpoint knows author from token.
+            // But we need to pass author_id in body for TicketCommentCreate schema?
+            // Schema: ticket_id, author_id, body. 
+            // Wait, backend `add_comment` gets user from token. Does it override author_id?
+            // `create_comment` calls `TicketComment(..., author_id=author_id)`.
+            // So I should pass my own ID. I need to store it. 
+            // Actually, backend `add_comment` takes `comment: TicketCommentCreate`.
+            // And then calls `create_comment(..., author_id=current_user.id)`. 
+            // So even if I pass garbage author_id, backend overrides it. Safe.
+
+            // To be proper, let's decode token to get ID, or just pass 0.
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/support/tickets/${currentTicketId}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ticket_id: currentTicketId,
+                        author_id: 0, // Ignored by backend
+                        body: body
+                    })
+                });
+
+                if (res.ok) {
+                    document.getElementById('replyInput').value = '';
+                    selectTicket(currentTicketId); // Reload
+                } else {
+                    alert('Failed to send reply');
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function changeStatus(newStatus) {
+            if (!confirm(`Mark ticket as ${newStatus}?`)) return;
+            try {
+                const res = await fetch(`${API_BASE_URL}/admin/tickets/${currentTicketId}/status?status=${newStatus}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    loadTickets(); // Refresh list to show status change
+                    selectTicket(currentTicketId); // Refresh details
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function getStatusColor(status) {
+            switch (status) {
+                case 'OPEN': return 'bg-green-500/20 text-green-400';
+                case 'IN_PROGRESS': return 'bg-orange-500/20 text-orange-400';
+                case 'RESOLVED': return 'bg-blue-500/20 text-blue-400';
+                case 'CLOSED': return 'bg-gray-500/20 text-gray-400';
+                default: return 'bg-white/10 text-white';
+            }
+        }
+
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+
+            if (seconds < 60) return 'Just now';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes}m ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h ago`;
+            const days = Math.floor(hours / 24);
+            return `${days}d ago`;
+        }
+
+        document.getElementById('searchInput').addEventListener('input', renderTicketList);
+        document.getElementById('statusFilter').addEventListener('change', renderTicketList);
+
+        document.addEventListener('DOMContentLoaded', loadTickets);
+
+    </script>
+    <script src="../../static/js/admin_profile.js"></script>
+</body>
+
+</html>

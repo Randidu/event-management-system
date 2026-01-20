@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Infinity Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8c25f4',
+                        dark: '#191022'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-[#1a1023] p-4 flex flex-col justify-between border-r border-white/10">
+            <div class="flex flex-col gap-8">
+                <div class="flex items-center gap-3 px-2">
+                    <img id="sidebarAdminImg" src="https://i.pravatar.cc/40?img=15" alt="Admin" class="w-10 h-10 rounded-full object-cover">
+                    <div>
+                        <h1 id="sidebarAdminName" class="text-white text-base font-medium">Infinity Events</h1>
+                        <p class="text-purple-300 text-sm">Admin Panel</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2">
+                    <a href="admin-dashboard.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a href="admin-events.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">event</span>
+                        <p class="text-sm font-medium">Events</p>
+                    </a>
+                    <a href="admin-users.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium">Users</p>
+                    </a>
+                    <a href="admin-tickets.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">confirmation_number</span>
+                        <p class="text-sm font-medium">Tickets</p>
+                    </a>
+                    <a href="admin-reports.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">bar_chart</span>
+                        <p class="text-sm font-medium">Reports</p>
+                    </a>
+                    <a href="admin-settings.html"
+                        class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium">Settings</p>
+                    </a>
+                </nav>
+            </div>
+            <div class="flex flex-col gap-2">
+                <a href="admin-support.html"
+                    class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                    <span class="material-symbols-outlined">help_outline</span>
+                    <p class="text-sm font-medium">Support</p>
+                </a>
+                <a href="index.html"
+                    class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-primary/20 hover:text-white rounded-lg transition">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium">Logout</p>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <div class="py-3 px-8 flex items-center justify-between border-b border-[#362249] bg-[#1a1023]">
+                <h2 class="text-white text-lg font-bold">User Management</h2>
+                <img id="headerAdminImg" src="https://i.pravatar.cc/40?img=15" alt="User" class="w-10 h-10 rounded-full object-cover">
+            </div>
+            <div class="p-8">
+                <!-- Breadcrumbs -->
+                <div class="flex gap-2 mb-6">
+                    <a href="admin-dashboard.html"
+                        class="text-purple-300 text-sm font-medium hover:text-white">Dashboard</a>
+                    <span class="text-purple-300 text-sm">/</span>
+                    <a href="admin-users.html" class="text-purple-300 text-sm font-medium hover:text-white">Users</a>
+                    <span class="text-purple-300 text-sm">/</span>
+                    <span class="text-white text-sm font-medium">View Users</span>
+                </div>
+
+                <!-- Page Heading -->
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-4xl font-black">User Management</h1>
+                    <button onclick="window.location.href='admin-user-form.html'"
+                        class="flex items-center gap-2 h-10 px-4 bg-[#362249] hover:bg-primary text-white rounded-lg text-sm font-bold transition">
+                        <span class="material-symbols-outlined text-lg">add</span>
+                        <span>Add New User</span>
+                    </button>
+                </div>
+
+                <!-- Search & Filters -->
+                <div class="flex flex-wrap gap-4 items-center mb-6">
+                    <div class="flex-grow">
+                        <div class="relative h-12">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-purple-300">search</span>
+                            <input type="search" id="userSearchInput" placeholder="Search by name, email, or ID..."
+                                class="w-full h-full pl-12 pr-4 bg-[#362249] text-white rounded-lg border-none placeholder:text-purple-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <select id="roleFilter"
+                            class="h-10 px-4 bg-[#362249] text-white rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                            <option value="">All Roles</option>
+                            <option value="CUSTOMER">Customer</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                        <select id="statusFilter"
+                            class="h-10 px-4 bg-[#362249] text-white rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                        <button onclick="loadUsers()"
+                            class="flex h-10 items-center gap-2 px-4 rounded-lg bg-[#362249] hover:bg-primary/30 text-white text-sm transition">
+                            <span class="material-symbols-outlined text-lg">refresh</span>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Table -->
+                <div class="bg-[#1a1023] rounded-xl overflow-hidden border border-white/10">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-[#362249]">
+                                <tr>
+                                    <th class="p-4 text-sm font-semibold text-purple-300 uppercase tracking-wider">User
+                                    </th>
+                                    <th class="p-4 text-sm font-semibold text-purple-300 uppercase tracking-wider">Role
+                                    </th>
+                                    <th class="p-4 text-sm font-semibold text-purple-300 uppercase tracking-wider">
+                                        Status</th>
+                                    <th class="p-4 text-sm font-semibold text-purple-300 uppercase tracking-wider">Last
+                                        Login</th>
+                                    <th
+                                        class="p-4 text-sm font-semibold text-purple-300 uppercase tracking-wider text-right">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#362249]">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-primary/10 transition">
+                                    <td class="p-4 whitespace-nowrap">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=1" alt="User"
+                                                class="w-10 h-10 rounded-full">
+                                            <div>
+                                                <p class="text-white font-medium">Rehan waliwatta</p>
+                                                <p class="text-sm text-purple-300">rehan@infinityevents.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">Admin</td>
+                                    <td class="p-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400">
+                                            <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">2 hours ago</td>
+                                    <td class="p-4 whitespace-nowrap text-right">
+                                        <button
+                                            class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                                            <span class="material-symbols-outlined">edit</span>
+                                        </button>
+                                        <button
+                                            class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                                            <span class="material-symbols-outlined">visibility</span>
+                                        </button>
+                                        <button
+                                            class="p-2 rounded-md hover:bg-red-500/20 text-red-400 hover:text-red-300 transition">
+                                            <span class="material-symbols-outlined">block</span>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-primary/10 transition">
+                                    <td class="p-4 whitespace-nowrap">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=13" alt="User"
+                                                class="w-10 h-10 rounded-full">
+                                            <div>
+                                                <p class="text-white font-medium">Phoenix Baker</p>
+                                                <p class="text-sm text-purple-300">phoenix@infinityevents.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">Staff</td>
+                                    <td class="p-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400">
+                                            <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">1 day ago</td>
+                                    <td class="p-4 whitespace-nowrap text-right">
+                                        <button
+                                            class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                                            <span class="material-symbols-outlined">edit</span>
+                                        </button>
+                                        <button
+                                            class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                                            <span class="material-symbols-outlined">visibility</span>
+                                        </button>
+                                        <button
+                                            class="p-2 rounded-md hover:bg-red-500/20 text-red-400 hover:text-red-300 transition">
+                                            <span class="material-symbols-outlined">block</span>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-primary/10 transition">
+                                    <td class="p-4 whitespace-nowrap">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=5" alt="User"
+                                                class="w-10 h-10 rounded-full">
+                                            <div>
+                                                <p class="text-white font-medium">Lana Steiner</p>
+                                                <p class="text-sm text-purple-300">lana@infinityevents.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">Customer</td>
+                                    <td class="p-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded-full bg-red-500/20 text-red-400">
+                                            <span class="w-2 h-2 rounded-full bg-red-400"></span>
+                                            Blocked
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">5 days ago</td>
+                                    <td class="p-4 whitespace-nowrap text-right">
+                                        <button
+                                            class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                                            <span class="material-symbols-outlined">edit</span>
+                                        </button>
+                                        <button
+                                            class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                                            <span class="material-symbols-outlined">visibility</span>
+                                        </button>
+                                        <button
+                                            class="p-2 rounded-md hover:bg-green-500/20 text-green-400 hover:text-green-300 transition">
+                                            <span class="material-symbols-outlined">lock_open</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-between p-4 bg-[#1a1023] border-t border-[#362249]">
+                        <p class="text-sm text-purple-300">Showing 1 to 3 of 25 users</p>
+                        <div class="flex items-center gap-2">
+                            <button
+                                class="flex items-center justify-center w-8 h-8 rounded-md bg-[#362249] text-white hover:bg-primary transition">
+                                <span class="material-symbols-outlined text-xl">chevron_left</span>
+                            </button>
+                            <button
+                                class="flex items-center justify-center w-8 h-8 rounded-md bg-primary text-white">1</button>
+                            <button
+                                class="flex items-center justify-center w-8 h-8 rounded-md bg-[#362249] text-white hover:bg-primary transition">2</button>
+                            <button
+                                class="flex items-center justify-center w-8 h-8 rounded-md bg-[#362249] text-white hover:bg-primary transition">3</button>
+                            <button
+                                class="flex items-center justify-center w-8 h-8 rounded-md bg-[#362249] text-white hover:bg-primary transition">
+                                <span class="material-symbols-outlined text-xl">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+
+        async function loadUsers() {
+            const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+
+            if (!token) {
+                window.location.href = '../login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/users`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        alert('Access denied. Admin privileges required.');
+                        window.location.href = '../index.html';
+                        return;
+                    }
+                    throw new Error('Failed to fetch users');
+                }
+
+                allUsers = await response.json();
+                filterUsers();
+            } catch (error) {
+                console.error('Error loading users:', error);
+                showError('Failed to load users');
+            }
+        }
+
+        let allUsers = [];
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('userSearchInput')?.value.toLowerCase() || '';
+            const roleFilter = document.getElementById('roleFilter')?.value || '';
+            const statusFilter = document.getElementById('statusFilter')?.value || '';
+
+            let filtered = allUsers;
+
+            // Role filter
+            if (roleFilter) {
+                filtered = filtered.filter(u => u.role === roleFilter);
+            }
+
+            // Status filter
+            if (statusFilter) {
+                if (statusFilter === 'active') {
+                    filtered = filtered.filter(u => u.is_active === true);
+                } else if (statusFilter === 'inactive') {
+                    filtered = filtered.filter(u => u.is_active === false);
+                }
+            }
+
+            // Search filter
+            if (searchTerm) {
+                filtered = filtered.filter(u =>
+                    (u.first_name + ' ' + u.last_name).toLowerCase().includes(searchTerm) ||
+                    u.email.toLowerCase().includes(searchTerm) ||
+                    u.id.toString().includes(searchTerm)
+                );
+            }
+
+            displayUsers(filtered);
+        }
+
+        function displayUsers(users) {
+            const tbody = document.querySelector('tbody');
+
+            if (!users || users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-purple-300">
+                            No users found
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => `
+                <tr class="hover:bg-primary/10 transition">
+                    <td class="p-4 whitespace-nowrap">
+                        <div class="flex items-center gap-3">
+                            <img src="${user.profile_image ? (user.profile_image.startsWith('http') ? user.profile_image : API_BASE_URL + user.profile_image) : 'https://i.pravatar.cc/40?u=' + user.email}" 
+                                 alt="${user.first_name}" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <p class="text-white font-medium">${user.first_name} ${user.last_name}</p>
+                                <p class="text-sm text-purple-300">${user.email}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">${user.role || 'USER'}</td>
+                    <td class="p-4 whitespace-nowrap">
+                        <span class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded-full ${user.is_active ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}">
+                            <span class="w-2 h-2 rounded-full ${user.is_active ? 'bg-green-400' : 'bg-red-400'}"></span>
+                            ${user.is_active ? 'Active' : 'Inactive'}
+                        </span>
+                    </td>
+                    <td class="p-4 text-sm text-purple-300 whitespace-nowrap">${formatDate(user.created_at)}</td>
+                    <td class="p-4 whitespace-nowrap text-right">
+                        <button onclick="editUser(${user.id})" class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                            <span class="material-symbols-outlined">edit</span>
+                        </button>
+                        <button onclick="viewUser(${user.id})" class="p-2 rounded-md hover:bg-primary/20 text-purple-300 hover:text-white transition">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                        <button onclick="toggleUserStatus(${user.id}, ${user.is_active})" class="p-2 rounded-md hover:bg-${user.is_active ? 'red' : 'green'}-500/20 text-${user.is_active ? 'red' : 'green'}-400 hover:text-${user.is_active ? 'red' : 'green'}-300 transition">
+                            <span class="material-symbols-outlined">${user.is_active ? 'block' : 'lock_open'}</span>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            updatePagination(users.length);
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            if (days === 0) return 'Today';
+            if (days === 1) return '1 day ago';
+            if (days < 7) return `${days} days ago`;
+            return date.toLocaleDateString();
+        }
+
+        function updatePagination(totalUsers) {
+            const paginationText = document.querySelector('.flex.items-center.justify-between p');
+            if (paginationText) {
+                paginationText.textContent = `Showing 1 to ${totalUsers} of ${totalUsers} users`;
+            }
+        }
+
+        async function toggleUserStatus(userId, currentStatus) {
+            const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+            const action = currentStatus ? 'deactivate' : 'activate';
+
+            if (!confirm(`Are you sure you want to ${action} this user?`)) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/users/${userId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ is_active: !currentStatus })
+                });
+
+                if (!response.ok) throw new Error('Failed to update user');
+
+                showSuccess(`User ${action}d successfully`);
+                loadUsers();
+            } catch (error) {
+                console.error('Error updating user:', error);
+                showError('Failed to update user status');
+            }
+        }
+
+        function editUser(userId) {
+            window.location.href = `admin-user-form.html?id=${userId}`;
+        }
+
+        function viewUser(userId) {
+            window.location.href = `admin-user-details.html?id=${userId}`;
+        }
+
+        function showError(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-red-500/20 border border-red-500 text-white px-6 py-3 rounded-lg z-50';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function showSuccess(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-green-500/20 border border-green-500 text-white px-6 py-3 rounded-lg z-50';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsers();
+
+            // Add filter event listeners
+            const searchInput = document.getElementById('userSearchInput');
+            if (searchInput) searchInput.addEventListener('input', filterUsers);
+
+            const roleFilter = document.getElementById('roleFilter');
+            if (roleFilter) roleFilter.addEventListener('change', filterUsers);
+
+            const statusFilter = document.getElementById('statusFilter');
+            if (statusFilter) statusFilter.addEventListener('change', filterUsers);
+        });
+    </script>
+    <script src="../../static/js/admin_profile.js"></script>
+</body>
+
+</html>

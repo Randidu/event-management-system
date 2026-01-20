@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - Infinity Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8c25f4;
+            --secondary-color: #6b21a8;
+            --accent-color: #a855f7;
+            --dark-bg: #0f0118;
+            --dark-light: #1a0b2e;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 1, 24, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(140, 37, 244, 0.4);
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .event-hero {
+            position: relative;
+            height: 500px;
+            margin-top: 80px;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .event-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(15, 1, 24, 0.95) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .event-hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            padding: 40px;
+        }
+
+        .badge-category {
+            background: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-color);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(140, 37, 244, 0.3);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-color);
+            background: rgba(140, 37, 244, 0.1);
+        }
+
+        .artist-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .artist-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .sticky-booking {
+            position: sticky;
+            top: 100px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-control button {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-control button:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .quantity-control input {
+            width: 60px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            padding: 8px;
+        }
+
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+        }
+
+        .share-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.875rem;
+        }
+
+        footer {
+            background: var(--dark-light);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="d-flex align-items-center text-decoration-none p-2" href="index.html"
+                style="width: 60px; height: 60px;">
+                <img src="../static/img/logo.jpeg" alt="Infinity Events"
+                    class="w-100 h-100 rounded-circle object-fit-cover shadow-sm border border-2 border-white">
+            </a>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span class="fw-bold">Infinity Events</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="event_list.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ticket_list.html">My Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="wishlist.html">
+                            <i class="bi bi-heart me-1"></i>Wishlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="support.html">Support</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div id="guest-nav">
+                        <a href="signup.html" class="btn btn-outline-light btn-sm">Sign In</a>
+                        <a href="login.html" class="btn btn-outline-light btn-sm">Login</a>
+                    </div>
+                    <div id="auth-nav" style="display: none;">
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                                <img src="https://i.pravatar.cc/40?img=12" alt="User" class="rounded-circle user-avatar"
+                                    style="width: 40px; height: 40px;">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="profile.html"><i
+                                            class="bi bi-person-circle me-2"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="ticket_list.html"><i class="bi bi-ticket me-2"></i>My
+                                        Tickets</a></li>
+                                <li><a class="dropdown-item" href="wishlist.html"><i
+                                            class="bi bi-heart me-2"></i>Wishlist</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="admin/admin_login.html" id="admin-link"
+                                        style="display: none;"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="#" id="logout-btn"><i
+                                            class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Event Hero -->
+    <div class="container mt-5">
+        <div class="event-hero" id="event-hero" data-aos="fade-up">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row g-4">
+            <!-- Left Column - Event Details -->
+            <div class="col-lg-8">
+                <!-- About Section -->
+                <div class="info-card mb-4" id="event-description-container" data-aos="fade-up">
+                    <div class="p-4">
+                        <h5 class="placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Venue Information -->
+                <div class="info-card mb-4" id="event-venue-container" data-aos="fade-up" data-aos-delay="300">
+                    <!-- Venue info will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Right Column - Booking Card -->
+            <div class="col-lg-4">
+                <div class="sticky-booking" id="booking-container">
+                    <!-- Booking card will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Events -->
+    <section class="py-5 my-5">
+        <div class="container">
+            <h2 class="display-5 fw-bold mb-4" data-aos="fade-up">Similar Events You Might Like</h2>
+            <div class="row g-4" id="similar-events-container">
+                <!-- Similar events will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary rounded-3 p-2 me-2">
+                            <i class="bi bi-music-note-beamed fs-4"></i>
+                        </div>
+                        <span class="fw-bold fs-4">Infinity Events</span>
+                    </div>
+                    <p class="text-white-50">Your gateway to unforgettable musical experiences. Connecting artists and
+                        fans worldwide.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none">About Us</a>
+                        </li>
+                        <li class="mb-2"><a href="event_list.html" class="text-white-50 text-decoration-none">Events</a>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Help Center</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none">Contact
+                                Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQs</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Safety</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                        </li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Cookie Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Licenses</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="fw-bold mb-3">Download</h5>
+                    <a href="#" class="btn btn-outline-light btn-sm d-block mb-2">
+                        <i class="bi bi-apple me-2"></i>App Store
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-sm d-block">
+                        <i class="bi bi-google-play me-2"></i>Play Store
+                    </a>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="text-center text-white-50">
+                <p class="mb-0">&copy; 2024 Infinity Events. All rights reserved. Made with ❤️ for music lovers</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/auth.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // API_BASE_URL is defined in auth.js
+
+        // ==================== Initialization ====================
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    offset: 100
+                });
+            }
+
+            // Load event details from API
+            loadEventDetails();
+
+            // Initialize interactive elements
+            initializeActions();
+
+            // Check wishlist status
+            checkWishlistStatus();
+        });
+
+        function getEventIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function formatTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        // ==================== Helper Functions ====================
+        function getSafeImageUrl(posterUrl) {
+            if (!posterUrl) {
+                return '../static/img/e-wallpaper.jpeg';
+            }
+
+            // Handle absolute URLs (e.g., external images)
+            if (posterUrl.startsWith('http://') || posterUrl.startsWith('https://')) {
+                return posterUrl;
+            }
+
+            // Normalize path: replace backslashes with forward slashes (common Windows issue)
+            let cleanPath = posterUrl.replace(/\\/g, '/');
+
+            // Remove leading slashes to append cleanly to base URL
+            cleanPath = cleanPath.replace(/^\/+/, '');
+
+            // Construct full URL
+            const baseUrl = API_BASE_URL.replace(/\/+$/, '');
+            const finalUrl = `${baseUrl}/${cleanPath}`;
+
+            console.log('Loading image:', finalUrl); // Debug log
+            return finalUrl;
+        }
+
+        // ==================== Data Fetching ====================
+        async function loadEventDetails() {
+            const eventId = getEventIdFromURL();
+            if (!eventId) {
+                console.warn('No event ID provided');
+                showError('No event selected. Please select an event from the list.');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const hero = document.querySelector('.event-hero');
+                if (hero) {
+                    hero.innerHTML = `
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const response = await fetch(`${API_BASE_URL}/events/${eventId}`);
+
+                if (!response.ok) {
+                    throw new Error('Event not found');
+                }
+
+                const event = await response.json();
+                populateEventDetails(event);
+                loadSimilarEvents(event.category);
+
+            } catch (error) {
+                console.error('Error loading event:', error);
+                showError('Failed to load event details. Please try again.');
+            }
+        }
+
+        function showError(message) {
+            const hero = document.querySelector('.event-hero');
+            if (hero) {
+                hero.innerHTML = `
+                    <div class="alert alert-danger m-4" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        ${message}
+                        <br>
+                        <a href="event_list.html" class="btn btn-sm btn-primary mt-3">Back to Events</a>
+                    </div>
+                `;
+            }
+        }
+
+        function populateEventDetails(event) {
+            // 1. Update Page Title
+            document.title = `${event.title} - Infinity Events`;
+
+            // 2. Update Hero Section
+            const imageUrl = getSafeImageUrl(event.poster_url);
+
+            const heroSection = document.getElementById('event-hero');
+            if (heroSection) {
+                heroSection.innerHTML = `
+                    <img src="${imageUrl}" 
+                        alt="${event.title}"
+                        onerror="this.src='../static/img/e-wallpaper.jpeg'">
+                    <div class="event-hero-content">
+                        <span class="badge-category">${event.category}</span>
+                        <h1 class="display-3 fw-bold mb-3">${event.title}</h1>
+                        <div class="d-flex flex-wrap gap-4 text-white-50">
+                            <div>
+                                <i class="bi bi-calendar3 me-2"></i>
+                                <span>${formatDate(event.starts_at)}</span>
+                            </div>
+                            <div>
+                                <i class="bi bi-clock me-2"></i>
+                                <span>${formatTime(event.starts_at)} - ${formatTime(event.ends_at)}</span>
+                            </div>
+                            <div>
+                                <i class="bi bi-geo-alt me-2"></i>
+                                <span>${event.location}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 3. Update Description
+            const descContainer = document.getElementById('event-description-container');
+            if (descContainer) {
+                descContainer.innerHTML = `
+                    <h2 class="fw-bold mb-4">About This Event</h2>
+                    <p class="text-white-50 mb-4">${event.description || 'No description available for this event.'}</p>
+                 `;
+            }
+
+            // 4. Update Venue Information
+            const venueContainer = document.getElementById('event-venue-container');
+            if (venueContainer) {
+                venueContainer.innerHTML = `
+                    <h3 class="fw-bold mb-4">Venue Information</h3>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Location</h6>
+                            <p class="text-white-50 mb-0">${event.location}</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-car-front-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Parking</h6>
+                            <p class="text-white-50 mb-0">Check venue for details</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 5. Render Booking Section
+            renderBookingSection(event);
+        }
+
+        function renderBookingSection(event) {
+            const container = document.getElementById('booking-container');
+            if (!container) return;
+
+            let options = '';
+            let hasTickets = false;
+            let initialPrice = 0;
+
+            if (event.ga_ticket_price > 0) {
+                options += `<option value="${event.ga_ticket_price}">General Admission - RS ${event.ga_ticket_price.toLocaleString()}</option>`;
+                hasTickets = true;
+                if (!initialPrice) initialPrice = event.ga_ticket_price;
+            }
+            if (event.vip_ticket_price > 0) {
+                options += `<option value="${event.vip_ticket_price}">VIP Pass - RS ${event.vip_ticket_price.toLocaleString()}</option>`;
+                hasTickets = true;
+                if (!initialPrice) initialPrice = event.vip_ticket_price;
+            }
+            if (event.pa_ticket_price > 0) {
+                options += `<option value="${event.pa_ticket_price}">Platinum Package - RS ${event.pa_ticket_price.toLocaleString()}</option>`;
+                hasTickets = true;
+                if (!initialPrice) initialPrice = event.pa_ticket_price;
+            }
+
+            if (!hasTickets) {
+                options = '<option value="0">Ticket info unavailable</option>';
+            }
+
+            container.innerHTML = `
+                <div class="info-card mb-4" data-aos="fade-up">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <h3 class="fw-bold mb-0 gradient-text" id="header-price">RS ${initialPrice.toLocaleString()}.00</h3>
+                            <small class="text-white-50">per ticket</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                             <!-- Re-attach wishlist logic needed -->
+                            <a href="#" class="share-btn" title="Add to Wishlist">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                            <a href="#" class="share-btn" title="Share Event">
+                                <i class="bi bi-share"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Select Ticket Type</label>
+                        <select class="form-select bg-dark text-white border-secondary" id="ticketType"
+                            onchange="updatePrice()">
+                            ${options}
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Quantity</label>
+                        <div class="quantity-control">
+                            <button type="button" onclick="decreaseQty()">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                            <button type="button" onclick="increaseQty()">+</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-white-50">Subtotal</span>
+                        <span class="fw-bold" id="subtotal">RS ${initialPrice.toLocaleString()}.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-white-50">Service Fee</span>
+                        <span class="fw-bold" id="serviceFee">RS ${(initialPrice * 0.1).toLocaleString()}.00</span>
+                    </div>
+                    <hr class="border-secondary">
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fw-bold">Total</span>
+                        <span class="fw-bold fs-4 gradient-text" id="total">RS ${(initialPrice * 1.1).toLocaleString()}.00</span>
+                    </div>
+
+                    <button class="btn btn-primary w-100 mb-3" onclick="proceedToPayment()">
+                        <i class="bi bi-ticket-perforated me-2"></i>
+                        Book Now
+                    </button>
+                    <small class="text-white-50 d-block text-center">
+                        <i class="bi bi-shield-check me-1"></i>
+                        Secure payment guaranteed
+                    </small>
+                </div>
+            `;
+
+            updatePrice();
+            initializeActions(); // Re-bind events to new elements
+            checkWishlistStatus(); // Re-check status for new button
+        }
+
+        // ==================== Similar Events ====================
+        async function loadSimilarEvents(category) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/events/?category=${category}&limit=4`);
+                if (!response.ok) return;
+                const events = await response.json();
+
+                // Filter out current event
+                const currentEventId = parseInt(getEventIdFromURL());
+                const filteredEvents = events.filter(e => e.id !== currentEventId).slice(0, 3);
+
+                if (filteredEvents.length > 0) {
+                    displaySimilarEvents(filteredEvents);
+                }
+            } catch (error) {
+                console.error('Error loading similar events:', error);
+            }
+        }
+
+        function displaySimilarEvents(events) {
+            const container = document.getElementById('similar-events-container');
+            if (!container) return;
+
+            container.innerHTML = events.map(event => {
+                const imageUrl = getSafeImageUrl(event.poster_url);
+                const price = event.ga_ticket_price || event.vip_ticket_price || event.pa_ticket_price || 0;
+
+                return `
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="info-card">
+                        <img src="${imageUrl}" 
+                            alt="${event.title}" 
+                            class="w-100 rounded-3 mb-3" 
+                            style="height: 200px; object-fit: cover;"
+                            onerror="this.src='../static/img/e-wallpaper.jpeg'">
+                        <span class="badge-category">${event.category}</span>
+                        <h5 class="fw-bold mb-2">${event.title}</h5>
+                        <div class="d-flex align-items-center text-white-50 mb-2">
+                            <i class="bi bi-calendar3 me-2"></i>
+                            <small>${formatDate(event.starts_at)}</small>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0 gradient-text">RS ${price.toLocaleString()}.00</span>
+                            <a href="event_details.html?id=${event.id}" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // ==================== Booking Logic ====================
+        function updatePrice() {
+            const ticketType = document.getElementById('ticketType');
+            const quantity = document.getElementById('quantity');
+            const subtotalEl = document.getElementById('subtotal');
+            const serviceFeeEl = document.getElementById('serviceFee');
+            const totalEl = document.getElementById('total');
+
+            if (!ticketType || !quantity) return;
+
+            const ticketPrice = parseFloat(ticketType.value);
+            const qty = parseInt(quantity.value);
+
+            const subtotal = ticketPrice * qty;
+            const serviceFee = subtotal * 0.1; // 10%
+            const total = subtotal + serviceFee;
+
+            if (subtotalEl) subtotalEl.textContent = `RS ${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            if (serviceFeeEl) serviceFeeEl.textContent = `RS ${serviceFee.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            if (totalEl) totalEl.textContent = `RS ${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        }
+
+        function increaseQty() {
+            const qtyInput = document.getElementById('quantity');
+            if (qtyInput) {
+                let val = parseInt(qtyInput.value);
+                if (val < 10) { qtyInput.value = val + 1; updatePrice(); }
+            }
+        }
+
+        function decreaseQty() {
+            const qtyInput = document.getElementById('quantity');
+            if (qtyInput) {
+                let val = parseInt(qtyInput.value);
+                if (val > 1) { qtyInput.value = val - 1; updatePrice(); }
+            }
+        }
+
+        function proceedToPayment() {
+            const eventId = getEventIdFromURL();
+            const ticketType = document.getElementById('ticketType');
+            const quantity = document.getElementById('quantity');
+
+            if (!eventId || !ticketType || !quantity) {
+                alert('Please select ticket type and quantity');
+                return;
+            }
+
+            // Check auth (optional but good)
+            const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+            if (!token) {
+                sessionStorage.setItem('redirect_after_login', window.location.href);
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const ticketTypeName = ticketType.options[ticketType.selectedIndex].text;
+            const ticketPrice = parseFloat(ticketType.value);
+            const qty = parseInt(quantity.value);
+
+            // Store booking details
+            const bookingData = {
+                eventId: eventId,
+                ticketTypeName: ticketTypeName,
+                ticketPrice: ticketPrice,
+                quantity: qty
+            };
+            sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+
+            // Redirect to payment page
+            window.location.href = `payment.html?eventId=${eventId}&ticketType=${encodeURIComponent(ticketTypeName)}&quantity=${qty}&ticketPrice=${ticketPrice}`;
+        }
+
+        // ==================== Actions (Wishlist/Share) ====================
+        function initializeActions() {
+            // Wishlist Toggle
+            const wishlistBtn = document.querySelector('.share-btn[title="Add to Wishlist"]');
+            if (wishlistBtn) {
+                wishlistBtn.addEventListener('click', async function (e) {
+                    e.preventDefault();
+
+                    const token = localStorage.getItem('access_token');
+                    if (!token) {
+                        if (confirm("Please login to add items to your wishlist.")) {
+                            window.location.href = 'login.html';
+                        }
+                        return;
+                    }
+
+                    const eventId = parseInt(getEventIdFromURL());
+                    const icon = this.querySelector('i');
+                    const isActive = icon.classList.contains('bi-heart-fill');
+                    const willAdd = !isActive;
+
+                    try {
+                        if (willAdd) {
+                            const userStr = localStorage.getItem('user');
+                            if (!userStr) { window.location.href = 'login.html'; return; }
+                            const user = JSON.parse(userStr);
+
+                            const res = await fetch(`${API_BASE_URL}/wishlist/`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({ user_id: user.id, event_id: eventId })
+                            });
+                            if (!res.ok) throw new Error('Failed to add');
+                        } else {
+                            const res = await fetch(`${API_BASE_URL}/wishlist/${eventId}`, {
+                                method: 'DELETE',
+                                headers: { 'Authorization': `Bearer ${token}` }
+                            });
+                            if (!res.ok) throw new Error('Failed to remove');
+                        }
+
+                        // Update UI
+                        if (willAdd) {
+                            icon.classList.remove('bi-heart');
+                            icon.classList.add('bi-heart-fill');
+                            this.style.color = '#8c25f4';
+                            showToast('Added to wishlist!');
+                        } else {
+                            icon.classList.remove('bi-heart-fill');
+                            icon.classList.add('bi-heart');
+                            this.style.color = '';
+                            showToast('Removed from wishlist');
+                        }
+
+                    } catch (error) {
+                        console.error(error);
+                        showToast('Error updating wishlist');
+                    }
+                });
+            }
+        }
+
+        // Check if event is in wishlist on load
+        async function checkWishlistStatus() {
+            const token = localStorage.getItem('access_token');
+            if (!token) return;
+
+            const eventId = parseInt(getEventIdFromURL());
+            if (!eventId) return;
+
+            try {
+                // Fetch all wishlist items (or specific one if API supported, but list is fine)
+                const response = await fetch(`${API_BASE_URL}/wishlist/`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (response.ok) {
+                    const wishlistData = await response.json();
+                    const isInWishlist = wishlistData.some(item => item.event_id === eventId);
+
+                    if (isInWishlist) {
+                        const wishlistBtn = document.querySelector('.share-btn[title="Add to Wishlist"]');
+                        if (wishlistBtn) {
+                            const icon = wishlistBtn.querySelector('i');
+                            icon.classList.remove('bi-heart');
+                            icon.classList.add('bi-heart-fill');
+                            wishlistBtn.style.color = '#8c25f4';
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error checking wishlist status", error);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed top-0 start-50 translate-middle-x mt-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert" 
+                    style="background: rgba(40, 167, 69, 0.2); border: 1px solid rgba(40, 167, 69, 0.5); 
+                            color: #fff; border-radius: 12px; backdrop-filter: blur(10px);">
+                    <i class="bi bi-check-circle me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,1 +1,2 @@
-# event-management-system-my
+# event-management-system
+Event Managment System GitHub Repo

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Infinity Events</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #8c25f4;
+            --secondary-color: #6b21a8;
+            --accent-color: #a855f7;
+            --dark-bg: #0f0118;
+            --dark-light: #1a0b2e;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        .success-icon i {
+            font-size: 60px;
+            color: white;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ticket-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-card::before,
+        .ticket-card::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--dark-bg);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .ticket-card::before {
+            left: -10px;
+        }
+
+        .ticket-card::after {
+            right: -10px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(140, 37, 244, 0.4);
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <i class="bi bi-check-lg"></i>
+        </div>
+
+        <h1 class="display-4 fw-bold mb-3">Payment Successful!</h1>
+        <p class="text-white-50 mb-4">Your tickets have been booked successfully. A confirmation email has been sent to
+            your email address.</p>
+
+        <div class="ticket-card" id="ticketDetails">
+            <h4 class="fw-bold mb-4">Booking Details</h4>
+
+            <div id="loadingDetails" class="text-center py-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div id="bookingInfo" style="display: none;">
+                <!-- Dynamically populated -->
+                <div class="detail-row">
+                    <span class="text-white-50">Booking ID</span>
+                    <span class="fw-bold" id="dispBookingId">...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="text-white-50">Event</span>
+                    <span class="fw-bold" id="dispEventTitle">...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="text-white-50">Date</span>
+                    <span class="fw-bold" id="dispEventDate">...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="text-white-50">Ticket Type</span>
+                    <span class="fw-bold" id="dispTicketType">...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="text-white-50">Quantity</span>
+                    <span class="fw-bold" id="dispQuantity">...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="text-white-50">Total Amount</span>
+                    <span class="fw-bold text-success" id="dispTotal">...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="text-white-50">Status</span>
+                    <span class="badge bg-success">Confirmed</span>
+                </div>
+            </div>
+
+            <div id="errorDetails" class="text-danger mt-3" style="display: none;">
+                Failed to load booking details.
+            </div>
+        </div>
+
+        <div class="d-flex gap-3 justify-content-center flex-wrap no-print">
+            <a href="ticket_list.html" class="btn btn-primary">
+                <i class="bi bi-ticket-perforated me-2"></i>View My Tickets
+            </a>
+            <button class="btn btn-warning text-dark" onclick="window.print()">
+                <i class="bi bi-printer me-2"></i>Download / Print
+            </button>
+            <a href="event_list.html" class="btn btn-outline-light">
+                <i class="bi bi-arrow-left me-2"></i>Browse More Events
+            </a>
+        </div>
+    </div>
+
+    <!-- Print Styles -->
+    <style media="print">
+        @page {
+            size: auto;
+            margin: 0;
+        }
+
+        body {
+            background: white !important;
+            color: black !important;
+        }
+
+        .no-print {
+            display: none !important;
+        }
+
+        .success-container {
+            max-width: 100% !important;
+            border: none !important;
+        }
+
+        .ticket-card {
+            border: 2px solid black !important;
+            color: black !important;
+            background: white !important;
+        }
+
+        .ticket-card * {
+            color: black !important;
+        }
+
+        .success-icon {
+            display: none !important;
+        }
+
+        h1,
+        p.text-white-50 {
+            display: none !important;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            console.log("=== PAYMENT SUCCESS PAGE LOADED ===");
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingId = urlParams.get('bookingId');
+
+            console.log("URL:", window.location.href);
+            console.log("Booking ID from URL:", bookingId);
+
+            if (!bookingId) {
+                console.error("ERROR: No booking ID found in URL");
+                document.getElementById('loadingDetails').style.display = 'none';
+                document.getElementById('errorDetails').style.display = 'block';
+                document.getElementById('errorDetails').textContent = "No booking ID provided. Please check your tickets page.";
+                return;
+            }
+
+            const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+            console.log("Token:", token ? "Present" : "Missing");
+
+            if (!token) {
+                console.warn("No token found, redirecting to login");
+                alert("Please log in to view your receipt.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                console.log("Fetching booking details for ID:", bookingId);
+
+                // Fetch booking details
+                const response = await fetch(`${API_BASE_URL}/bookings/${bookingId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                console.log("Response Status:", response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Fetch Error:", errorText);
+                    throw new Error(`Failed to fetch booking: ${response.status}`);
+                }
+
+                const booking = await response.json();
+                console.log("✓ Booking Data Retrieved:", booking);
+
+                // Update UI
+                document.getElementById('loadingDetails').style.display = 'none';
+                document.getElementById('bookingInfo').style.display = 'block';
+
+                document.getElementById('dispBookingId').textContent = `#${booking.id}`;
+
+                // Event details
+                const eventTitle = booking.event ? booking.event.title : (booking.event_id || 'Unknown Event');
+                document.getElementById('dispEventTitle').textContent = eventTitle;
+                console.log("Event Title:", eventTitle);
+
+                if (booking.event && booking.event.starts_at) {
+                    const eventDate = new Date(booking.event.starts_at).toLocaleDateString();
+                    document.getElementById('dispEventDate').textContent = eventDate;
+                    console.log("Event Date:", eventDate);
+                } else {
+                    document.getElementById('dispEventDate').textContent = 'Date not available';
+                }
+
+                document.getElementById('dispTicketType').textContent = booking.ticket_type || 'Standard';
+                document.getElementById('dispQuantity').textContent = booking.quantity;
+
+                const total = booking.total_amount || booking.amount_total || 0;
+                document.getElementById('dispTotal').textContent = `RS ${parseFloat(total).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+
+                console.log("✓ Receipt displayed successfully");
+
+            } catch (e) {
+                console.error("=== ERROR DISPLAYING RECEIPT ===");
+                console.error("Error:", e);
+
+                document.getElementById('loadingDetails').style.display = 'none';
+                document.getElementById('errorDetails').style.display = 'block';
+                document.getElementById('errorDetails').textContent = `Error: ${e.message}`;
+            }
+        });
+    </script>
+</body>
+
+</html>
