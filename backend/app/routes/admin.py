@@ -61,7 +61,7 @@ def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), admin: Us
 
     # 1. Total Revenue (sum of completed bookings within date range)
     revenue_query = db.query(func.sum(Booking.total_price)).filter(
-        Booking.payment_status == "COMPLETED"
+        Booking.payment_status == "PAID"
     )
     if date_cutoff:
         revenue_query = revenue_query.filter(Booking.booked_at >= date_cutoff)
@@ -145,11 +145,11 @@ def get_reports(
 
         # 1. Stats in Period
         revenue = db.query(func.sum(Booking.total_price)).filter(
-            and_(Booking.payment_status == "COMPLETED", Booking.booked_at >= start_date)
+            and_(Booking.payment_status == "PAID", Booking.booked_at >= start_date)
         ).scalar() or 0.0
 
         tickets_sold = db.query(func.count(Booking.id)).filter(
-            and_(Booking.payment_status == "COMPLETED", Booking.booked_at >= start_date)
+            and_(Booking.payment_status == "PAID", Booking.booked_at >= start_date)
         ).scalar() or 0
 
         new_users = db.query(func.count(DBUser.id)).filter(
@@ -165,7 +165,7 @@ def get_reports(
             Event.title,
             func.count(Booking.id).label('sales_count')
         ).join(Booking).filter(
-            and_(Booking.payment_status == "COMPLETED", Booking.booked_at >= start_date)
+            and_(Booking.payment_status == "PAID", Booking.booked_at >= start_date)
         ).group_by(Event.id).order_by(desc('sales_count')).limit(5).all()
         
         # Format for chart (Title, Count, Percentage relative to max)
@@ -180,7 +180,7 @@ def get_reports(
             joinedload(Booking.user),
             joinedload(Booking.event)
         ).filter(
-            Booking.payment_status == "COMPLETED"
+            Booking.payment_status == "PAID"
         ).order_by(desc(Booking.booked_at)).limit(10).all()
 
         # Manual serialization for transactions to avoid circular refs/heavy schemas
@@ -226,7 +226,7 @@ def get_event_sales_stats(db: Session = Depends(get_db), admin: User = Depends(g
         func.coalesce(func.sum(Booking.total_price), 0).label('revenue')
     ).outerjoin(
         Booking, 
-        (Booking.event_id == Event.id) & (Booking.payment_status == "COMPLETED")
+        (Booking.event_id == Event.id) & (Booking.payment_status == "PAID")
     ).group_by(Event.id).all()
     
     result = []
@@ -267,7 +267,7 @@ def get_single_event_sales(event_id: int, db: Session = Depends(get_db), admin: 
     ).filter(Booking.event_id == event_id).all()
     
     # Calculate stats
-    confirmed_bookings = [b for b in bookings if b.payment_status == "COMPLETED"]
+    confirmed_bookings = [b for b in bookings if b.payment_status == "PAID"]
     pending_bookings = [b for b in bookings if b.payment_status == "PENDING"]
     cancelled_bookings = [b for b in bookings if b.status == "CANCELLED"]
     

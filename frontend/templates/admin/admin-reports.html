@@ -202,37 +202,57 @@
         async function loadReports() {
             const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
             if (!token) {
-                window.location.href = '../login.html';
+                console.error('No token found, redirecting to login');
+                window.location.href = 'admin_login.html';
                 return;
             }
 
             try {
                 // Fetch Last 30 Days by default
+                console.log('Fetching reports from:', `${API_BASE_URL}/admin/reports?days=30`);
                 const res = await fetch(`${API_BASE_URL}/admin/reports?days=30`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                    headers: { 
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 });
 
-                if (!res.ok) throw new Error('Failed to fetch reports');
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    console.error('API Error Response:', res.status, errorText);
+                    throw new Error(`Failed to fetch reports: ${res.status}`);
+                }
                 const data = await res.json();
+                console.log('Reports data loaded:', data);
 
                 updateUI(data);
 
             } catch (error) {
-                console.error(error);
-                alert(`Error loading reports: ${error.message}`);
+                console.error('Error loading reports:', error);
+                // Set error values
+                document.getElementById('totalRevenue').textContent = 'Error';
+                document.getElementById('ticketsSold').textContent = 'Error';
+                document.getElementById('newUsers').textContent = 'Error';
+                document.getElementById('openSupport').textContent = 'Error';
+                
+                const chartContainer = document.getElementById('eventChartContainer');
+                chartContainer.innerHTML = `<p class="text-red-400 col-span-full self-center">Error loading data: ${error.message}</p>`;
+                
+                const tbody = document.getElementById('transactionsBody');
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-red-400">Error loading transactions: ${error.message}</td></tr>`;
             }
         }
 
         function updateUI(data) {
             // Stats
-            document.getElementById('totalRevenue').textContent = `Rs ${data.revenue.toLocaleString()}`;
-            document.getElementById('ticketsSold').textContent = data.tickets_sold.toLocaleString();
-            document.getElementById('newUsers').textContent = data.new_users.toLocaleString();
-            document.getElementById('openSupport').textContent = data.open_support.toLocaleString();
+            document.getElementById('totalRevenue').textContent = `Rs ${(data.revenue || 0).toLocaleString()}`;
+            document.getElementById('ticketsSold').textContent = (data.tickets_sold || 0).toLocaleString();
+            document.getElementById('newUsers').textContent = (data.new_users || 0).toLocaleString();
+            document.getElementById('openSupport').textContent = (data.open_support || 0).toLocaleString();
 
             // Chart
             const chartContainer = document.getElementById('eventChartContainer');
-            if (data.chart_data.length === 0) {
+            if (!data.chart_data || data.chart_data.length === 0) {
                 chartContainer.innerHTML = '<p class="text-white/50 col-span-full self-center">No sales data for this period.</p>';
             } else {
                 chartContainer.innerHTML = data.chart_data.map(item => `
@@ -248,19 +268,19 @@
 
             // Transactions
             const tbody = document.getElementById('transactionsBody');
-            if (data.transactions.length === 0) {
+            if (!data.transactions || data.transactions.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-white/50">No recent transactions.</td></tr>';
             } else {
                 tbody.innerHTML = data.transactions.map(tx => `
                     <tr class="hover:bg-white/5">
                         <td class="p-4 text-sm font-mono text-white/70">#${tx.id}</td>
-                        <td class="p-4 text-sm">${tx.user_name}</td>
-                        <td class="p-4 text-sm">${tx.event_title}</td>
+                        <td class="p-4 text-sm">${tx.user_name || 'Unknown'}</td>
+                        <td class="p-4 text-sm">${tx.event_title || 'Unknown'}</td>
                         <td class="p-4 text-sm text-white/60">${new Date(tx.date).toLocaleDateString()}</td>
-                        <td class="p-4 text-sm font-medium">Rs ${tx.amount}</td>
+                        <td class="p-4 text-sm font-medium">Rs ${(tx.amount || 0).toLocaleString()}</td>
                         <td class="p-4 text-sm text-center">
                             <span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-900/50 text-green-300">
-                                ${tx.status}
+                                ${tx.status || 'COMPLETED'}
                             </span>
                         </td>
                     </tr>
@@ -268,7 +288,10 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadReports);
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, calling loadReports');
+            loadReports();
+        });
     </script>
     <script src="../../static/js/admin_profile.js"></script>
 

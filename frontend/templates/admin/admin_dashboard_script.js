@@ -15,25 +15,34 @@ async function loadDashboardStats() {
     try {
         const response = await fetch(`${API_BASE_URL}/admin/dashboard-stats?days=${daysParam}`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
         });
 
         if (!response.ok) {
             if (response.status === 403 || response.status === 401) {
-                alert('Access denied. Admin privileges required.');
-                window.location.href = '../index.html';
+                console.error('Authorization error:', response.status);
+                window.location.href = 'admin_login.html';
                 return;
             }
-            throw new Error('Failed to fetch stats');
+            const errorText = await response.text();
+            console.error('API Error:', errorText);
+            throw new Error(`Failed to fetch stats: ${response.status}`);
         }
 
         const stats = await response.json();
+        console.log('Dashboard stats loaded:', stats);
         updateDashboard(stats);
 
     } catch (error) {
         console.error('Error loading dashboard:', error);
-        showError('Failed to load dashboard data');
+        showError(`Failed to load dashboard data: ${error.message}`);
+        // Set default values so page doesn't show "Loading..."
+        document.getElementById('totalRevenue').textContent = 'Rs 0';
+        document.getElementById('activeUsers').textContent = '0';
+        document.getElementById('openTickets').textContent = '0';
+        document.getElementById('upcomingEventsCount').textContent = '0';
     }
 }
 

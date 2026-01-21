@@ -2,7 +2,7 @@
 
 A full-featured Event Management System built with **FastAPI** (Backend) and **Vanilla HTML/CSS/JS** (Frontend). This application allows users to browse events, book tickets, manage their profiles, and interact with a support system. It also includes a comprehensive Admin Dashboard for managing events, users, and system data.
 
-## 🚀 Features
+## Features
 
 ### User Features
 - **Authentication**: Secure Login, Sign Up, and Password Reset functionality.
@@ -20,7 +20,7 @@ A full-featured Event Management System built with **FastAPI** (Backend) and **V
 - **User Management**: View and manage registered users.
 - **Support Management**: View and reply to user support tickets.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Framework**: FastAPI
@@ -37,14 +37,14 @@ A full-featured Event Management System built with **FastAPI** (Backend) and **V
 ### Database
 - **Primary**: PostgreSQL (via `psycopg2-binary`)
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running the project, ensure you have the following installed:
 - **Python** (3.8 or higher)
 - **PostgreSQL** (Active local instance)
 - **Git**
 
-## 🔧 Installation & Setup
+##  Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
@@ -103,7 +103,7 @@ The frontend is built with static HTML/JS files.
 **Update API Base URL:**
 If your backend runs on a different port than `8000`, check `frontend/static/js/` files (like `auth.js` or `api.js`) to ensure the `API_BASE_URL` points to the correct backend URL (default: `http://localhost:8000`).
 
-## 🏃‍♂️ Running the Application
+## Running the Application
 
 1.  **Start the Backend:**
     ```bash
@@ -118,7 +118,7 @@ If your backend runs on a different port than `8000`, check `frontend/static/js/
 3.  **Access API Documentation:**
     Go to `http://127.0.0.1:8000/docs` to see the interactive Swagger UI for testing API endpoints.
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 event-management-system-my/
@@ -145,4 +145,4 @@ event-management-system-my/
 This project is for educational and demonstration purposes.
 
 ---
-**Happy Coding!** 🚀
+**Happy Coding!** 
