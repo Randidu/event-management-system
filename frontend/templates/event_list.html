@@ -106,6 +106,47 @@
             background: rgba(220, 53, 69, 0.2);
         }
 
+        /* Beautiful Nav Buttons */
+        .btn-login {
+            color: #fff;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            font-weight: 600;
+            padding: 8px 25px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(140, 37, 244, 0.4);
+            display: inline-block;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(140, 37, 244, 0.6);
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        }
+
         /* Hero Banner */
         .hero-banner {
             background: linear-gradient(rgba(15, 1, 24, 0.8), rgba(15, 1, 24, 0.9)),
@@ -417,6 +458,443 @@
                 height: 35px;
             }
         }
+
+        /* ============ ADVANCED ANIMATIONS FROM INDEX ============ */
+
+        /* Button Primary Enhanced */
+        .btn-primary {
+            background: linear-gradient(135deg, #8C25F4, #FF3366, #8C25F4);
+            background-size: 200% 200%;
+            border: none;
+            padding: 12px 24px;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(140, 37, 244, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: gradient-shift 4s ease infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(140, 37, 244, 0.7),
+                0 0 30px rgba(255, 51, 102, 0.5);
+            animation: gradient-shift 2s ease infinite, glow-pulse-btn 1.5s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes glow-pulse-btn {
+
+            0%,
+            100% {
+                box-shadow: 0 15px 50px rgba(140, 37, 244, 0.7),
+                    0 0 30px rgba(255, 51, 102, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 15px 50px rgba(140, 37, 244, 0.9),
+                    0 0 50px rgba(255, 51, 102, 0.7);
+            }
+        }
+
+        /* Hero Title Animation */
+        .hero-title {
+            overflow: visible;
+            perspective: 1000px;
+        }
+
+        .hero-title .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(80px) rotateX(-90deg);
+            animation: wordReveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            filter: blur(10px);
+        }
+
+        .hero-title .word:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .hero-title .word:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes wordReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(80px) rotateX(-90deg);
+                filter: blur(10px);
+            }
+
+            60% {
+                transform: translateY(-5px) rotateX(5deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Hero Subtitle Animation */
+        .hero-subtitle {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp-hero 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+        }
+
+        @keyframes fadeInUp-hero {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated Heading with Typing Effect */
+        .animated-heading {
+            position: relative;
+            display: inline-block;
+            animation: neon-pulse 4s ease-in-out infinite;
+        }
+
+        .text-reveal {
+            display: inline-block;
+            opacity: 0;
+            animation: textRevealFull 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            position: relative;
+        }
+
+        @keyframes textRevealFull {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+                filter: blur(5px);
+            }
+
+            40% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Rainbow Glow on Hover */
+        .animated-heading:hover .text-reveal {
+            animation: rainbow-glow 3s ease infinite;
+        }
+
+        @keyframes rainbow-glow {
+
+            0%,
+            100% {
+                text-shadow:
+                    0 0 10px rgba(140, 37, 244, 0.8),
+                    0 0 20px rgba(140, 37, 244, 0.6),
+                    0 0 30px rgba(140, 37, 244, 0.4);
+            }
+
+            25% {
+                text-shadow:
+                    0 0 10px rgba(255, 51, 102, 0.8),
+                    0 0 20px rgba(255, 51, 102, 0.6),
+                    0 0 30px rgba(255, 51, 102, 0.4);
+            }
+
+            50% {
+                text-shadow:
+                    0 0 10px rgba(255, 215, 0, 0.8),
+                    0 0 20px rgba(255, 215, 0, 0.6),
+                    0 0 30px rgba(255, 215, 0, 0.4);
+            }
+
+            75% {
+                text-shadow:
+                    0 0 10px rgba(0, 255, 255, 0.8),
+                    0 0 20px rgba(0, 255, 255, 0.6),
+                    0 0 30px rgba(0, 255, 255, 0.4);
+            }
+        }
+
+        /* Animated Subtitle */
+        .animated-subtitle {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: subtitleFade 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+        }
+
+        @keyframes subtitleFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(3px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Neon Pulse Effect */
+        @keyframes neon-pulse {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 5px rgba(140, 37, 244, 0.5));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 20px rgba(140, 37, 244, 0.8)) drop-shadow(0 0 40px rgba(255, 51, 102, 0.4));
+            }
+        }
+
+        /* Event Card Enhanced Animations */
+        .event-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .event-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .event-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .event-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .event-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .event-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .event-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Wishlist Button Heart Animation */
+        .wishlist-btn:hover i {
+            animation: heartbeat 0.6s ease;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            10%,
+            30% {
+                transform: scale(0.9);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: scale(1.1);
+            }
+
+            50%,
+            70% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* ============ ADVANCED HERO TEXT ANIMATIONS ============ */
+
+        /* Gradient Text for "Events" */
+        .gradient-text-hero {
+            background: linear-gradient(90deg,
+                    #8C25F4 0%,
+                    #FF3366 25%,
+                    #FFD700 50%,
+                    #00FFFF 75%,
+                    #8C25F4 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation:
+                wordReveal 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards,
+                gradientFlowHero 6s ease 1.5s infinite,
+                glowPulseHero 3s ease 1.5s infinite;
+        }
+
+        @keyframes gradientFlowHero {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes glowPulseHero {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 20px rgba(140, 37, 244, 0.8)) drop-shadow(0 0 40px rgba(255, 51, 102, 0.5));
+            }
+
+            33% {
+                filter: drop-shadow(0 0 30px rgba(255, 51, 102, 0.9)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.6));
+            }
+
+            66% {
+                filter: drop-shadow(0 0 25px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 45px rgba(140, 37, 244, 0.7));
+            }
+        }
+
+        /* Enhanced Subtitle with Typing Effect */
+        .hero-subtitle-enhanced {
+            opacity: 0;
+            animation: fadeInUp-hero 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+        }
+
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 0px solid transparent;
+            white-space: nowrap;
+            animation: typing 3s steps(70, end) 1.2s forwards,
+                fadeIn 0.5s ease 1.2s forwards;
+            opacity: 0;
+            max-width: 0;
+        }
+
+        .typing-cursor {
+            opacity: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            animation: fadeIn 0.1s ease 1.2s forwards,
+                blink-cursor 0.8s step-end 1.5s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes typing {
+            from {
+                max-width: 0;
+            }
+
+            to {
+                max-width: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink-cursor {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Sparkle Effect for Hero Section */
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: sparkle 4s ease-in-out 2s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.5);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
     </style>
 </head>
 
@@ -457,8 +935,8 @@
                 </ul>
                 <div class="d-flex align-items-center gap-2">
                     <div id="guest-nav">
-                        <a href="signup.html" class="btn btn-outline-light btn-sm">Sign Up</a>
-                        <a href="login.html" class="btn btn-outline-light btn-sm">Login</a>
+                        <a href="login.html" class="btn-login">Login</a>
+                        <a href="signup.html" class="btn-signup">Sign Up</a>
                     </div>
                     <div id="auth-nav" style="display: none;">
                         <div class="dropdown">
@@ -495,8 +973,14 @@
     <!-- Hero Banner -->
     <section class="hero-banner text-center">
         <div class="container position-relative" style="z-index: 10;">
-            <h1 class="display-2 fw-bold mb-3">Discover Events</h1>
-            <p class="lead text-white-50 mb-0">Find your perfect musical experience from thousands of live events</p>
+            <h1 class="display-2 fw-bold mb-3 hero-title">
+                <span class="word">Discover</span>
+                <span class="word gradient-text-hero">Events</span>
+            </h1>
+            <p class="lead text-white-50 mb-0 hero-subtitle-enhanced">
+                <span class="typing-text">Find your perfect musical experience from thousands of live events</span>
+                <span class="typing-cursor">|</span>
+            </p>
         </div>
     </section>
 
