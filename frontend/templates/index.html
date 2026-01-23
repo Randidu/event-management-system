@@ -211,6 +211,145 @@
             box-shadow: 0 10px 30px rgba(140, 37, 244, 0.5);
         }
 
+        /* Hero Carousel */
+        #heroCarousel {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        #heroCarousel .carousel-item {
+            height: 500px;
+        }
+
+        @media (max-width: 991px) {
+            #heroCarousel .carousel-item {
+                height: 350px;
+            }
+        }
+
+        #heroCarousel img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 40%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 30px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Hover effect removed as per request */
+        /* #heroCarousel:hover .carousel-overlay {
+            opacity: 1;
+        } */
+
+        .carousel-caption-custom {
+            text-align: center;
+            z-index: 10;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Carousel Navigation Buttons */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            background-size: 50%;
+            /* Default is white SVG */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .carousel-control-prev-icon:hover,
+        .carousel-control-next-icon:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* Glass Button */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-glass:hover {
+            background: #fff;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+            border-color: #fff;
+        }
+
+        /* Nav Buttons */
+        .btn-login {
+            color: #fff;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-right: 10px;
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            font-weight: 600;
+            padding: 8px 25px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(140, 37, 244, 0.4);
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(140, 37, 244, 0.6);
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        }
+
         .btn-outline-light {
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: #fff;
@@ -431,8 +570,8 @@
                 </ul>
                 <div class="d-flex align-items-center gap-2">
                     <div id="guest-nav">
-                        <a href="signup.html" class="btn btn-outline-light btn-sm">Sign Up</a>
-                        <a href="login.html" class="btn btn-outline-light btn-sm">Login</a>
+                        <a href="login.html" class="btn-login">Login</a>
+                        <a href="signup.html" class="btn-signup">Sign Up</a>
                     </div>
                     <div id="auth-nav" style="display: none;">
                         <div class="dropdown">
@@ -486,7 +625,24 @@
                     </div>
                 </div>
                 <div class="col-lg-6 hero-image" data-aos="fade-left">
-                    <img src="../static/img/e-2.jpg" alt="Concert" class="img-fluid">
+                    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                        <div class="carousel-inner" id="heroCarouselInner">
+                            <!-- Items will be injected here -->
+                            <div class="carousel-item active">
+                                <img src="../static/img/e-2.jpg" class="d-block w-100" alt="Loading...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -717,7 +873,7 @@
         // ==================== Load Featured Events ====================
         async function loadFeaturedEvents() {
             try {
-                console.log('🔄 Loading featured events...');
+                console.log('🔄 Loading events...');
 
                 // Fetch all events
                 const response = await fetch(`${API_BASE_URL}/events/`);
@@ -731,14 +887,57 @@
 
                 if (events && events.length > 0) {
                     displayFeaturedEvents(events);
+                    displayHeroSlider(events);
                 } else {
                     showEmptyState();
                 }
 
             } catch (error) {
-                console.error('❌ Error loading featured events:', error);
+                console.error('❌ Error loading events:', error);
                 showErrorState();
             }
+        }
+
+        // ==================== Display Hero Slider ====================
+        function displayHeroSlider(events) {
+            const container = document.getElementById('heroCarouselInner');
+            if (!container) return;
+
+            // Sort by ID (newest first) and take top 5
+            const sortedEvents = [...events].sort((a, b) => b.id - a.id).slice(0, 5);
+
+            if (sortedEvents.length === 0) return;
+
+            container.innerHTML = sortedEvents.map((event, index) => {
+                let imageUrl;
+                if (event.poster_url) {
+                    if (event.poster_url.startsWith('http')) {
+                        imageUrl = event.poster_url;
+                    } else {
+                        let cleanPath = event.poster_url.replace(/\\/g, '/').replace(/^\/+/, '');
+                        const baseUrl = API_BASE_URL.replace(/\/+$/, '');
+                        imageUrl = `${baseUrl}/${cleanPath}?t=${Date.now()}`;
+                    }
+                } else {
+                    imageUrl = '../static/img/e-2.jpg';
+                }
+
+                const activeClass = index === 0 ? 'active' : '';
+
+                return `
+                    <div class="carousel-item ${activeClass}">
+                        <img src="${imageUrl}" class="d-block w-100" alt="${event.title}" onerror="this.src='../static/img/e-2.jpg'">
+                        <div class="carousel-overlay">
+                            <div class="carousel-caption-custom">
+                                <h5 class="fw-bold mb-3 text-white text-shadow display-6">${event.title}</h5>
+                                <a href="event_details.html?id=${event.id}" class="btn-glass">
+                                    <i class="bi bi-eye me-2"></i>View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         // ==================== Display Featured Events ====================
