@@ -18,7 +18,7 @@ def create_event(db: Session, event: EventCreate) -> Event:
         ga_ticket_price=event.ga_ticket_price or 0.0,
         vip_ticket_price=event.vip_ticket_price or 0.0,
         pa_ticket_price=event.pa_ticket_price or 0.0,
-        poster_url=event.poster_url,  # Added poster_url
+        poster_url=event.poster_url,
     )
     db.add(db_event)
     db.commit() 
@@ -53,7 +53,6 @@ def update_event(db: Session, event_id: int, updated_event: EventUpdate) -> Opti
     if not db_event:
         return None
     
-    # Update only non-None fields
     update_data = updated_event.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(db_event, field, value)

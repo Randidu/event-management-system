@@ -322,11 +322,7 @@
                                     <label class="form-label">Email Address</label>
                                     <input type="email" class="form-control" id="email" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phoneNumber"
-                                        placeholder="+1 (555) 123-4567">
-                                </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Date of Birth</label>
                                     <input type="date" class="form-control" id="dob">
@@ -396,43 +392,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Preferences
-                <div class="tab-pane fade" id="preferences">
-                    <div class="profile-card">
-                        <h4 class="fw-bold mb-4">Preferences</h4>
-                        <div class="mb-4">
-                            <label class="form-label">Favorite Music Genres</label>
-                            <div class="d-flex flex-wrap gap-2">
-                                <button class="btn btn-primary btn-sm">Rock</button>
-                                <button class="btn btn-primary btn-sm">Jazz</button>
-                                <button class="btn btn-outline-light btn-sm">Classical</button>
-                                <button class="btn btn-outline-light btn-sm">Electronic</button>
-                                <button class="btn btn-outline-light btn-sm">Pop</button>
-                                <button class="btn btn-outline-light btn-sm">Hip Hop</button>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Language</label>
-                            <select class="form-select">
-                                <option>English</option>
-                                <option>Spanish</option>
-                                <option>French</option>
-                                <option>German</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Currency</label>
-                            <select class="form-select">
-                                <option>USD - US Dollar</option>
-                                <option>EUR - Euro</option>
-                                <option>GBP - British Pound</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary">Save Preferences</button>
-                    </div>
-                </div> -->
-
                 <!-- Notifications -->
                 <div class="tab-pane fade" id="notifications">
                     <div class="profile-card">
@@ -611,7 +570,7 @@
                     document.getElementById('firstName').value = user.first_name || '';
                     document.getElementById('lastName').value = user.last_name || '';
                     document.getElementById('email').value = user.email || '';
-                    document.getElementById('phoneNumber').value = user.phone_number || '';
+
 
                     // Note: Bio, Gender, DOB, Address are not yet supported by backend schema
                     // They will remain as UI placeholders for now
@@ -679,8 +638,7 @@
             const data = {
                 first_name: document.getElementById('firstName').value,
                 last_name: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone_number: document.getElementById('phoneNumber').value
+                email: document.getElementById('email').value
             };
 
             // Show loading

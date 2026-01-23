@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
-from app.routes import events, auth, wishlist, support, admin, booking
+from app.routes import events, auth, wishlist, support, admin, booking, ai
 from app.routes import user_router as User
 from app.core.database import Base, engine
 from app.models.event import Event
@@ -14,13 +14,24 @@ app = FastAPI(
 )
 
 # CORS Middleware
+# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://127.0.0.1:5501", "http://localhost:5501", "*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost:5501",
+        "http://127.0.0.1:5501",
+        "http://localhost:5502",
+        "http://127.0.0.1:5502",
+        "http://localhost:8000",
+        "http://127.0.0.1:8000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"]
 )
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -50,6 +61,7 @@ app.include_router(wishlist.router)
 app.include_router(support.router)
 app.include_router(admin.router)
 app.include_router(booking.router)
+app.include_router(ai.router)
 
 @app.get("/")
 def root():

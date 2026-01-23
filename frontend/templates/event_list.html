@@ -916,27 +916,39 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="index.html" data-i18n="nav_home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="event_list.html">Events</a>
+                        <a class="nav-link active" href="event_list.html" data-i18n="nav_events">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ticket_list.html">My Tickets</a>
+                        <a class="nav-link" href="ticket_list.html" data-i18n="nav_tickets">My Tickets</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="wishlist.html">
-                            <i class="bi bi-heart me-1"></i>Wishlist
+                            <i class="bi bi-heart me-1"></i><span data-i18n="nav_wishlist">Wishlist</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="support.html">Support</a>
+                        <a class="nav-link" href="support.html" data-i18n="nav_support">Support</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-2">
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle rounded-pill px-3" type="button"
+                            id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
+                            English
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" onclick="toggleLanguage('en')">English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="toggleLanguage('si')">සිංහල</a></li>
+                        </ul>
+                    </div>
+
                     <div id="guest-nav">
-                        <a href="login.html" class="btn-login">Login</a>
-                        <a href="signup.html" class="btn-signup">Sign Up</a>
+                        <a href="login.html" class="btn-login" data-i18n="nav_login">Login</a>
+                        <a href="signup.html" class="btn-signup" data-i18n="nav_signup">Sign Up</a>
                     </div>
                     <div id="auth-nav" style="display: none;">
                         <div class="dropdown">
@@ -946,22 +958,26 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="profile.html"><i
-                                            class="bi bi-person-circle me-2"></i>My Profile</a></li>
-                                <li><a class="dropdown-item" href="ticket_list.html"><i class="bi bi-ticket me-2"></i>My
-                                        Tickets</a></li>
-                                <li><a class="dropdown-item" href="wishlist.html"><i
-                                            class="bi bi-heart me-2"></i>Wishlist</a></li>
+                                            class="bi bi-person-circle me-2"></i><span data-i18n="nav_profile">My
+                                            Profile</span></a></li>
+                                <li><a class="dropdown-item" href="ticket_list.html"><i
+                                            class="bi bi-ticket me-2"></i><span data-i18n="nav_tickets">My
+                                            Tickets</span></a></li>
+                                <li><a class="dropdown-item" href="wishlist.html"><i class="bi bi-heart me-2"></i><span
+                                            data-i18n="nav_wishlist">Wishlist</span></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="admin/admin_login.html" id="admin-link"
-                                        style="display: none;"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</a>
+                                        style="display: none;"><i class="bi bi-speedometer2 me-2"></i><span
+                                            data-i18n="nav_admin">Admin Panel</span></a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item text-danger" href="#" id="logout-btn"><i
-                                            class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                                            class="bi bi-box-arrow-right me-2"></i><span
+                                            data-i18n="nav_logout">Logout</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -974,11 +990,12 @@
     <section class="hero-banner text-center">
         <div class="container position-relative" style="z-index: 10;">
             <h1 class="display-2 fw-bold mb-3 hero-title">
-                <span class="word">Discover</span>
-                <span class="word gradient-text-hero">Events</span>
+                <span class="word" data-i18n="hero_title_1">Discover</span>
+                <span class="word gradient-text-hero" data-i18n="hero_title_2">Events</span>
             </h1>
             <p class="lead text-white-50 mb-0 hero-subtitle-enhanced">
-                <span class="typing-text">Find your perfect musical experience from thousands of live events</span>
+                <span class="typing-text" data-i18n="hero_subtitle_1">Find your perfect musical experience from
+                    thousands of live events</span>
                 <span class="typing-cursor">|</span>
             </p>
         </div>
@@ -990,9 +1007,27 @@
 
             <!-- Filters -->
             <div class="filter-card mb-5">
+                <!-- AI Smart Search Row -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <label class="form-label text-primary fw-bold"><i class="bi bi-stars me-2"></i>AI Smart
+                            Search</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control border-end-0" id="smartSearchInput"
+                                placeholder="Ask AI to find events (e.g. 'Upcoming music festivals in Colombo under 5000')">
+                            <button class="btn btn-primary px-4" onclick="performSmartSearch()">
+                                <i class="bi bi-search me-2"></i>Search
+                            </button>
+                        </div>
+                        <small class="text-white-50 mt-1 d-block ps-1">Try natural language queries to find exactly what
+                            you want.</small>
+                    </div>
+                </div>
+
                 <div class="row g-3">
                     <div class="col-md-3 col-sm-6">
-                        <label class="form-label"><i class="bi bi-calendar3 me-2"></i>Date</label>
+                        <label class="form-label"><i class="bi bi-calendar3 me-2"></i><span
+                                data-i18n="filter_date">Date</span></label>
                         <select class="form-select" id="dateFilter">
                             <option>All Dates</option>
                             <option>Today</option>
@@ -1002,7 +1037,8 @@
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <label class="form-label"><i class="bi bi-music-note me-2"></i>Category</label>
+                        <label class="form-label"><i class="bi bi-music-note me-2"></i><span
+                                data-i18n="filter_category">Category</span></label>
                         <select class="form-select" id="categoryFilter">
                             <option>All Categories</option>
                             <!-- <option>Rock</option>
@@ -1016,7 +1052,8 @@
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <label class="form-label"><i class="bi bi-geo-alt me-2"></i>Location</label>
+                        <label class="form-label"><i class="bi bi-geo-alt me-2"></i><span
+                                data-i18n="filter_location">Location</span></label>
                         <select class="form-select" id="locationFilter">
                             <option>All Locations</option>
                             <option>Colombo</option>
@@ -1026,8 +1063,10 @@
                         </select>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <label class="form-label"><i class="bi bi-search me-2"></i>Search</label>
-                        <input type="search" class="form-control" id="searchInput" placeholder="Search events...">
+                        <label class="form-label"><i class="bi bi-search me-2"></i><span
+                                data-i18n="search_btn">Search</span></label>
+                        <input type="search" class="form-control" id="searchInput" data-i18n="search_placeholder"
+                            placeholder="Search events...">
                     </div>
                 </div>
             </div>
@@ -1201,6 +1240,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../static/js/auth.js"></script>
+    <script src="../static/js/translations.js"></script>
 
     <script>
         // ==================== API Configuration ====================
@@ -1792,6 +1832,122 @@
             `;
             document.head.appendChild(style);
         });
+
+        // ==================== AI Smart Search ====================
+        async function performSmartSearch() {
+            const query = document.getElementById('smartSearchInput').value;
+            if (!query.trim()) return;
+
+            const container = document.getElementById('eventsContainer');
+            const searchBtn = document.querySelector('button[onclick="performSmartSearch()"]');
+            const originalBtnContent = searchBtn.innerHTML;
+
+            // Show Loading State
+            searchBtn.disabled = true;
+            searchBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Thinking...';
+
+            container.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <h4 class="mt-3 text-white">AI is searching for the best events...</h4>
+                    <p class="text-white-50">Analyzing category, location, price, and description matches</p>
+                </div>
+            `;
+
+            try {
+                // Determine API URL (handle potential strict CORS or production issues)
+                // Assuming API_BASE_URL is defined in auth.js. Alternatively use relative path if proxy set up, but let's stick to consistent configured URL.
+                const apiUrl = (typeof API_BASE_URL !== 'undefined') ? `${API_BASE_URL}/ai/smart-search` : 'http://127.0.0.1:8000/ai/smart-search';
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    if (data.events && data.events.length > 0) {
+                        // We found events!
+                        // Update filteredEvents global variable used by other filters/pagination if possible, 
+                        // or just render directly since this is a special search.
+                        // Better to render directly effectively "taking over" the view.
+                        filteredEvents = data.events; // Update global state if simple enough
+                        // But wait, data.events structure might differ slightly from loadEvents structure?
+                        // API returns: { id, title, date, location, price ... }
+                        // DisplayEvents expects similar objects.
+
+                        // We need to map if necessary, but backend seems to return compatible structure.
+                        // Let's call displayEvents() but first we need to make sure filteredEvents has required fields.
+
+                        // Map backend format to frontend format if needed
+                        // Backend AI returns: {id, title, date, location, price}
+                        // Frontend `displayEvents` uses: poster_url, category, starts_at (date string in backend), etc.
+                        // IMPORTANT: The AI search returns a simplified object. We might need to fetch full objects or adjust display.
+                        // Actually, AI endpoint returns: "events": [ {id, title, date, location, price} ]
+                        // It serves "date" as string. Frontend expects "starts_at". 
+                        // It lacks "poster_url", "category". 
+                        // Let's modify the frontend `displayEvents` to handle missing fields gracefully OR update backend to return full objects.
+                        // Updating backend is safer but user requested frontend fixes.
+                        // Let's try to map the fields locally.
+
+                        filteredEvents = data.events.map(e => ({
+                            ...e,
+                            starts_at: e.date, // Map date to starts_at
+                            poster_url: e.poster_url || null, // Might be missing
+                            category: e.category || 'Event',
+                            ga_ticket_price: e.price
+                        }));
+
+                        displayEvents();
+
+                        // Show Success Message
+                        const count = data.events.length;
+                        const alertHtml = `
+                            <div class="col-12 mb-4">
+                                <div class="alert alert-success d-flex align-items-center bg-success bg-opacity-10 border-success border-opacity-25 text-white">
+                                    <i class="bi bi-stars me-2 fs-4"></i>
+                                    <div>
+                                        <strong>AI Found ${count} Match${count > 1 ? 'es' : ''}</strong><br>
+                                        Based on query: "${data.query}"
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('afterbegin', alertHtml);
+
+                    } else {
+                        // No events found
+                        container.innerHTML = `
+                            <div class="col-12 text-center py-5">
+                                <i class="bi bi-search display-1 text-white-50 mb-3"></i>
+                                <h3 class="text-white-50">No matching events found</h3>
+                                <p class="text-white-50">Try broadening your search or use different keywords.</p>
+                                <button class="btn btn-outline-primary mt-3" onclick="loadEvents()">Show All Events</button>
+                            </div>
+                        `;
+                    }
+                } else {
+                    throw new Error('Search failed');
+                }
+            } catch (error) {
+                console.error('AI Search Error:', error);
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-exclamation-triangle display-1 text-white-50 mb-3"></i>
+                        <h3 class="text-white-50">AI Search Unavailable</h3>
+                        <p class="text-white-50">Ensure the backend is running and you have a valid API key.</p>
+                        <button class="btn btn-outline-primary mt-3" onclick="loadEvents()">Reload Events</button>
+                    </div>
+                `;
+            } finally {
+                searchBtn.disabled = false;
+                searchBtn.innerHTML = originalBtnContent;
+            }
+        }
     </script>
 </body>
 

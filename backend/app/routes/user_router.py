@@ -23,16 +23,42 @@ def get_me(current_user: User = Depends(get_current_user)):
 
 @router.post("/", response_model=UserCreateResponse)
 def create_users(user: UserCreate, db: Session = Depends(get_db)):
-    existing_user = get_user_by_email(db, user.email)
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
-    # Hash the password before storing
-    user_data = user.dict()
-    user_data['password'] = get_password_hash(user.password)
-    user_create = UserCreate(**user_data)
-    
-    return create_user(db, user_create)
+    try:
+        print(f"📝 Received signup request for: {user.email}")
+        
+        existing_user = get_user_by_email(db, user.email)
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        
+        print(f"✅ Email check passed")
+        
+        # Create a new UserCreate object with hashed password
+        hashed_password = get_password_hash(user.password)
+        print(f"✅ Password hashed")
+        
+        user_with_hashed_pw = UserCreate(
+            email=user.email,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            role=user.role,
+            profile_image=user.profile_image,
+            password=hashed_password
+        )
+        print(f"✅ UserCreate object created")
+        
+        new_user = create_user(db, user_with_hashed_pw)
+        print(f"✅ User created in database with ID: {new_user.id}")
+        
+        return new_user
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
+        print(f"❌ ERROR in create_users:")
+        print(f"Error: {str(e)}")
+        print(f"Traceback:\n{error_trace}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @router.put("/me")
 def update_my_profile(

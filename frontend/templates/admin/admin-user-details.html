@@ -144,10 +144,7 @@
                                         <p class="text-xs text-white/50 uppercase tracking-widest">Email</p>
                                         <p class="text-base font-medium" id="detailEmail">...</p>
                                     </div>
-                                    <div>
-                                        <p class="text-xs text-white/50 uppercase tracking-widest">Phone</p>
-                                        <p class="text-base font-medium" id="detailPhone">N/A</p>
-                                    </div>
+
                                 </div>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
@@ -229,23 +226,23 @@
                 const roleBadge = document.getElementById('userRoleBadge');
                 roleBadge.textContent = user.role;
                 roleBadge.className = `px-3 py-1 rounded-full text-xs font-semibold self-center ${user.role === 'ADMIN'
-                        ? 'bg-purple-500/20 text-purple-300'
-                        : 'bg-blue-500/20 text-blue-300'
+                    ? 'bg-purple-500/20 text-purple-300'
+                    : 'bg-blue-500/20 text-blue-300'
                     }`;
 
                 // Status Badge
                 const statusBadge = document.getElementById('userStatusBadge');
                 statusBadge.textContent = user.is_active ? 'Active' : 'Blocked';
                 statusBadge.className = `px-3 py-1 rounded-full text-xs font-semibold self-center ${user.is_active
-                        ? 'bg-green-500/20 text-green-400'
-                        : 'bg-red-500/20 text-red-400'
+                    ? 'bg-green-500/20 text-green-400'
+                    : 'bg-red-500/20 text-red-400'
                     }`;
 
                 // Details
                 document.getElementById('detailFirstName').textContent = user.first_name;
                 document.getElementById('detailLastName').textContent = user.last_name;
                 document.getElementById('detailEmail').textContent = user.email;
-                document.getElementById('detailPhone').textContent = user.phone_number || 'N/A';
+
                 document.getElementById('detailJoined').textContent = new Date(user.created_at || Date.now()).toLocaleDateString();
 
                 // Actions

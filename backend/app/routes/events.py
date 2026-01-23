@@ -33,7 +33,8 @@ async def create_event(
     try:
         event_dict = json.loads(event_data)
         # Handle image upload if provided
-        poster_url = None
+        poster_url = event_dict.get('poster_url') # Check if a URL was already set (e.g. by generator)
+        
         if poster_image and poster_image.filename:
             # Validate file type
             allowed_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
@@ -56,7 +57,7 @@ async def create_event(
             # Store relative URL
             poster_url = f"/uploads/event_posters/{unique_filename}"
         
-        # Add poster_url to event data
+        # Add poster_url back to event data
         event_dict['poster_url'] = poster_url
         
         # Create event object

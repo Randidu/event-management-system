@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="../static/css/chatbot.css" rel="stylesheet">
 
     <style>
         :root {
@@ -131,12 +132,10 @@
             margin: 8px 0;
         }
 
-        /* Hero Section - Advanced Animated Background */
+        /* Hero Section - Optimized Background */
         .hero-section {
             min-height: 100vh;
-            background: linear-gradient(135deg,
-                    rgba(15, 1, 24, 1) 0%,
-                    rgba(26, 11, 46, 1) 100%);
+            background: linear-gradient(135deg, #0f0118 0%, #1a0b2e 100%);
             position: relative;
             overflow: hidden;
             padding-top: 120px;
@@ -144,7 +143,7 @@
             align-items: center;
         }
 
-        /* Animated Mesh Gradient Background */
+        /* Subtle Animated Gradient Background */
         .hero-section::before {
             content: '';
             position: absolute;
@@ -152,72 +151,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg,
-                    rgba(140, 37, 244, 0.15) 0%,
-                    rgba(255, 51, 102, 0.1) 25%,
-                    rgba(107, 33, 168, 0.12) 50%,
-                    rgba(168, 85, 247, 0.08) 75%,
-                    rgba(140, 37, 244, 0.15) 100%);
-            background-size: 400% 400%;
-            animation: meshGradient 15s ease infinite;
+            background: radial-gradient(circle at 50% 50%, rgba(140, 37, 244, 0.15), transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(255, 51, 102, 0.1), transparent 50%);
+            opacity: 0.8;
             z-index: 0;
+            animation: pulse-bg 10s ease-in-out infinite alternate;
         }
 
-        @keyframes meshGradient {
+        @keyframes pulse-bg {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
 
-            0%,
             100% {
-                background-position: 0% 50%;
-            }
-
-            25% {
-                background-position: 100% 50%;
-            }
-
-            50% {
-                background-position: 100% 100%;
-            }
-
-            75% {
-                background-position: 0% 100%;
+                transform: scale(1.1);
+                opacity: 0.6;
             }
         }
 
-        /* Animated Geometric Shapes */
+        /* Remove heavy ::after shapesMove animation */
         .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(circle at 20% 30%, rgba(140, 37, 244, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 51, 102, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 60% 40%, rgba(168, 85, 247, 0.18) 0%, transparent 50%);
-            background-size: 100% 100%;
-            background-position: 0% 0%;
-            animation: shapesMove 20s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        @keyframes shapesMove {
-
-            0%,
-            100% {
-                background-position: 0% 0%, 100% 100%, 50% 50%;
-                opacity: 1;
-            }
-
-            33% {
-                background-position: 100% 50%, 0% 50%, 75% 25%;
-                opacity: 0.7;
-            }
-
-            66% {
-                background-position: 50% 100%, 50% 0%, 25% 75%;
-                opacity: 0.9;
-            }
+            display: none;
         }
 
         @keyframes pulse {
@@ -1281,85 +1236,49 @@
             transition: color 0.3s ease, background-color 0.3s ease;
         }
 
-        /* ============ SPECTACULAR PARTICLE & GLITCH EFFECTS ============ */
+        /* ============ Optimizations applied: Removed heavy particle animations ============ */
 
-        /* Floating Particles Background */
-        .hero-section {
-            position: relative;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(2px 2px at 20% 30%, rgba(140, 37, 244, 0.8), transparent),
-                radial-gradient(2px 2px at 60% 70%, rgba(255, 51, 102, 0.6), transparent),
-                radial-gradient(3px 3px at 50% 50%, rgba(255, 215, 0, 0.7), transparent),
-                radial-gradient(2px 2px at 80% 10%, rgba(0, 255, 255, 0.5), transparent),
-                radial-gradient(2px 2px at 90% 60%, rgba(140, 37, 244, 0.6), transparent),
-                radial-gradient(3px 3px at 30% 80%, rgba(255, 51, 102, 0.5), transparent);
-            background-size: 200% 200%;
-            background-position: 0% 0%;
-            animation: particleFloat 20s ease-in-out infinite;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        @keyframes particleFloat {
-
-            0%,
-            100% {
-                background-position: 0% 0%;
-                opacity: 0.6;
-            }
-
-            25% {
-                background-position: 100% 100%;
-                opacity: 0.8;
-            }
-
-            50% {
-                background-position: 50% 50%;
-                opacity: 0.4;
-            }
-
-            75% {
-                background-position: 0% 100%;
-                opacity: 0.7;
-            }
-        }
-
-        /* Glitch Effect for Words */
+        /* Glitch Effect Removed for Clean White Text */
         .word {
             position: relative;
             display: inline-block;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
         }
 
-        .word::before,
-        .word::after {
-            content: attr(data-text);
+        .hero-title:hover .word {
+            transform: scale(1.05) translateZ(20px);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 51, 102, 0.4);
+            color: #ffffff !important;
+        }
+
+        /* Floating Icons Animation */
+        .icon-float {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
+            color: rgba(255, 255, 255, 0.05);
+            font-size: 2rem;
+            animation: floatUp 15s linear infinite;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .hero-title:hover .word::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00de;
-            animation: glitch-anim-1 0.3s ease-in-out;
-            opacity: 0.8;
-        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
 
-        .hero-title:hover .word::after {
-            left: -2px;
-            text-shadow: 2px 0 #00fff9;
-            animation: glitch-anim-2 0.3s ease-in-out;
-            opacity: 0.8;
+            10% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         @keyframes glitch-anim-1 {
@@ -1745,9 +1664,14 @@
 
         /* ============ CUSTOM CURSOR ANIMATIONS ============ */
 
-        /* Hide default cursor */
+        /* Hide default cursor & Disable Selection */
         body {
             cursor: none;
+            user-select: none;
+            /* Disable text selection */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         /* Custom Cursor Dot */
@@ -1759,12 +1683,12 @@
             position: fixed;
             pointer-events: none;
             z-index: 10000;
-            transition: transform 0.15s ease, opacity 0.3s ease;
+            transition: transform 0.1s ease, opacity 0.3s ease;
             mix-blend-mode: screen;
             box-shadow: 0 0 20px rgba(140, 37, 244, 0.8);
         }
 
-        /* Custom Cursor Ring */
+        /* Custom Cursor Ring with Magnetic Lag */
         .cursor-ring {
             width: 40px;
             height: 40px;
@@ -1773,20 +1697,70 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67), width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
             mix-blend-mode: screen;
+        }
+
+        /* Click Burst Animation */
+        .click-burst {
+            position: fixed;
+            pointer-events: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #FF3366;
+            background: transparent;
+            z-index: 9999;
+            animation: clickBurstAnim 0.5s ease-out forwards;
+        }
+
+        /* Snake Cursor Trail */
+        .cursor-snake-segment {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9995;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        .cursor-snake-segment:nth-child(odd) {
+            background: rgba(140, 37, 244, 0.6);
+        }
+
+        .cursor-snake-segment:nth-child(even) {
+            background: rgba(255, 51, 102, 0.6);
+        }
+
+        @keyframes clickBurstAnim {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+                border-width: 10px;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+                border-width: 0px;
+            }
         }
 
         /* Cursor Trail Particles */
         .cursor-trail {
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 51, 102, 0.6);
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.8) 0%, rgba(140, 37, 244, 0) 70%);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9998;
-            animation: trailFade 0.8s ease-out forwards;
+            animation: trailFade 0.6s ease-out forwards;
+            filter: blur(1px);
         }
 
         @keyframes trailFade {
@@ -1884,6 +1858,640 @@
                 opacity: 0;
             }
         }
+
+        /* ============ F1-STYLE PARALLAX & 3D EFFECTS ============ */
+
+        /* Parallax Container */
+        .hero-section {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* 3D Depth Layers - Different Z-positions */
+        .hero-content {
+            transform: translateZ(50px);
+            will-change: transform;
+        }
+
+        .hero-image {
+            transform: translateZ(30px);
+            will-change: transform;
+        }
+
+        /* Parallax Scroll Effect */
+        @media (min-width: 992px) {
+            .hero-section {
+                transform-style: preserve-3d;
+            }
+
+            .hero-title {
+                transform: translateZ(80px);
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .hero-subtitle {
+                transform: translateZ(60px);
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .hero-cta {
+                transform: translateZ(70px);
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .gradient-text-animated {
+                transform: translateZ(100px) !important;
+            }
+        }
+
+        /* Split Text Line Animation */
+        .hero-title .word {
+            display: inline-block;
+            transform-origin: bottom left;
+            transform: translateY(100%) rotateX(-90deg);
+            opacity: 0;
+            animation: lineReveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        @keyframes lineReveal {
+            0% {
+                transform: translateY(100%) rotateX(-90deg);
+                opacity: 0;
+            }
+
+            60% {
+                transform: translateY(-5%) rotateX(5deg);
+            }
+
+            100% {
+                transform: translateY(0%) rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Smooth Opacity Reveal on Scroll */
+        .hero-content,
+        .hero-image {
+            opacity: 0;
+            animation: fadeInScale 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: translateZ(50px) scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateZ(50px) scale(1);
+            }
+        }
+
+        /* Dynamic Background Parallax */
+        .hero-section::before {
+            transform: translateZ(-100px) scale(1.5);
+            will-change: transform;
+        }
+
+        .hero-section::after {
+            transform: translateZ(-80px) scale(1.4);
+            will-change: transform;
+        }
+
+        /* Tilt Effect on Mouse Move */
+        .hero-section.tilt-active {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Enhanced Text Shadows for Depth */
+        .hero-title {
+            text-shadow:
+                0 1px 0 rgba(0, 0, 0, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.2),
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button Depth Effect */
+        .btn-primary {
+            transform: translateZ(90px);
+            box-shadow:
+                0 10px 30px rgba(140, 37, 244, 0.5),
+                0 20px 60px rgba(140, 37, 244, 0.3),
+                0 30px 90px rgba(140, 37, 244, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateZ(95px) translateY(-5px) scale(1.05);
+        }
+
+        /* Carousel 3D Transform */
+        #heroCarousel {
+            transform: translateZ(40px);
+            transform-style: preserve-3d;
+        }
+
+        #heroCarousel img {
+            transform: translateZ(20px);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #heroCarousel:hover img {
+            transform: translateZ(30px) scale(1.05);
+        }
+
+        /* ============ Optimizations applied: Removed heavy 3D/Blob animations for performance ============ */
+
+        /* Carousel Overlay & Content Styling */
+        .carousel-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.8s ease-in-out !important;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .carousel-item:hover .carousel-overlay {
+            opacity: 1;
+        }
+
+        /* Always show overlay content on mobile or make it always visible if preferred */
+        .carousel-overlay {
+            opacity: 1 !important;
+            /* Force visible for better UX */
+        }
+
+        /* ============ Optimizations applied: Removed fire border & animations ============ */
+
+        .carousel-caption-custom {
+            width: 100%;
+            transform: translateZ(40px);
+            /* 3D pop */
+        }
+
+        .carousel-caption-custom h5 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        /* Glassmorphism Button */
+        .btn-glass {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Gradient Animated Border */
+        .gradient-text-animated {
+            position: relative;
+        }
+
+        .gradient-text-animated::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    #8C25F4 25%,
+                    #FF3366 50%,
+                    #8C25F4 75%,
+                    transparent 100%);
+            background-size: 200% 100%;
+            animation: gradientSlide 3s ease infinite;
+            border-radius: 2px;
+            opacity: 0;
+            animation:
+                fadeIn 0.5s ease 1.5s forwards,
+                gradientSlide 3s ease 2s infinite;
+        }
+
+        @keyframes gradientSlide {
+
+            0%,
+            100% {
+                background-position: 0% 0%;
+            }
+
+            50% {
+                background-position: 100% 0%;
+            }
+        }
+
+        /* Subtle Background Movement on Scroll */
+        @keyframes backgroundShift {
+
+            0%,
+            100% {
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%, 0% 50%, 75% 25%;
+            }
+        }
+
+        /* Z-Index Layering for Proper Depth */
+        .hero-content {
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-image {
+            z-index: 5;
+            position: relative;
+        }
+
+        /* ============ EXTREME 3D ANIMATIONS ============ */
+
+        /* 3D Floating Cubes */
+        .hero-section {
+            position: relative;
+        }
+
+        .hero-section::before {
+            box-shadow:
+                0 0 100px rgba(140, 37, 244, 0.4) inset,
+                0 0 200px rgba(140, 37, 244, 0.2);
+            transform: translateZ(-100px) scale(1.5) rotateX(0deg);
+            animation:
+                meshGradient 15s ease infinite,
+                cubeRotate 30s linear infinite;
+        }
+
+        @keyframes cubeRotate {
+            0% {
+                transform: translateZ(-100px) scale(1.5) rotateX(0deg) rotateY(0deg);
+            }
+
+            50% {
+                transform: translateZ(-100px) scale(1.5) rotateX(10deg) rotateY(180deg);
+            }
+
+            100% {
+                transform: translateZ(-100px) scale(1.5) rotateX(0deg) rotateY(360deg);
+            }
+        }
+
+        /* 3D Card Flip Effect */
+        .event-card,
+        .feature-card {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            perspective: 1000px;
+        }
+
+        .event-card:hover,
+        .feature-card:hover {
+            transform: translateY(-20px) rotateY(5deg) rotateX(-3deg) scale(1.05);
+        }
+
+        /* 3D Isometric Grid */
+        .hero-section {
+            background-image:
+                linear-gradient(30deg, rgba(140, 37, 244, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(140, 37, 244, 0.02) 87.5%, rgba(140, 37, 244, 0.02)),
+                linear-gradient(150deg, rgba(140, 37, 244, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(140, 37, 244, 0.02) 87.5%, rgba(140, 37, 244, 0.02)),
+                linear-gradient(30deg, rgba(140, 37, 244, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(140, 37, 244, 0.02) 87.5%, rgba(140, 37, 244, 0.02)),
+                linear-gradient(150deg, rgba(140, 37, 244, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(140, 37, 244, 0.02) 87.5%, rgba(140, 37, 244, 0.02));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+            animation: isoMove 20s linear infinite;
+        }
+
+        @keyframes isoMove {
+            0% {
+                background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+            }
+
+            100% {
+                background-position: 80px 140px, 80px 140px, 120px 210px, 120px 210px;
+            }
+        }
+
+        /* 3D Perspective Wave */
+        .hero-title {
+            transform-style: preserve-3d;
+            animation: perspectiveWave 6s ease-in-out infinite;
+        }
+
+        @keyframes perspectiveWave {
+
+            0%,
+            100% {
+                transform: translateZ(80px) perspective(1000px) rotateX(0deg);
+            }
+
+            50% {
+                transform: translateZ(85px) perspective(1000px) rotateX(2deg);
+            }
+        }
+
+        /* 3D Bouncing Physics */
+        .gradient-text-animated {
+            animation:
+                wordReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards,
+                gradientFlow 5s ease 2s infinite,
+                glowPulse 3s ease 2s infinite,
+                bounce3D 4s cubic-bezier(0.4, 0, 0.2, 1) 3s infinite;
+        }
+
+        @keyframes bounce3D {
+
+            0%,
+            100% {
+                transform: translateZ(100px) translateY(0px) rotateX(0deg);
+            }
+
+            25% {
+                transform: translateZ(110px) translateY(-10px) rotateX(-3deg);
+            }
+
+            50% {
+                transform: translateZ(105px) translateY(0px) rotateX(0deg);
+            }
+
+            75% {
+                transform: translateZ(102px) translateY(-5px) rotateX(-1deg);
+            }
+        }
+
+        /* 3D Shadow Depth Enhancement */
+        .hero-content {
+            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3));
+        }
+
+        .hero-image {
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+        }
+
+        /* 3D Button Push Effect */
+        .btn-primary:active {
+            transform: translateZ(85px) translateY(2px) scale(0.98);
+            box-shadow:
+                0 5px 15px rgba(140, 37, 244, 0.6),
+                0 10px 30px rgba(140, 37, 244, 0.4);
+        }
+
+        /* 3D Spinning Shapes */
+        .hero-image::before {
+            animation: orbFloat1 8s ease-in-out infinite, spinY 12s linear infinite;
+        }
+
+        .hero-image::after {
+            animation: orbFloat2 10s ease-in-out infinite reverse, spinX 15s linear infinite;
+        }
+
+        @keyframes spinY {
+            0% {
+                transform: translate(0, 0) scale(1) rotateY(0deg);
+            }
+
+            100% {
+                transform: translate(-30px, 40px) scale(1.1) rotateY(360deg);
+            }
+        }
+
+        @keyframes spinX {
+            0% {
+                transform: translate(0, 0) scale(1) rotateX(0deg);
+            }
+
+            100% {
+                transform: translate(40px, -30px) scale(1.15) rotateX(360deg);
+            }
+        }
+
+        /* 3D Prismatic Light Effect */
+        .hero-subtitle::after {
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(140, 37, 244, 0.3),
+                    rgba(255, 51, 102, 0.3),
+                    rgba(255, 215, 0, 0.3),
+                    rgba(0, 255, 255, 0.3),
+                    transparent);
+            transform: translateZ(5px);
+            animation:
+                waveUnderline 2s ease-in-out 1.5s forwards,
+                waveMotion 3s ease-in-out 3.5s infinite,
+                prismShift 4s ease infinite;
+        }
+
+        @keyframes prismShift {
+
+            0%,
+            100% {
+                filter: hue-rotate(0deg);
+            }
+
+            50% {
+                filter: hue-rotate(30deg);
+            }
+        }
+
+        /* 3D Layer Separation */
+        .word:nth-child(1) {
+            transform: translateZ(85px);
+        }
+
+        .word:nth-child(2) {
+            transform: translateZ(80px);
+        }
+
+        .word:nth-child(3) {
+            transform: translateZ(75px);
+        }
+
+        /* 3D Hover Tilt for All Interactive Elements */
+        a,
+        button,
+        .btn {
+            transform-style: preserve-3d;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        a:hover,
+        button:hover,
+        .btn:hover {
+            transform: translateZ(10px) rotateX(-2deg) rotateY(2deg);
+        }
+
+        /* 3D Carousel Depth */
+        .carousel-item {
+            transform-style: preserve-3d;
+        }
+
+        .carousel-item.active {
+            animation: carouselPop 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes carouselPop {
+            0% {
+                transform: translateZ(0) scale(0.9);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateZ(30px) scale(1.05);
+            }
+
+            100% {
+                transform: translateZ(20px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ TEXT COLOR FIX ============ */
+        /* Ensure hero title words are white, not blue */
+        .word {
+            color: #fff !important;
+        }
+
+        .hero-title {
+            color: #fff !important;
+        }
+
+        .hero-title .word {
+            color: #fff !important;
+        }
+
+        /* ============ LANDO NORRIS STYLE GLOBAL ANIMATIONS ============ */
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll Reveal Section Class */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Child Animations */
+        .scroll-reveal-stagger .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal-stagger.visible .stagger-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal-stagger.visible .stagger-item:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .scroll-reveal-stagger.visible .stagger-item:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .scroll-reveal-stagger.visible .stagger-item:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .scroll-reveal-stagger.visible .stagger-item:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        /* Scale In Animation */
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Slide In From Left */
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f0118;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #8C25F4, #FF3366);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FF3366, #FFD700);
+        }
+
+        /* Text Selection Style */
+        ::selection {
+            background: #8C25F4;
+            color: #ffffff;
+            text-shadow: none;
+        }
     </style>
 </head>
 
@@ -1905,27 +2513,39 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
+                        <a class="nav-link active" href="index.html" data-i18n="nav_home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="event_list.html">Events</a>
+                        <a class="nav-link" href="event_list.html" data-i18n="nav_events">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ticket_list.html">My Tickets</a>
+                        <a class="nav-link" href="ticket_list.html" data-i18n="nav_tickets">My Tickets</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="wishlist.html">
-                            <i class="bi bi-heart me-1"></i>Wishlist
+                            <i class="bi bi-heart me-1"></i><span data-i18n="nav_wishlist">Wishlist</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="support.html">Support</a>
+                        <a class="nav-link" href="support.html" data-i18n="nav_support">Support</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-2">
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle rounded-pill px-3" type="button"
+                            id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
+                            English
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" onclick="toggleLanguage('en')">English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="toggleLanguage('si')">සිංහල</a></li>
+                        </ul>
+                    </div>
+
                     <div id="guest-nav">
-                        <a href="login.html" class="btn-login">Login</a>
-                        <a href="signup.html" class="btn-signup">Sign Up</a>
+                        <a href="login.html" class="btn-login" data-i18n="nav_login">Login</a>
+                        <a href="signup.html" class="btn-signup" data-i18n="nav_signup">Sign Up</a>
                     </div>
                     <div id="auth-nav" style="display: none;">
                         <div class="dropdown">
@@ -1960,27 +2580,41 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
+        <!-- Floating 3D Icons -->
+        <i class="bi bi-music-note-beamed icon-float"
+            style="left: 10%; animation-duration: 12s; animation-delay: 0s;"></i>
+        <i class="bi bi-music-note icon-float"
+            style="left: 25%; animation-duration: 15s; animation-delay: 2s; font-size: 1.5rem;"></i>
+        <i class="bi bi-vinyl icon-float" style="left: 40%; animation-duration: 18s; animation-delay: 5s;"></i>
+        <i class="bi bi-boombox icon-float" style="left: 60%; animation-duration: 14s; animation-delay: 1s;"></i>
+        <i class="bi bi-mic icon-float" style="left: 80%; animation-duration: 16s; animation-delay: 3s;"></i>
+        <i class="bi bi-headphones icon-float" style="left: 90%; animation-duration: 13s; animation-delay: 4s;"></i>
+
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content" data-aos="fade-right">
-                    <h1 class="display-1 fw-black mb-4 hero-title">
-                        <span class="word">Discover</span> <span class="word">Your</span> <span class="word">Next</span>
+                    <h1 class="display-1 fw-black mb-4 hero-title" style="color: #fff !important;">
+                        <span class="text-white" style="color: #fff !important;"
+                            data-i18n="hero_title_1">Discover</span>
+                        <span class="text-white" style="color: #fff !important;">Your</span>
+                        <span class="text-white" style="color: #fff !important;">Next</span>
                         <br>
-                        <span class="gradient-text-animated">Event Journey</span>
+                        <span class="gradient-text-animated" data-i18n="hero_title_2">Event Journey</span>
                     </h1>
-                    <p class="lead mb-4 text-white-50 hero-subtitle">
-                        Experience unforgettable live music events. From intimate acoustic sessions to massive festivals
+                    <p class="lead mb-4 text-white-50 hero-subtitle" data-i18n="hero_subtitle_1">
+                        Experience unforgettable live events. From intimate acoustic sessions to massive festivals
                         - all in one place.
                     </p>
                     <div class="d-flex gap-3 flex-wrap hero-cta">
                         <a href="event_list.html" class="btn btn-primary btn-lg">
                             <i class="bi bi-calendar-event me-2"></i>
-                            Explore Events
+                            <span data-i18n="hero_cta_explore">Explore Events</span>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 hero-image" data-aos="fade-left">
-                    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
+                        data-bs-interval="3000">
                         <div class="carousel-inner" id="heroCarouselInner">
                             <!-- Items will be injected here -->
                             <div class="carousel-item active">
@@ -2004,16 +2638,17 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-5 my-5">
+    <section class="py-5 my-5 scroll-reveal">
         <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-4 fw-bold mb-3 animated-heading">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold mb-3 animated-heading reveal-scale">
                     <span class="text-reveal">Why Choose Infinity Events?</span>
                 </h2>
-                <p class="lead text-white-50 animated-subtitle">Everything you need for the perfect event experience</p>
+                <p class="lead text-white-50 animated-subtitle scroll-reveal">Everything you need for the perfect event
+                    experience</p>
             </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="row g-4 scroll-reveal-stagger">
+                <div class="col-md-6 col-lg-3 stagger-item">
                     <div class="feature-card text-center">
                         <div class="feature-icon mx-auto">
                             <i class="bi bi-music-note-list"></i>
@@ -2023,7 +2658,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-md-6 col-lg-3 stagger-item">
                     <div class="feature-card text-center">
                         <div class="feature-icon mx-auto">
                             <i class="bi bi-ticket-perforated"></i>
@@ -2032,7 +2667,7 @@
                         <p class="text-white-50">Seamless ticket purchase process in just a few clicks</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-md-6 col-lg-3 stagger-item">
                     <div class="feature-card text-center">
                         <div class="feature-icon mx-auto">
                             <i class="bi bi-shield-check"></i>
@@ -2041,7 +2676,7 @@
                         <p class="text-white-50">Safe and encrypted transaction processing for peace of mind</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="col-md-6 col-lg-3 stagger-item">
                     <div class="feature-card text-center">
                         <div class="feature-icon mx-auto">
                             <i class="bi bi-bell"></i>
@@ -2055,22 +2690,22 @@
     </section>
 
     <!-- Featured Events -->
-    <section class="py-5 my-5">
+    <section class="py-5 my-5 scroll-reveal">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3" data-aos="fade-up">
-                <div>
+            <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+                <div class="reveal-left">
                     <h2 class="display-4 fw-bold mb-2 animated-heading">
                         <span class="text-reveal">Featured Events</span>
                     </h2>
                     <p class="text-white-50 mb-0 animated-subtitle">Don't miss these amazing upcoming shows</p>
                 </div>
-                <a href="event_list.html" class="btn btn-outline-light">
+                <a href="event_list.html" class="btn btn-outline-light reveal-scale">
                     View All <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
-            <div class="row g-4" id="featuredEventsContainer">
+            <div class="row g-4 scroll-reveal-stagger" id="featuredEventsContainer">
                 <!-- Events will be loaded here dynamically -->
-                <div class="col-12">
+                <div class="col-12 stagger-item">
                     <div class="text-center py-5">
                         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -2083,22 +2718,22 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
+    <section class="stats-section scroll-reveal">
         <div class="container">
-            <div class="row text-center g-4">
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-number">500+</div>
+            <div class="row text-center g-4 scroll-reveal-stagger">
+                <div class="col-6 col-md-3 stagger-item">
+                    <div class="stat-number count-up" data-val="500">0+</div>
                     <p class="text-white-50 mb-0">Events Hosted</p>
                 </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-number">50K+</div>
+                <div class="col-6 col-md-3 stagger-item">
+                    <div class="stat-number count-up" data-val="50000">0+</div>
                     <p class="text-white-50 mb-0">Happy Customers</p>
                 </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stat-number">100+</div>
+                <div class="col-6 col-md-3 stagger-item">
+                    <div class="stat-number count-up" data-val="100">0+</div>
                     <p class="text-white-50 mb-0">Partner Venues</p>
                 </div>
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="col-6 col-md-3 stagger-item">
                     <div class="stat-number">24/7</div>
                     <p class="text-white-50 mb-0">Customer Support</p>
                 </div>
@@ -2107,13 +2742,13 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section text-center">
+    <section class="cta-section text-center scroll-reveal">
         <div class="container position-relative" style="z-index: 10;">
-            <h2 class="display-3 fw-bold mb-4" data-aos="fade-up">Ready to Experience Live Music?</h2>
-            <p class="lead mb-5" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="display-3 fw-bold mb-4 reveal-scale">Ready to Experience Live Music?</h2>
+            <p class="lead mb-5 scroll-reveal">
                 Join thousands of music lovers and discover your next favorite event
             </p>
-            <a href="event_list.html" class="btn btn-light btn-lg" data-aos="fade-up" data-aos-delay="200">
+            <a href="event_list.html" class="btn btn-light btn-lg reveal-scale">
                 <i class="bi bi-calendar-check me-2"></i>
                 Browse All Events
             </a>
@@ -2121,7 +2756,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-5">
+    <footer class="py-5 scroll-reveal">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 mb-4 mb-lg-0">
@@ -2210,6 +2845,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../static/js/auth.js"></script>
+    <script src="../static/js/translations.js"></script>
+
 
     <script>
         // ==================== Format Functions ====================
@@ -2290,7 +2927,7 @@
                             <div class="carousel-caption-custom">
                                 <h5 class="fw-bold mb-3 text-white text-shadow display-6">${event.title}</h5>
                                 <a href="event_details.html?id=${event.id}" class="btn-glass">
-                                    <i class="bi bi-eye me-2"></i>View Details
+                                    <i class="bi bi-eye me-2"></i><span data-i18n="btn_details">View Details</span>
                                 </a>
                             </div>
                         </div>
@@ -2353,7 +2990,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                                 <span class="h4 mb-0 gradient-text">RS ${formatPrice(price)}</span>
-                                <a href="event_details.html?id=${event.id}" class="btn btn-primary">Book Now</a>
+                                <a href="event_details.html?id=${event.id}" class="btn btn-primary" data-i18n="btn_book">Book Now</a>
                             </div>
                         </div>
                     </div>
@@ -2528,10 +3165,7 @@
                 cursorDot.style.left = mouseX + 'px';
                 cursorDot.style.top = mouseY + 'px';
 
-                // Create trail particles
-                if (Math.random() > 0.8) {
-                    createTrailParticle(mouseX, mouseY);
-                }
+                // (Old trail particles removed for Snake effect)
             });
 
             // Smooth follow for ring and glow
@@ -2554,9 +3188,53 @@
                 cursorSpotlight.style.left = (spotlightX - 200) + 'px';
                 cursorSpotlight.style.top = (spotlightY - 200) + 'px';
 
+                // Update Snake Segments
+                updateSnake();
+
                 requestAnimationFrame(animateCursor);
             }
+
+            // ============ SNAKE CURSOR LOGIC ============
+            const snakeSegments = [];
+            const numberOfSegments = 12;
+
+            // Initialize Snake Body
+            for (let i = 0; i < numberOfSegments; i++) {
+                const segment = document.createElement('div');
+                segment.className = 'cursor-snake-segment';
+                document.body.appendChild(segment);
+                snakeSegments.push({
+                    element: segment,
+                    x: 0,
+                    y: 0
+                });
+            }
+
+            function updateSnake() {
+                let prevX = mouseX;
+                let prevY = mouseY;
+
+                snakeSegments.forEach((segment, index) => {
+                    // Each segment follows the previous one (or mouse) with a delay factor
+                    segment.x += (prevX - segment.x) * 0.4;
+                    segment.y += (prevY - segment.y) * 0.4;
+
+                    segment.element.style.left = segment.x + 'px';
+                    segment.element.style.top = segment.y + 'px';
+
+                    // Shrink segments towards the tail
+                    const scale = 1 - (index / numberOfSegments);
+                    segment.element.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+                    prevX = segment.x;
+                    prevY = segment.y;
+                });
+            }
+
             animateCursor();
+
+            // (Previous Trail Particle Function Removed for Cleaner Look)
+            /* function createTrailParticle(x, y) { ... } */
 
             // Create trail particles
             function createTrailParticle(x, y) {
@@ -2637,9 +3315,58 @@
                 cursorSpotlight.style.opacity = '1';
             });
 
+            // Click Burst Animation
+            document.addEventListener('click', (e) => {
+                const burst = document.createElement('div');
+                burst.className = 'click-burst';
+                burst.style.left = e.clientX - 20 + 'px';
+                burst.style.top = e.clientY - 20 + 'px';
+                document.body.appendChild(burst);
+
+                setTimeout(() => {
+                    burst.remove();
+                }, 500);
+            });
+
             console.log('✨ Custom cursor system initialized!');
         });
     </script>
+    <script>
+        // ============ SCROLL REVEAL ANIMATIONS ============
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+
+                        // Handle staggered children if present
+                        if (entry.target.classList.contains('scroll-reveal-stagger')) {
+                            const children = entry.target.querySelectorAll('.stagger-item');
+                            children.forEach((child, index) => {
+                                setTimeout(() => {
+                                    child.classList.add('visible');
+                                }, index * 100);
+                            });
+                        }
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all reveal elements
+            document.querySelectorAll('.scroll-reveal, .reveal-scale, .reveal-left, .scroll-reveal-stagger').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+    <!-- Optimized: Removed heavy mouse fire animation script -->
+    <script src="../static/js/chatbot.js"></script>
 </body>
 
 </html>

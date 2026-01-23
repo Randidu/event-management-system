@@ -49,7 +49,7 @@ def assign_ticket_to_user(ticket_id: int, assignee_id: int, db: Session = Depend
 def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), admin: User = Depends(get_current_admin)):
     from app.models.booking import Booking
     from app.models.event import Event
-    from app.models.ticket import Ticket # Support tickets
+    from app.models.ticket import Ticket
     from sqlalchemy import func, desc
     from datetime import datetime, timedelta
 
@@ -103,7 +103,7 @@ from app.core.security import get_password_hash
 
 @router.post("/users", response_model=UserCreateResponse)
 def create_new_user(user: UserCreate, db: Session = Depends(get_db), admin: User = Depends(get_current_admin)):
-    # Check if user exists (handled in crud/router usually, but good to check)
+
     from app.crud.user_crud import get_user_by_email
     if get_user_by_email(db, user.email):
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -115,7 +115,6 @@ def create_new_user(user: UserCreate, db: Session = Depends(get_db), admin: User
 
 @router.patch("/users/{user_id}", response_model=UserRead)
 def update_user_details(user_id: int, user_update: UserUpdate, db: Session = Depends(get_db), admin: User = Depends(get_current_admin)):
-    # Update user (specifically role or active status)
     update_data = {k: v for k, v in user_update.dict().items() if v is not None}
     return crud_update_user(db, user_id, update_data)
 
@@ -136,7 +135,7 @@ def get_reports(
     from app.models.booking import Booking
     from app.models.event import Event
     from app.models.user import User as DBUser
-    from app.models.ticket import Ticket # Support tickets
+    from app.models.ticket import Ticket 
     from sqlalchemy import func, desc, and_
     from datetime import datetime, timedelta
 

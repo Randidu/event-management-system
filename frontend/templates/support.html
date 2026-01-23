@@ -373,11 +373,21 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <input type="search" class="form-control" placeholder="Search for help..."
+                        <input type="search" class="form-control" id="supportSearchInput"
+                            placeholder="Ask for help (e.g., 'How do I request a refund?')"
                             style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff;">
-                        <button class="btn btn-primary" type="button">
+                        <button class="btn btn-primary" type="button" onclick="askSupportAssistant()">
                             <i class="bi bi-search"></i>
                         </button>
+                    </div>
+                    <!-- AI Results Container -->
+                    <div id="supportResults" class="mt-4 text-start" style="display: none;">
+                        <div class="card bg-dark border-secondary">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary"><i class="bi bi-robot me-2"></i>AI Assistant</h5>
+                                <p class="card-text text-white-50" id="aiResponseText"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -799,6 +809,44 @@
             if (status === 'OPEN') return 'success';
             if (status === 'CLOSED') return 'secondary';
             return 'warning';
+        }
+
+
+
+        // AI Support Assistant
+        async function askSupportAssistant() {
+            const input = document.getElementById('supportSearchInput');
+            const query = input.value.trim();
+            const results = document.getElementById('supportResults');
+            const responseText = document.getElementById('aiResponseText');
+
+            if (!query) return;
+
+            // Show loading
+            results.style.display = 'block';
+            responseText.innerHTML = '<span class="spinner-border spinner-border-sm text-primary me-2"></span> Analyzing your question...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/ai/support-assistant`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: query })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.response) {
+                        responseText.innerHTML = data.response.replace(/\n/g, '<br>');
+                    } else {
+                        responseText.textContent = "I couldn't find an answer to that. Please submit a ticket below.";
+                    }
+                } else {
+                    responseText.textContent = "Sorry, I'm having trouble connecting to the support database.";
+                }
+            } catch (error) {
+                console.error(error);
+                responseText.textContent = "Network error. Please try again later.";
+            }
         }
 
         document.getElementById('supportForm').addEventListener('submit', submitTicket);

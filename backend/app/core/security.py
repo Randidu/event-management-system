@@ -12,6 +12,23 @@ SECRET_KEY = "31a4203acf14f91f2ec26dd39eafcc4e79bd7720207ee728c091d39aa966ebcd"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+from starlette.config import Config
+config = Config('.env')
+oauth = OAuth(config)
+
+oauth.register(
+    name='google',
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_kwargs={
+        'scope': 'openid email profile'
+    }
+)
+
+oauth.register(
+    name='facebook',
+    client_kwargs={'scope': 'email public_profile'}
+)
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 class Token(BaseModel):
@@ -20,13 +37,12 @@ class Token(BaseModel):
     user: dict | None = None
 
 def get_password_hash(password: str):
-    """Hash a password using bcrypt"""
     if not password or not isinstance(password, str):
         raise ValueError("Password must be a non-empty string")
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 def verify_password(plain_password: str, hashed_password: str):
-    """Verify a password against a bcrypt hash"""
+
     if not plain_password or not hashed_password:
         return False
     try:
@@ -53,33 +69,6 @@ def verify_jwt_token(token: str):
     except jwt.JWTError:
         return None
 
-#google facebook login auth
-
-oauth = OAuth()
-
-oauth.register(
-    name='google',
-    client_id='your-google-client-id',
-    client_secret='your-google-client-secret',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    authorize_params=None,
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_params=None,
-    refresh_token_url=None,
-    client_kwargs={'scope': 'openid profile email'},
-)
-
-oauth.register(
-    name='facebook',
-    client_id='your-facebook-client-id',
-    client_secret='your-facebook-client-secret',
-    authorize_url='https://www.facebook.com/v9.0/dialog/oauth',
-    authorize_params=None,
-    access_token_url='https://graph.facebook.com/v9.0/oauth/access_token',
-    access_token_params=None,
-    refresh_token_url=None,
-    client_kwargs={'scope': 'email'},
-)
 
 
 

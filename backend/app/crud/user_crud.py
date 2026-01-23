@@ -8,7 +8,6 @@ def create_user(db: Session, user_create: UserCreate) -> User:
         first_name=user_create.first_name,
         last_name=user_create.last_name,
         email=user_create.email,
-        phone_number=user_create.phone_number,
         role=user_create.role,
         profile_image=user_create.profile_image,
         hashed_password=user_create.password  

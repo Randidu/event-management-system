@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,29 +10,35 @@
     body {
       background-color: #f8f9fa;
     }
+
     .form-container {
       max-width: 800px;
       margin: 40px auto;
       background: #fff;
       padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+
     .form-title {
       text-align: center;
       margin-bottom: 20px;
     }
+
     .events-list {
       max-width: 1200px;
       margin: 40px auto;
     }
+
     .event-card {
       margin-bottom: 20px;
       transition: transform 0.2s;
     }
+
     .event-card:hover {
       transform: translateY(-5px);
     }
+
     .alert-fixed {
       position: fixed;
       top: 20px;
@@ -39,6 +46,7 @@
       z-index: 9999;
       min-width: 300px;
     }
+
     .image-upload-area {
       border: 2px dashed #dee2e6;
       border-radius: 8px;
@@ -48,23 +56,28 @@
       transition: all 0.3s;
       background: #f8f9fa;
     }
+
     .image-upload-area:hover {
       border-color: #0d6efd;
       background: #e7f1ff;
     }
+
     .image-upload-area.dragover {
       border-color: #0d6efd;
       background: #e7f1ff;
     }
+
     .image-preview {
       max-width: 100%;
       max-height: 300px;
       border-radius: 8px;
       margin-top: 15px;
     }
+
     .remove-image-btn {
       margin-top: 10px;
     }
+
     .event-poster {
       width: 100%;
       height: 200px;
@@ -73,380 +86,413 @@
     }
   </style>
 </head>
+
 <body>
 
-<!-- Alert Container -->
-<div id="alertContainer"></div>
+  <!-- Alert Container -->
+  <div id="alertContainer"></div>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="#">EMS</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#create-event" onclick="showCreateForm()">Create Event</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#events-list" onclick="showEventsList()">View Events</a>
-        </li>
-      </ul>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">EMS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#create-event" onclick="showCreateForm()">Create Event</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#events-list" onclick="showEventsList()">View Events</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- Create Event Form -->
-<div class="container" id="createEventSection">
-  <div class="form-container">
-    <h2 class="form-title">Create Event</h2>
-    <form id="eventForm">
-      
-      <!-- Event Poster Upload -->
-      <div class="mb-4">
-        <label class="form-label fw-bold">Event Poster *</label>
-        <div class="image-upload-area" id="uploadArea" onclick="document.getElementById('posterImage').click()">
-          <input type="file" id="posterImage" accept="image/*" style="display: none;">
-          <div id="uploadPlaceholder">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-cloud-upload text-primary mb-3" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>
-              <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z"/>
-            </svg>
-            <p class="mb-1 text-muted">Click to upload or drag and drop</p>
-            <small class="text-muted">PNG, JPG, GIF up to 5MB</small>
+  <!-- Create Event Form -->
+  <div class="container" id="createEventSection">
+    <div class="form-container">
+      <h2 class="form-title">Create Event</h2>
+      <form id="eventForm">
+
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label class="form-label fw-bold mb-0">Event Poster *</label>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-sm btn-outline-primary" onclick="generatePoster(this)">
+                <i class="bi bi-magic me-1"></i> Generate Poster
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="generateImagePrompt()">
+                <i class="bi bi-palette me-1"></i> Get Image Idea
+              </button>
+            </div>
           </div>
-          <div id="imagePreviewContainer" style="display: none;">
-            <img id="imagePreview" class="image-preview" alt="Preview">
-            <button type="button" class="btn btn-sm btn-danger remove-image-btn" onclick="removeImage(event)">Remove Image</button>
+          <div class="image-upload-area" id="uploadArea" onclick="document.getElementById('posterImage').click()">
+            <input type="file" id="posterImage" accept="image/*" style="display: none;">
+            <div id="uploadPlaceholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                class="bi bi-cloud-upload text-primary mb-3" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
+                <path fill-rule="evenodd"
+                  d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
+              </svg>
+              <p class="mb-1 text-muted">Click to upload or drag and drop</p>
+              <small class="text-muted">PNG, JPG, GIF up to 5MB</small>
+            </div>
+            <div id="imagePreviewContainer" style="display: none;">
+              <img id="imagePreview" class="image-preview" alt="Preview">
+              <button type="button" class="btn btn-sm btn-danger remove-image-btn" onclick="removeImage(event)">Remove
+                Image</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="title" class="form-label">Event Title *</label>
-        <input type="text" class="form-control" id="title" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" rows="3"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label for="category" class="form-label">Category *</label>
-        <select class="form-select" id="category" required>
-          <option value="">Choose category</option>
-          <option value="CONFERENCE">Conference</option>
-          <option value="WORKSHOP">Workshop</option>
-          <option value="SEMINAR">Seminar</option>
-          <option value="MEETUP">Meetup</option>
-        </select>
-      </div>
-
-      <div class="mb-3">
-        <label for="location" class="form-label">Location *</label>
-        <input type="text" class="form-control" id="location" required>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="starts_at" class="form-label">Starts At *</label>
-          <input type="datetime-local" class="form-control" id="starts_at" required>
+        <div class="mb-3">
+          <label for="title" class="form-label">Event Title *</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="title" required>
+            <button class="btn btn-outline-primary" type="button" onclick="improveTitle(this)">
+              <i class="bi bi-magic me-1"></i> Improve
+            </button>
+          </div>
         </div>
-        <div class="col-md-6 mb-3">
-          <label for="ends_at" class="form-label">Ends At *</label>
-          <input type="datetime-local" class="form-control" id="ends_at" required>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="description" class="form-label mb-0">Description</label>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="generateDescription(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars"
+                viewBox="0 0 16 16">
+                <path
+                  d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+              </svg>
+              AI Enhance
+            </button>
+          </div>
+          <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="capacity" class="form-label">Capacity *</label>
-        <input type="number" class="form-control" id="capacity" min="1" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="organizer_id" class="form-label">Organizer ID *</label>
-        <input type="number" class="form-control" id="organizer_id" value="1" required>
-        <small class="text-muted">Default organizer ID is 1</small>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <label for="ga_ticket_price" class="form-label">General Ticket Price</label>
-          <input type="number" class="form-control" id="ga_ticket_price" step="0.01" min="0" placeholder="0.00">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="vip_ticket_price" class="form-label">VIP Ticket Price</label>
-          <input type="number" class="form-control" id="vip_ticket_price" step="0.01" min="0" placeholder="0.00">
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="pa_ticket_price" class="form-label">Platinum Ticket Price</label>
-          <input type="number" class="form-control" id="pa_ticket_price" step="0.01" min="0" placeholder="0.00">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <select class="form-select" id="status">
-          <option value="DRAFT">Draft</option>
-          <option value="PUBLISHED">Published</option>
-        </select>
-      </div>
-
-      <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary btn-lg">Create Event</button>
-        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Events List -->
-<div class="container events-list" id="eventsListSection" style="display: none;">
-  <h2 class="text-center mb-4">All Events</h2>
-  
-  <!-- Filters -->
-  <div class="card mb-4">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4 mb-2">
-          <select class="form-select" id="filterCategory" onchange="filterEvents()">
-            <option value="">All Categories</option>
+        <div class="mb-3">
+          <label for="category" class="form-label">Category *</label>
+          <select class="form-select" id="category" required>
+            <option value="">Choose category</option>
             <option value="CONFERENCE">Conference</option>
             <option value="WORKSHOP">Workshop</option>
             <option value="SEMINAR">Seminar</option>
             <option value="MEETUP">Meetup</option>
           </select>
         </div>
-        <div class="col-md-4 mb-2">
-          <select class="form-select" id="filterStatus" onchange="filterEvents()">
-            <option value="">All Status</option>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location *</label>
+          <input type="text" class="form-control" id="location" required>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="starts_at" class="form-label">Starts At *</label>
+            <input type="datetime-local" class="form-control" id="starts_at" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="ends_at" class="form-label">Ends At *</label>
+            <input type="datetime-local" class="form-control" id="ends_at" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="capacity" class="form-label">Capacity *</label>
+          <input type="number" class="form-control" id="capacity" min="1" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="organizer_id" class="form-label">Organizer ID *</label>
+          <input type="number" class="form-control" id="organizer_id" value="1" required>
+          <small class="text-muted">Default organizer ID is 1</small>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="ga_ticket_price" class="form-label">General Ticket Price</label>
+            <input type="number" class="form-control" id="ga_ticket_price" step="0.01" min="0" placeholder="0.00">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="vip_ticket_price" class="form-label">VIP Ticket Price</label>
+            <input type="number" class="form-control" id="vip_ticket_price" step="0.01" min="0" placeholder="0.00">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="pa_ticket_price" class="form-label">Platinum Ticket Price</label>
+            <input type="number" class="form-control" id="pa_ticket_price" step="0.01" min="0" placeholder="0.00">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <select class="form-select" id="status">
             <option value="DRAFT">Draft</option>
             <option value="PUBLISHED">Published</option>
           </select>
         </div>
-        <div class="col-md-4 mb-2">
-          <button class="btn btn-primary w-100" onclick="loadEvents()">Refresh</button>
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary btn-lg">Create Event</button>
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Events List -->
+  <div class="container events-list" id="eventsListSection" style="display: none;">
+    <h2 class="text-center mb-4">All Events</h2>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <select class="form-select" id="filterCategory" onchange="filterEvents()">
+              <option value="">All Categories</option>
+              <option value="CONFERENCE">Conference</option>
+              <option value="WORKSHOP">Workshop</option>
+              <option value="SEMINAR">Seminar</option>
+              <option value="MEETUP">Meetup</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-2">
+            <select class="form-select" id="filterStatus" onchange="filterEvents()">
+              <option value="">All Status</option>
+              <option value="DRAFT">Draft</option>
+              <option value="PUBLISHED">Published</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-2">
+            <button class="btn btn-primary w-100" onclick="loadEvents()">Refresh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="eventsContainer" class="row">
+      <div class="col-12 text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="eventsContainer" class="row">
-    <div class="col-12 text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  </div>
-</div>
+  <script>
+    const API_BASE_URL = 'http://127.0.0.1:8000';
+    let selectedImage = null;
+    let generatedPosterUrl = null;
 
-<script>
-  const API_BASE_URL = 'http://127.0.0.1:8000';
-  let selectedImage = null;
+    // Image upload handling
+    const uploadArea = document.getElementById('uploadArea');
+    const posterImage = document.getElementById('posterImage');
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
 
-  // Image upload handling
-  const uploadArea = document.getElementById('uploadArea');
-  const posterImage = document.getElementById('posterImage');
-  const imagePreview = document.getElementById('imagePreview');
-  const uploadPlaceholder = document.getElementById('uploadPlaceholder');
-  const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    // File input change
+    posterImage.addEventListener('change', handleImageSelect);
 
-  // File input change
-  posterImage.addEventListener('change', handleImageSelect);
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
 
-  // Drag and drop
-  uploadArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadArea.classList.add('dragover');
-  });
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
 
-  uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('dragover');
-  });
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
 
-  uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('dragover');
-    
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      posterImage.files = files;
-      handleImageSelect();
-    }
-  });
-
-  function handleImageSelect() {
-    const file = posterImage.files[0];
-    
-    if (file) {
-      // Validate file size (5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        showAlert('File size must be less than 5MB', 'warning');
-        posterImage.value = '';
-        return;
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        posterImage.files = files;
+        handleImageSelect();
       }
-      
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        showAlert('Please select an image file', 'warning');
-        posterImage.value = '';
-        return;
+    });
+
+    function handleImageSelect() {
+      const file = posterImage.files[0];
+
+      if (file) {
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          showAlert('File size must be less than 5MB', 'warning');
+          posterImage.value = '';
+          return;
+        }
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          showAlert('Please select an image file', 'warning');
+          posterImage.value = '';
+          return;
+        }
+
+        selectedImage = file;
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imagePreview.src = e.target.result;
+          uploadPlaceholder.style.display = 'none';
+          imagePreviewContainer.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
       }
-      
-      selectedImage = file;
-      
-      // Show preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        imagePreview.src = e.target.result;
-        uploadPlaceholder.style.display = 'none';
-        imagePreviewContainer.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
     }
-  }
 
-  function removeImage(e) {
-    e.stopPropagation();
-    posterImage.value = '';
-    selectedImage = null;
-    uploadPlaceholder.style.display = 'block';
-    imagePreviewContainer.style.display = 'none';
-  }
+    function removeImage(e) {
+      e.stopPropagation();
+      posterImage.value = '';
+      selectedImage = null;
+      uploadPlaceholder.style.display = 'block';
+      imagePreviewContainer.style.display = 'none';
+    }
 
-  function resetForm() {
-    document.getElementById('eventForm').reset();
-    removeImage(new Event('click'));
-  }
+    function resetForm() {
+      document.getElementById('eventForm').reset();
+      removeImage(new Event('click'));
+    }
 
-  // Show alert message
-  function showAlert(message, type = 'success') {
-    const alertContainer = document.getElementById('alertContainer');
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type} alert-dismissible fade show alert-fixed`;
-    alert.innerHTML = `
+    // Show alert message
+    function showAlert(message, type = 'success') {
+      const alertContainer = document.getElementById('alertContainer');
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type} alert-dismissible fade show alert-fixed`;
+      alert.innerHTML = `
       ${message}
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    alertContainer.appendChild(alert);
-    
-    setTimeout(() => {
-      alert.remove();
-    }, 5000);
-  }
+      alertContainer.appendChild(alert);
 
-  // Show create form
-  function showCreateForm() {
-    document.getElementById('createEventSection').style.display = 'block';
-    document.getElementById('eventsListSection').style.display = 'none';
-  }
-
-  // Show events list
-  function showEventsList() {
-    document.getElementById('createEventSection').style.display = 'none';
-    document.getElementById('eventsListSection').style.display = 'block';
-    loadEvents();
-  }
-
-  // Create Event with image
-  document.getElementById('eventForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Validate image
-    if (!selectedImage) {
-      showAlert('Please upload an event poster image', 'warning');
-      return;
+      setTimeout(() => {
+        alert.remove();
+      }, 5000);
     }
-    
-    const formData = new FormData();
-    
-    // Append image
-    formData.append('poster_image', selectedImage);
-    
-    // Append event data as JSON
-    const eventData = {
-      title: document.getElementById('title').value,
-      description: document.getElementById('description').value || null,
-      category: document.getElementById('category').value,
-      location: document.getElementById('location').value,
-      starts_at: new Date(document.getElementById('starts_at').value).toISOString(),
-      ends_at: new Date(document.getElementById('ends_at').value).toISOString(),
-      capacity: parseInt(document.getElementById('capacity').value),
-      organizer_id: parseInt(document.getElementById('organizer_id').value),
-      ga_ticket_price: parseFloat(document.getElementById('ga_ticket_price').value) || null,
-      vip_ticket_price: parseFloat(document.getElementById('vip_ticket_price').value) || null,
-      pa_ticket_price: parseFloat(document.getElementById('pa_ticket_price').value) || null,
-      status: document.getElementById('status').value
-    };
-    
-    formData.append('event_data', JSON.stringify(eventData));
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/events/`, {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (response.ok) {
-        const result = await response.json();
-        showAlert('Event created successfully!', 'success');
-        resetForm();
-        console.log('Created event:', result);
-      } else {
-        const error = await response.json();
-        showAlert(`Error: ${error.detail || 'Failed to create event'}`, 'danger');
+
+    // Show create form
+    function showCreateForm() {
+      document.getElementById('createEventSection').style.display = 'block';
+      document.getElementById('eventsListSection').style.display = 'none';
+    }
+
+    // Show events list
+    function showEventsList() {
+      document.getElementById('createEventSection').style.display = 'none';
+      document.getElementById('eventsListSection').style.display = 'block';
+      loadEvents();
+    }
+
+    // Create Event with image
+    document.getElementById('eventForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Validate image
+      if (!selectedImage) {
+        showAlert('Please upload an event poster image', 'warning');
+        return;
       }
-    } catch (error) {
-      showAlert(`Network error: ${error.message}`, 'danger');
-      console.error('Error:', error);
-    }
-  });
 
-  // Load all events
-  async function loadEvents() {
-    const container = document.getElementById('eventsContainer');
-    container.innerHTML = '<div class="col-12 text-center"><div class="spinner-border" role="status"></div></div>';
-    
-    const category = document.getElementById('filterCategory').value;
-    const status = document.getElementById('filterStatus').value;
-    
-    let url = `${API_BASE_URL}/events/?limit=100`;
-    if (category) url += `&category=${category}`;
-    if (status) url += `&status=${status}`;
-    
-    try {
-      const response = await fetch(url);
-      
-      if (response.ok) {
-        const events = await response.json();
-        displayEvents(events);
-      } else {
-        container.innerHTML = '<div class="col-12"><div class="alert alert-danger">Failed to load events</div></div>';
+      const formData = new FormData();
+
+      // Append image if selected, otherwise use generated URL if available
+      if (selectedImage) {
+        formData.append('poster_image', selectedImage);
       }
-    } catch (error) {
-      container.innerHTML = `<div class="col-12"><div class="alert alert-danger">Network error: ${error.message}</div></div>`;
-    }
-  }
 
-  // Display events
-  function displayEvents(events) {
-    const container = document.getElementById('eventsContainer');
-    
-    if (events.length === 0) {
-      container.innerHTML = '<div class="col-12"><div class="alert alert-info">No events found</div></div>';
-      return;
+      // Append event data as JSON
+      const eventData = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value || null,
+        category: document.getElementById('category').value,
+        location: document.getElementById('location').value,
+        starts_at: new Date(document.getElementById('starts_at').value).toISOString(),
+        ends_at: new Date(document.getElementById('ends_at').value).toISOString(),
+        capacity: parseInt(document.getElementById('capacity').value),
+        organizer_id: parseInt(document.getElementById('organizer_id').value),
+        ga_ticket_price: parseFloat(document.getElementById('ga_ticket_price').value) || null,
+        vip_ticket_price: parseFloat(document.getElementById('vip_ticket_price').value) || null,
+        pa_ticket_price: parseFloat(document.getElementById('pa_ticket_price').value) || null,
+        status: document.getElementById('status').value,
+        poster_url: generatedPosterUrl // Include generated URL if no manual image is uploaded
+      };
+
+      formData.append('event_data', JSON.stringify(eventData));
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/events/`, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          showAlert('Event created successfully!', 'success');
+          resetForm();
+          console.log('Created event:', result);
+        } else {
+          const error = await response.json();
+          showAlert(`Error: ${error.detail || 'Failed to create event'}`, 'danger');
+        }
+      } catch (error) {
+        showAlert(`Network error: ${error.message}`, 'danger');
+        console.error('Error:', error);
+      }
+    });
+
+    // Load all events
+    async function loadEvents() {
+      const container = document.getElementById('eventsContainer');
+      container.innerHTML = '<div class="col-12 text-center"><div class="spinner-border" role="status"></div></div>';
+
+      const category = document.getElementById('filterCategory').value;
+      const status = document.getElementById('filterStatus').value;
+
+      let url = `${API_BASE_URL}/events/?limit=100`;
+      if (category) url += `&category=${category}`;
+      if (status) url += `&status=${status}`;
+
+      try {
+        const response = await fetch(url);
+
+        if (response.ok) {
+          const events = await response.json();
+          displayEvents(events);
+        } else {
+          container.innerHTML = '<div class="col-12"><div class="alert alert-danger">Failed to load events</div></div>';
+        }
+      } catch (error) {
+        container.innerHTML = `<div class="col-12"><div class="alert alert-danger">Network error: ${error.message}</div></div>`;
+      }
     }
-    
-    container.innerHTML = events.map(event => {
-      // Construct proper image URL
-      const imageUrl = event.poster_url 
-        ? `${API_BASE_URL}${event.poster_url}` 
-        : 'https://via.placeholder.com/400x200/6c757d/ffffff?text=No+Image';
-      
-      return `
+
+    // Display events
+    function displayEvents(events) {
+      const container = document.getElementById('eventsContainer');
+
+      if (events.length === 0) {
+        container.innerHTML = '<div class="col-12"><div class="alert alert-info">No events found</div></div>';
+        return;
+      }
+
+      container.innerHTML = events.map(event => {
+        // Construct proper image URL
+        const imageUrl = event.poster_url
+          ? `${API_BASE_URL}${event.poster_url}`
+          : 'https://via.placeholder.com/400x200/6c757d/ffffff?text=No+Image';
+
+        return `
       <div class="col-md-6 col-lg-4">
         <div class="card event-card h-100">
           <img src="${imageUrl}" 
@@ -476,58 +522,375 @@
         </div>
       </div>
     `}).join('');
-  }
+    }
 
-  // Filter events
-  function filterEvents() {
-    loadEvents();
-  }
+    // Filter events
+    function filterEvents() {
+      loadEvents();
+    }
 
-  // View single event
-  async function viewEvent(eventId) {
-    try {
-      const response = await fetch(`${API_BASE_URL}/events/${eventId}`);
-      
-      if (response.ok) {
-        const event = await response.json();
-        alert(JSON.stringify(event, null, 2));
-      } else {
-        showAlert('Event not found', 'danger');
+    // View single event
+    async function viewEvent(eventId) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/events/${eventId}`);
+
+        if (response.ok) {
+          const event = await response.json();
+          alert(JSON.stringify(event, null, 2));
+        } else {
+          showAlert('Event not found', 'danger');
+        }
+      } catch (error) {
+        showAlert(`Error: ${error.message}`, 'danger');
       }
-    } catch (error) {
-      showAlert(`Error: ${error.message}`, 'danger');
     }
-  }
 
-  // Delete event
-  async function deleteEvent(eventId) {
-    if (!confirm('Are you sure you want to delete this event?')) {
-      return;
-    }
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/events/${eventId}`, {
-        method: 'DELETE'
-      });
-      
-      if (response.ok) {
-        showAlert('Event deleted successfully!', 'success');
-        loadEvents();
-      } else {
-        showAlert('Failed to delete event', 'danger');
+    // Delete event
+    async function deleteEvent(eventId) {
+      if (!confirm('Are you sure you want to delete this event?')) {
+        return;
       }
-    } catch (error) {
-      showAlert(`Error: ${error.message}`, 'danger');
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/events/${eventId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          showAlert('Event deleted successfully!', 'success');
+          loadEvents();
+        } else {
+          showAlert('Failed to delete event', 'danger');
+        }
+      } catch (error) {
+        showAlert(`Error: ${error.message}`, 'danger');
+      }
     }
-  }
 
-  // Initialize
-  window.addEventListener('DOMContentLoaded', () => {
-    showCreateForm();
-  });
-</script>
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      showCreateForm();
+    });
 
-<script src="../../static/js/admin_profile.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    // Generate AI Description
+    async function generateDescription(btn) {
+      const title = document.getElementById('title').value;
+      const category = document.getElementById('category').value;
+      const location = document.getElementById('location').value;
+      const currentDesc = document.getElementById('description').value;
+
+      if (!title) {
+        showAlert('Please enter an event title first', 'warning');
+        return;
+      }
+
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Generating...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/ai/generate-description`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: title,
+            current_description: currentDesc,
+            keywords: [category, location].filter(Boolean)
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('AI service error');
+        }
+
+        const data = await response.json();
+
+        if (data.improved_title) {
+          if (confirm(`Apply improved title: "${data.improved_title}"?`)) {
+            document.getElementById('title').value = data.improved_title;
+          }
+        }
+
+        if (data.description) {
+          document.getElementById('description').value = data.description;
+        }
+
+        showAlert('✨ Event details enhanced with AI!', 'success');
+
+      } catch (error) {
+        console.error(error);
+        showAlert('Failed to generate description. Check backend logs.', 'danger');
+      } finally {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+      }
+    }
+
+    // Improve Title
+    async function improveTitle(btn) {
+      const titleInput = document.getElementById('title');
+      const currentTitle = titleInput.value;
+
+      if (!currentTitle) {
+        showAlert('Please enter a title to improve', 'warning');
+        return;
+      }
+
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/ai/improve-title`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ current_title: currentTitle })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.suggestions && data.suggestions.length > 0) {
+            // Create a selection UI for the user
+            const suggestionsHtml = data.suggestions.map((suggestion, index) =>
+              `<div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="titleSuggestion" id="suggestion${index}" value="${suggestion.replace(/"/g, '&quot;')}">
+                <label class="form-check-label" for="suggestion${index}">${suggestion}</label>
+              </div>`
+            ).join('');
+
+            const modal = `
+              <div class="modal fade" id="titleSuggestionsModal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                      <h5 class="modal-title">✨ AI Title Suggestions</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p class="text-muted">Original: <em>${data.original}</em></p>
+                      <hr>
+                      ${suggestionsHtml}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" onclick="applySelectedTitle()">Apply Selected</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            // Remove existing modal if any
+            const existingModal = document.getElementById('titleSuggestionsModal');
+            if (existingModal) existingModal.remove();
+
+            // Add modal to page
+            document.body.insertAdjacentHTML('beforeend', modal);
+
+            // Show modal
+            const modalElement = new bootstrap.Modal(document.getElementById('titleSuggestionsModal'));
+            modalElement.show();
+          }
+        } else {
+          const error = await response.json();
+          showAlert(`Error: ${error.detail || 'Failed to improve title'}`, 'danger');
+        }
+      } catch (error) {
+        console.error(error);
+        showAlert('Failed to improve title. Check console for details.', 'danger');
+      } finally {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+      }
+    }
+
+    // Apply selected title from modal
+    function applySelectedTitle() {
+      const selected = document.querySelector('input[name="titleSuggestion"]:checked');
+      if (selected) {
+        document.getElementById('title').value = selected.value;
+        bootstrap.Modal.getInstance(document.getElementById('titleSuggestionsModal')).hide();
+        showAlert('Title updated!', 'success');
+      } else {
+        showAlert('Please select a title suggestion', 'warning');
+      }
+    }
+
+    // Generate Image Prompt
+    async function generateImagePrompt() {
+      const title = document.getElementById('title').value;
+      const category = document.getElementById('category').value;
+      const location = document.getElementById('location').value;
+      const description = document.getElementById('description').value;
+
+      if (!title) {
+        showAlert('Please enter an event title first', 'warning');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/ai/generate-image-prompt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_title: title,
+            event_type: category || 'Event',
+            location: location || 'TBA',
+            vibe: description ? description.substring(0, 100) : 'exciting and engaging'
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.poster_prompt) {
+            const posterPrompt = data.poster_prompt;
+            const bannerPrompt = data.banner_prompt || '';
+            showAlert(`
+              <div class="text-start">
+                <strong>🎨 AI Image Prompts Generated!</strong><br><br>
+                <strong>Poster Prompt:</strong><br>
+                <small>${posterPrompt}</small><br><br>
+                ${bannerPrompt ? `<strong>Banner Prompt:</strong><br><small>${bannerPrompt}</small><br><br>` : ''}
+                <button class="btn btn-sm btn-primary mt-2" onclick="navigator.clipboard.writeText('${posterPrompt.replace(/'/g, "\\'")}'); alert('Poster prompt copied!')">Copy Poster</button>
+                ${bannerPrompt ? `<button class="btn btn-sm btn-secondary mt-2 ms-2" onclick="navigator.clipboard.writeText('${bannerPrompt.replace(/'/g, "\\'")}'); alert('Banner prompt copied!')">Copy Banner</button>` : ''}
+              </div>
+            `, 'info');
+          }
+        } else {
+          const error = await response.json();
+          showAlert(`Error: ${error.detail || 'Failed to generate image prompt'}`, 'danger');
+        }
+      } catch (error) {
+        console.error(error);
+        showAlert('Failed to generate image prompt. Check console for details.', 'danger');
+      }
+    }
+
+    // AI Smart Search
+    async function performSmartSearch() {
+      const query = document.getElementById('smartSearchInput').value;
+      if (!query.trim()) return;
+
+      const container = document.getElementById('eventsContainer');
+      const searchBtn = document.querySelector('button[onclick="performSmartSearch()"]');
+      const originalBtnContent = searchBtn.innerHTML;
+
+      searchBtn.disabled = true;
+      searchBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Thinking...';
+
+      container.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-primary" role="status"></div><p class="mt-2 text-white-50">AI is finding the best events for you...</p></div>';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/ai/smart-search`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: query }) // Ensure backend expects { "query": "..." } or raw string? Checked schemas: SmartSearch takes body={"query": "..."} NO, it takes `query: str = Body(..., embed=True)`. So JSON body { "query": "..." } is correct.
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.events && data.events.length > 0) {
+            displayEvents(data.events); // Reuse existing display function
+            // Show a small toast/alert about the results
+            const count = data.events.length;
+            const alertHtml = `
+                        <div class="col-12 mb-4">
+                            <div class="alert alert-success d-flex align-items-center bg-success bg-opacity-10 border-success border-opacity-25 text-white">
+                                <i class="bi bi-stars me-2 fs-4"></i>
+                                <div>
+                                    <strong>AI Found ${count} Event${count > 1 ? 's' : ''}</strong><br>
+                                    Based on "${data.query}"
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            container.insertAdjacentHTML('afterbegin', alertHtml);
+          } else {
+            container.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-search display-1 text-white-50 mb-3"></i>
+                            <h3 class="text-white-50">No matching events found</h3>
+                            <p class="text-white-50">Try broader terms like "Music" or "Workshops"</p>
+                            <button class="btn btn-outline-primary mt-3" onclick="loadEvents()">Show All Events</button>
+                        </div>
+                    `;
+          }
+        } else {
+          throw new Error('Search failed');
+        }
+      } catch (error) {
+        console.error(error);
+        container.innerHTML = '<div class="col-12"><div class="alert alert-danger">AI Search unavailable. Please try again.</div></div>';
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = originalBtnContent;
+      }
+    }
+    // Generate Poster
+    async function generatePoster(btn) {
+      const title = document.getElementById('title').value;
+      const category = document.getElementById('category').value;
+      const location = document.getElementById('location').value;
+
+      if (!title) {
+        showAlert('Please enter a title for the poster', 'warning');
+        return;
+      }
+
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Designing...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/ai/generate-poster`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: title,
+            category: category || "EVENT",
+            location: location || "Live Event"
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.poster_url) {
+            generatedPosterUrl = data.poster_url;
+            selectedImage = null; // Clear manual upload
+
+            // Update Preview
+            const previewImg = document.getElementById('imagePreview');
+            const placeholder = document.getElementById('uploadPlaceholder');
+            const container = document.getElementById('imagePreviewContainer');
+
+            previewImg.src = `${API_BASE_URL}${data.poster_url}`;
+            placeholder.style.display = 'none';
+            container.style.display = 'block';
+
+            showAlert('🎨 High-quality AI poster generated and applied!', 'success');
+          }
+        } else {
+          const error = await response.json();
+          showAlert(`Error: ${error.detail || 'Generator failed'}`, 'danger');
+        }
+      } catch (error) {
+        console.error(error);
+        showAlert('Network error while generating poster', 'danger');
+      } finally {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+      }
+    }
+  </script>
+
+  <script src="../../static/js/admin_profile.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
