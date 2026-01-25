@@ -214,18 +214,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 # OpenAI Configuration (for AI features)
 OPENAI_API_KEY=sk-your-openai-api-key-here
 
-# Email Configuration (SMTP)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
-
-# OAuth Configuration (Optional)
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-FACEBOOK_CLIENT_ID=your-facebook-client-id
-FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
-
 # Application Settings
 FRONTEND_URL=http://localhost:5500
 BACKEND_URL=http://localhost:8000
