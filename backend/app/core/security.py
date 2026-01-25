@@ -48,7 +48,8 @@ def verify_password(plain_password: str, hashed_password: str):
     try:
         return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
     except Exception as e:
-        print(f"Password verification error: {e}")
+        import logging
+        logging.getLogger(__name__).error(f"Password verification error: {e}")
         return False
 
 def create_access_token(data: dict , expires_delta: Optional[timedelta] = None):

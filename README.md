@@ -1,6 +1,4 @@
-# 🎉 Infinity Events - Event Management System
-
-<div align="center">
+# Infinity Events - Event Management System
 
 ![Event Management System](https://img.shields.io/badge/Event-Management-blue?style=for-the-badge)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-009688?style=for-the-badge&logo=fastapi)
@@ -11,47 +9,45 @@
 
 **A modern, full-featured Event Management System with AI-powered features**
 
-[Features](#-features) • [Installation](#-installation--setup) • [Usage](#-usage) • [API Documentation](#-api-documentation) • [Contributing](#-contributing)
-
-</div>
+[Features](#features) • [Installation](#installation--setup) • [Usage](#usage) • [API Documentation](#api-documentation) • [Contributing](#contributing)
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Prerequisites](#-prerequisites)
-- [Installation & Setup](#-installation--setup)
-- [Running the Application](#-running-the-application)
-- [Project Structure](#-project-structure)
-- [API Documentation](#-api-documentation)
-- [Default Credentials](#-default-credentials)
-- [Screenshots](#-screenshots)
-- [Troubleshooting](#-troubleshooting)
-- [License](#-license)
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Default Credentials](#default-credentials)
+- [Screenshots](#screenshots)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
 ---
 
-## 🌟 Overview
+## Overview
 
 **Infinity Events** is a comprehensive Event Management System designed to streamline event discovery, booking, and management. Built with modern web technologies, it offers a seamless experience for both users and administrators with AI-powered features for enhanced productivity.
 
 ### Key Highlights
 
-✨ **AI-Powered Features** - Smart search, automated content generation, and intelligent chatbot  
-🎨 **Modern UI/UX** - Beautiful, responsive design with smooth animations  
-🔐 **Secure Authentication** - OAuth2 with JWT tokens and social login support  
-💳 **Payment Integration** - Secure payment processing with receipt generation  
-📱 **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile devices  
-🌐 **Multi-language Support** - Internationalization ready  
+**AI-Powered Features** - Smart search, automated content generation, and intelligent chatbot
+**Modern UI/UX** - Beautiful, responsive design with smooth animations
+**Secure Authentication** - OAuth2 with JWT tokens and social login support
+**Payment Integration** - Secure payment processing with receipt generation
+**Fully Responsive** - Works seamlessly on desktop, tablet, and mobile devices
+**Multi-language Support** - Internationalization ready
 
 ---
 
-## ✨ Features
+## Features
 
-### 👤 User Features
+### User Features
 
 #### Authentication & Profile
 - **Secure Sign Up/Login** - Email-based authentication with password hashing
@@ -76,7 +72,7 @@
 - **Email Notifications** - Booking confirmations and event reminders
 - **Ticket Replies** - Two-way communication with support team
 
-### 👨‍💼 Admin Features
+### Admin Features
 
 #### Dashboard & Analytics
 - **Admin Dashboard** - Real-time statistics and insights
@@ -110,7 +106,7 @@
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Backend
 - **Framework**: FastAPI 0.109.0
@@ -153,7 +149,7 @@
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before running the project, ensure you have:
 
@@ -170,7 +166,7 @@ Before running the project, ensure you have:
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 
@@ -306,7 +302,7 @@ const API_BASE_URL = 'http://127.0.0.1:8000';  // Update if needed
 
 ---
 
-## 🎯 Running the Application
+## Running the Application
 
 ### Start Backend Server
 ```bash
@@ -335,7 +331,7 @@ python -m http.server 5500
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 event-management-system-my/
@@ -367,7 +363,7 @@ event-management-system-my/
 │   │   │   ├── booking_crud.py      # Booking CRUD operations
 │   │   │   └── ...
 │   │   │
-│   │   └── routes/                   # API Endpoints
+│   │   ├── routes/                   # API Endpoints
 │   │       ├── auth.py              # Authentication routes
 │   │       ├── events.py            # Event routes
 │   │       ├── bookings.py          # Booking routes
@@ -430,7 +426,7 @@ event-management-system-my/
 
 ---
 
-## 📚 API Documentation
+## API Documentation
 
 ### Interactive API Documentation
 
@@ -490,7 +486,7 @@ Once the backend is running, access the interactive API documentation:
 
 ---
 
-## 🔑 Default Credentials
+## Default Credentials
 
 ### Admin Account
 - **Email**: admin@example.com
@@ -500,11 +496,11 @@ Once the backend is running, access the interactive API documentation:
 - **Email**: user@example.com
 - **Password**: user123
 
-**⚠️ Important**: Change these credentials in production!
+**Important**: Change these credentials in production!
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### User Interface
 
@@ -533,7 +529,7 @@ View and manage all registered users.
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -573,7 +569,7 @@ uvicorn main:app --reload --port 8001
 ### Getting Help
 
 If you encounter issues:
-1. Check the [Troubleshooting](#-troubleshooting) section
+1. Check the [Troubleshooting](#troubleshooting) section
 2. Review backend logs in the terminal
 3. Check browser console for frontend errors
 4. Verify all environment variables are set correctly
@@ -581,7 +577,7 @@ If you encounter issues:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -600,7 +596,7 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📄 License
+## License
 
 This project is for **educational and demonstration purposes**.
 
@@ -609,7 +605,7 @@ This project uses several open-source libraries. See `requirements.txt` for a co
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **FastAPI** - Modern web framework for building APIs
 - **Bootstrap** - Frontend component library
@@ -619,7 +615,7 @@ This project uses several open-source libraries. See `requirements.txt` for a co
 
 ---
 
-## 📞 Contact & Support
+## Contact & Support
 
 For questions, suggestions, or support:
 - **Email**: support@infinityevents.com
@@ -627,10 +623,6 @@ For questions, suggestions, or support:
 
 ---
 
-<div align="center">
-
-**Made with ❤️ by the Infinity Events Team**
+**Made  by the Infinity Events Team**
 
 ⭐ Star this repository if you find it helpful!
-
-</div>

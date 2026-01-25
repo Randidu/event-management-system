@@ -32,7 +32,7 @@ async function loadDashboardStats() {
         }
 
         const stats = await response.json();
-        console.log('Dashboard stats loaded:', stats);
+        console.log('Dashboard stats loaded successfully');
         updateDashboard(stats);
 
     } catch (error) {

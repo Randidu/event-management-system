@@ -2869,7 +2869,7 @@
         // ==================== Load Featured Events ====================
         async function loadFeaturedEvents() {
             try {
-                console.log('🔄 Loading events...');
+                console.log('Loading events...');
 
                 // Fetch all events
                 const response = await fetch(`${API_BASE_URL}/events/`);
@@ -2879,7 +2879,7 @@
                 }
 
                 const events = await response.json();
-                console.log('📦 Received events:', events.length);
+                console.log('Received events:', events.length);
 
                 if (events && events.length > 0) {
                     displayFeaturedEvents(events);
@@ -2889,12 +2889,11 @@
                 }
 
             } catch (error) {
-                console.error('❌ Error loading events:', error);
+                console.error('Error loading events:', error);
                 showErrorState();
             }
         }
 
-        // ==================== Display Hero Slider ====================
         function displayHeroSlider(events) {
             const container = document.getElementById('heroCarouselInner');
             if (!container) return;
@@ -2941,7 +2940,7 @@
             const container = document.getElementById('featuredEventsContainer');
 
             if (!container) {
-                console.error('❌ Featured events container not found');
+                console.error('Featured events container not found');
                 return;
             }
 
@@ -2949,7 +2948,7 @@
             const sortedEvents = events.sort((a, b) => b.id - a.id);
             const featuredEvents = sortedEvents.slice(0, 3);
 
-            console.log('✅ Displaying', featuredEvents.length, 'featured events');
+            console.log('Displaying', featuredEvents.length, 'featured events');
 
             container.innerHTML = featuredEvents.map((event, index) => {
                 let imageUrl;
@@ -3003,7 +3002,7 @@
             }
         }
 
-        // ==================== Show Error State ====================
+        // Show Error State
         function showErrorState() {
             const container = document.getElementById('featuredEventsContainer');
             if (!container) return;
@@ -3022,7 +3021,7 @@
             `;
         }
 
-        // ==================== Show Empty State ====================
+        // Show Empty State
         function showEmptyState() {
             const container = document.getElementById('featuredEventsContainer');
             if (!container) return;
@@ -3038,7 +3037,7 @@
             `;
         }
 
-        // ==================== Load Statistics ====================
+        // Load Statistics
         async function loadStatistics() {
             try {
                 const response = await fetch(`${API_BASE_URL}/events/`);
@@ -3056,7 +3055,7 @@
             }
         }
 
-        // ==================== Animate Numbers ====================
+        // Animate Numbers
         function animateNumber(element, target) {
             let current = 0;
             const increment = target / 50;
@@ -3075,7 +3074,7 @@
             }, stepTime);
         }
 
-        // ==================== Navbar Scroll Effect ====================
+        // Navbar Scroll Effect
         function initNavbarScroll() {
             window.addEventListener('scroll', function () {
                 const navbar = document.querySelector('.navbar');
@@ -3092,7 +3091,7 @@
             });
         }
 
-        // ==================== Mobile Menu Handler ====================
+        // Mobile Menu Handler
         function initMobileMenu() {
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', () => {
@@ -3106,9 +3105,9 @@
             });
         }
 
-        // ==================== Initialize Everything ====================
+        // Initialize Everything
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🚀 Initializing Infinity Events Homepage...');
+            console.log('Initializing Infinity Events Homepage');
 
             // Initialize AOS animations
             AOS.init({
@@ -3129,7 +3128,7 @@
             // Initialize mobile menu
             initMobileMenu();
 
-            console.log('✅ Homepage initialized successfully!');
+            console.log('Homepage initialized successfully');
         });
     </script>
 
@@ -3140,7 +3139,7 @@
     <div class="cursor-spotlight"></div>
 
     <script>
-        // ============ CUSTOM CURSOR SYSTEM ============
+        // Custom Cursor System
         document.addEventListener('DOMContentLoaded', function () {
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorRing = document.querySelector('.cursor-ring');
@@ -3194,7 +3193,7 @@
                 requestAnimationFrame(animateCursor);
             }
 
-            // ============ SNAKE CURSOR LOGIC ============
+            // Snake Cursor Logic
             const snakeSegments = [];
             const numberOfSegments = 12;
 
@@ -3328,11 +3327,11 @@
                 }, 500);
             });
 
-            console.log('✨ Custom cursor system initialized!');
+            console.log('Custom cursor system initialized');
         });
     </script>
     <script>
-        // ============ SCROLL REVEAL ANIMATIONS ============
+        // Scroll Reveal Animations
         document.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
                 threshold: 0.1,

@@ -7,6 +7,9 @@ from app.core.security import get_password_hash
 import shutil
 from pathlib import Path
 import uuid
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -24,17 +27,14 @@ def get_me(current_user: User = Depends(get_current_user)):
 @router.post("/", response_model=UserCreateResponse)
 def create_users(user: UserCreate, db: Session = Depends(get_db)):
     try:
-        print(f"📝 Received signup request for: {user.email}")
+        logger.info(f"Received signup request for: {user.email}")
         
         existing_user = get_user_by_email(db, user.email)
         if existing_user:
             raise HTTPException(status_code=400, detail="Email already registered")
         
-        print(f"✅ Email check passed")
-        
         # Create a new UserCreate object with hashed password
         hashed_password = get_password_hash(user.password)
-        print(f"✅ Password hashed")
         
         user_with_hashed_pw = UserCreate(
             email=user.email,
@@ -44,20 +44,15 @@ def create_users(user: UserCreate, db: Session = Depends(get_db)):
             profile_image=user.profile_image,
             password=hashed_password
         )
-        print(f"✅ UserCreate object created")
         
         new_user = create_user(db, user_with_hashed_pw)
-        print(f"✅ User created in database with ID: {new_user.id}")
+        logger.info(f"User created in database with ID: {new_user.id}")
         
         return new_user
     except HTTPException:
         raise
     except Exception as e:
-        import traceback
-        error_trace = traceback.format_exc()
-        print(f"❌ ERROR in create_users:")
-        print(f"Error: {str(e)}")
-        print(f"Traceback:\n{error_trace}")
+        logger.error(f"Error in create_users: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @router.put("/me")

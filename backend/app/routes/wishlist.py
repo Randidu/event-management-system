@@ -8,10 +8,6 @@ from app.crud.wishlist_crud import get_wishlist, add_to_wishlist, remove_from_wi
 from app.core.security import oauth2_scheme, verify_jwt_token
 from app.crud.user_crud import get_user_by_email
 
-# NOTE: ideally we should move get_current_user to a dependency in core/deps.py or similar to avoid repeating logic
-# For now, I will implement a local get_current_user dependency or re-use if existing.
-# security.py has verify_jwt_token but no direct get_current_user dependency that extracts user.
-
 router = APIRouter(prefix="/wishlist", tags=["Wishlist"])
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
@@ -66,8 +62,8 @@ def read_wishlist(db: Session = Depends(get_db), current_user = Depends(get_curr
         
         return result
     except Exception as e:
-        print(f"Wishlist error: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error loading wishlist: {str(e)}")
+        import logging
+        logging.getLogger(__name__).error(f"Wishlist error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error loading wishlist: {str(e)}")
 
 @router.post("/", response_model=dict)

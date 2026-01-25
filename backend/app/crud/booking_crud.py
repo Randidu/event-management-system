@@ -5,6 +5,7 @@ import qrcode
 from pathlib import Path
 import uuid
 from io import BytesIO
+from app.models.event import Event
 
 QR_CODE_DIR = Path("uploads/qr_codes")
 QR_CODE_DIR.mkdir(parents=True, exist_ok=True)
@@ -24,8 +25,6 @@ def generate_qr_code(booking_id: int, event_title: str) -> str:
     return f"/uploads/qr_codes/{filename}"
 
 def create_booking(db: Session, booking: BookingCreate, user_id: int):
-    from app.models.event import Event
-    
     event = db.query(Event).filter(Event.id == booking.event_id).first()
     if not event:
         raise ValueError("Event not found")
@@ -33,9 +32,8 @@ def create_booking(db: Session, booking: BookingCreate, user_id: int):
     price_per_ticket = booking.ticket_price if booking.ticket_price is not None else event.ga_ticket_price
     subtotal = price_per_ticket * booking.quantity
     
-    # Calculate Fees (Must match frontend logic)
     service_fee = subtotal * 0.10
-    processing_fee = 150.00
+    processing_fee = 100.00
     total_price = subtotal + service_fee + processing_fee
     
     new_booking = Booking(
@@ -58,8 +56,9 @@ def create_booking(db: Session, booking: BookingCreate, user_id: int):
         db.commit()
         db.refresh(new_booking)
     except Exception as e:
-        print(f"Error generating QR code: {e}")
-        # Continue without QR code, don't crash the booking
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error generating QR code: {e}")
         pass
     
     return new_booking

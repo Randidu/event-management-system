@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-load_dotenv()
 from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
 from app.core.database import get_db
@@ -20,6 +19,9 @@ import uuid
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import math
+
+
+load_dotenv()
 
 router = APIRouter(
     prefix="/ai",
@@ -182,7 +184,7 @@ GUIDELINES:
 - Use the "Upcoming Events" list above to answer specific questions. 
 - If the user asks about an event NOT in the list, say "I couldn't find a matching upcoming event."
 - Be enthusiastic, professional, and concise.
-- Use emojis sparingly to be friendly.
+- Maintain a professional tone.
 - If unsure, do NOT make up facts. Ask for clarification."""),
             ("user", "{input}"),
         ])
@@ -199,9 +201,7 @@ GUIDELINES:
             "success": True
         }
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        logger.error(f"Chatbot Critical Error: {str(e)}")
+        logger.error(f"Chatbot Critical Error: {str(e)}", exc_info=True)
         return {
             "response": "I'm having trouble connecting to my brain. Please try later.",
             "success": False,
@@ -765,7 +765,5 @@ async def generate_poster(request: PosterRequest):
         }
         
     except Exception as e:
-        logger.error(f"Error generating poster: {str(e)}")
-        import traceback
-        traceback.print_exc()
+        logger.error(f"Error generating poster: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))

@@ -248,13 +248,12 @@
         const API_BASE_URL = 'http://127.0.0.1:8000';
 
         document.addEventListener('DOMContentLoaded', async function () {
-            console.log("=== PAYMENT SUCCESS PAGE LOADED ===");
+            console.log("Payment Success Page Loaded");
 
             const urlParams = new URLSearchParams(window.location.search);
             const bookingId = urlParams.get('bookingId');
 
-            console.log("URL:", window.location.href);
-            console.log("Booking ID from URL:", bookingId);
+
 
             if (!bookingId) {
                 console.error("ERROR: No booking ID found in URL");
@@ -265,7 +264,7 @@
             }
 
             const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
-            console.log("Token:", token ? "Present" : "Missing");
+
 
             if (!token) {
                 console.warn("No token found, redirecting to login");
@@ -275,14 +274,14 @@
             }
 
             try {
-                console.log("Fetching booking details for ID:", bookingId);
+
 
                 // Fetch booking details
                 const response = await fetch(`${API_BASE_URL}/bookings/${bookingId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                console.log("Response Status:", response.status);
+
 
                 if (!response.ok) {
                     const errorText = await response.text();
@@ -291,7 +290,7 @@
                 }
 
                 const booking = await response.json();
-                console.log("✓ Booking Data Retrieved:", booking);
+                console.log("Booking retrieved successfully");
 
                 // Update UI
                 document.getElementById('loadingDetails').style.display = 'none';
@@ -301,13 +300,11 @@
 
                 // Event details
                 const eventTitle = booking.event ? booking.event.title : (booking.event_id || 'Unknown Event');
-                document.getElementById('dispEventTitle').textContent = eventTitle;
-                console.log("Event Title:", eventTitle);
+
 
                 if (booking.event && booking.event.starts_at) {
                     const eventDate = new Date(booking.event.starts_at).toLocaleDateString();
                     document.getElementById('dispEventDate').textContent = eventDate;
-                    console.log("Event Date:", eventDate);
                 } else {
                     document.getElementById('dispEventDate').textContent = 'Date not available';
                 }
@@ -318,11 +315,10 @@
                 const total = booking.total_amount || booking.amount_total || 0;
                 document.getElementById('dispTotal').textContent = `RS ${parseFloat(total).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
-                console.log("✓ Receipt displayed successfully");
+
 
             } catch (e) {
-                console.error("=== ERROR DISPLAYING RECEIPT ===");
-                console.error("Error:", e);
+                console.error("Error displaying receipt:", e);
 
                 document.getElementById('loadingDetails').style.display = 'none';
                 document.getElementById('errorDetails').style.display = 'block';

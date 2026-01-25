@@ -417,42 +417,6 @@
                                 </div>
                             </label>
                         </div>
-                        <div class="col-md-6">
-                            <label class="payment-method" onclick="selectPaymentMethod(this, 'paypal')">
-                                <input type="radio" name="paymentMethod" value="paypal">
-                                <div class="payment-icon">
-                                    <i class="bi bi-paypal"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">PayPal</div>
-                                    <small class="text-white-50">Quick and secure</small>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="payment-method" onclick="selectPaymentMethod(this, 'googlepay')">
-                                <input type="radio" name="paymentMethod" value="googlepay">
-                                <div class="payment-icon">
-                                    <i class="bi bi-google"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">Google Pay</div>
-                                    <small class="text-white-50">Fast checkout</small>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="payment-method" onclick="selectPaymentMethod(this, 'applepay')">
-                                <input type="radio" name="paymentMethod" value="applepay">
-                                <div class="payment-icon">
-                                    <i class="bi bi-apple"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold">Apple Pay</div>
-                                    <small class="text-white-50">One-tap payment</small>
-                                </div>
-                            </label>
-                        </div>
                     </div>
 
                     <!-- Card Details Form -->
@@ -469,13 +433,13 @@
                                     <div class="card-logo"><i class="bi bi-credit-card-fill"></i></div>
                                     <div class="card-logo">Visa</div>
                                     <div class="card-logo">MC</div>
-                                    <div class="card-logo">Amex</div>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-500">Cardholder Name</label>
-                                <input type="text" class="form-control" id="cardName" placeholder="John Doe" required>
+                                <input type="text" class="form-control" id="cardName" placeholder="Rehan Waliwattage"
+                                    required>
                             </div>
 
                             <div class="row g-3 mb-4">
@@ -498,11 +462,12 @@
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label class="form-label fw-500">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="John" required>
+                                <input type="text" class="form-control" id="firstName" placeholder="Rehan" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-500">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+                                <input type="text" class="form-control" id="lastName" placeholder="Waliwattage"
+                                    required>
                             </div>
                         </div>
 
@@ -513,7 +478,7 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-500">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 000-0000" required>
+                            <input type="tel" class="form-control" id="phone" placeholder="071 000 000" required>
                         </div>
 
                         <div class="mb-3">
@@ -524,7 +489,7 @@
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label class="form-label fw-500">City</label>
-                                <input type="text" class="form-control" id="city" placeholder="New York" required>
+                                <input type="text" class="form-control" id="city" placeholder="Balangoda" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-500">Postal Code</label>
@@ -891,9 +856,9 @@
 
             try {
                 // 1. Create Booking
-                console.log("=== STEP 1: Creating Booking ===");
+                // 1. Create Booking
+                console.log("Creating Booking...");
                 console.log("Booking Data:", currentBookingData);
-                console.log("Token:", token ? "Present" : "Missing");
 
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating Booking...';
                 const bookingResponse = await fetch(`${API_BASE_URL}/bookings/`, {
@@ -927,11 +892,10 @@
                 }
 
                 const booking = await bookingResponse.json();
-                console.log("✓ Booking Created Successfully:", booking);
-                console.log("Booking ID:", booking.id);
+                console.log("Booking Created Successfully:", booking);
 
                 // 2. Confirm Payment
-                console.log("=== STEP 2: Confirming Payment ===");
+                console.log("Confirming Payment...");
                 console.log("Confirming booking ID:", booking.id);
 
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Confirming Payment...';
@@ -951,7 +915,7 @@
                 }
 
                 const confirmedBooking = await confirmResponse.json();
-                console.log("✓ Payment Confirmed Successfully:", confirmedBooking);
+                console.log("Payment Confirmed Successfully:", confirmedBooking);
 
                 // 3. Redirect
                 submitBtn.innerHTML = '<i class="bi bi-check-lg me-2"></i>Success!';
@@ -962,8 +926,7 @@
                 window.location.href = `payment_success.html?bookingId=${booking.id}`;
 
             } catch (error) {
-                console.error("=== PAYMENT ERROR ===");
-                console.error("Error Type:", error.name);
+                console.error("Payment Error:", error);
                 console.error("Error Message:", error.message);
                 console.error("Full Error:", error);
 

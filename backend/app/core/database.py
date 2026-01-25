@@ -3,7 +3,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import NullPool
 from app.core.config import settings 
 
-# PostgreSQL engine - remove echo=True for production
 engine = create_engine(
     settings.SQLALCHEMY_DATABASE_URL,
     echo=True,

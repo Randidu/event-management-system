@@ -42,16 +42,22 @@ event_posters_dir.mkdir(parents=True, exist_ok=True)
 
 app.mount("/uploads", StaticFiles(directory=str(upload_dir)), name="uploads")
 
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 @app.on_event("startup")
 def startup_event():
-    print("=" * 50)
-    print("Starting EMS Backend..............")
-    print("=" * 50)
-    print("Creating database tables............")
+    logger.info("=" * 50)
+    logger.info("Starting EMS Backend...")
+    logger.info("=" * 50)
+    logger.info("Creating database tables...")
     Base.metadata.create_all(bind=engine)
-    print(" Database tables created successfully!")
-    print(f"Upload directory: {event_posters_dir.absolute()}")
-    print("=" * 50)
+    logger.info("Database tables created successfully!")
+    logger.info(f"Upload directory: {event_posters_dir.absolute()}")
+    logger.info("=" * 50)
 
 
 app.include_router(events.router)

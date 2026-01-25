@@ -7,6 +7,14 @@ from app.crud.user_crud import list_users, delete_user
 from app.crud.ticket_crud import get_all_tickets, update_ticket_status, assign_ticket, get_ticket
 from app.routes.wishlist import get_current_user
 from app.models.user import User, UserRole
+from app.schemas.user_schema import UserCreate, UserCreateResponse, UserUpdate
+from app.crud.user_crud import create_user, update_user as crud_update_user
+from app.core.security import get_password_hash
+from app.models.booking import Booking
+from app.models.event import Event
+from app.models.ticket import Ticket
+from sqlalchemy import func, desc
+from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
@@ -47,19 +55,12 @@ def assign_ticket_to_user(ticket_id: int, assignee_id: int, db: Session = Depend
 
 @router.get("/dashboard-stats")
 def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), admin: User = Depends(get_current_admin)):
-    from app.models.booking import Booking
-    from app.models.event import Event
-    from app.models.ticket import Ticket
-    from sqlalchemy import func, desc
-    from datetime import datetime, timedelta
-
-    # Calculate date cutoff
     if days >= 9999:
         date_cutoff = None
     else:
         date_cutoff = datetime.now() - timedelta(days=days)
 
-    # 1. Total Revenue (sum of completed bookings within date range)
+    # Total Revenue (sum of completed bookings within date range)
     revenue_query = db.query(func.sum(Booking.total_price)).filter(
         Booking.payment_status == "PAID"
     )
@@ -67,23 +68,23 @@ def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), admin: Us
         revenue_query = revenue_query.filter(Booking.booked_at >= date_cutoff)
     total_revenue = revenue_query.scalar() or 0.0
 
-    # 2. Active Users (total user count)
+    # Active Users (total user count)
     active_users = db.query(func.count(User.id)).scalar() or 0
 
-    # 3. Open Support Tickets
+    # Open Support Tickets
     open_tickets = db.query(func.count(Ticket.id)).filter(
         Ticket.status == "OPEN"
     ).scalar() or 0
 
-    # 4. Upcoming Events Count
+    # Upcoming Events Count
     upcoming_events_count = db.query(func.count(Event.id)).filter(
         Event.starts_at > datetime.now()
     ).scalar() or 0
 
-    # 5. Recent Signups (last 5)
+    # Recent Signups (last 5)
     recent_signups = db.query(User).order_by(desc(User.created_at)).limit(5).all()
 
-    # 6. Upcoming Events List (next 3)
+    #  Upcoming Events List (next 3)
     upcoming_events = db.query(Event).filter(
         Event.starts_at > datetime.now()
     ).order_by(Event.starts_at).limit(3).all()
@@ -97,9 +98,7 @@ def get_dashboard_stats(days: int = 30, db: Session = Depends(get_db), admin: Us
         "upcoming_events": upcoming_events
     }
 
-from app.schemas.user_schema import UserCreate, UserCreateResponse, UserUpdate
-from app.crud.user_crud import create_user, update_user as crud_update_user
-from app.core.security import get_password_hash
+
 
 @router.post("/users", response_model=UserCreateResponse)
 def create_new_user(user: UserCreate, db: Session = Depends(get_db), admin: User = Depends(get_current_admin)):
@@ -204,7 +203,9 @@ def get_reports(
             "transactions": tx_list
         }
     except Exception as e:
-        print(f"Error in get_reports: {str(e)}")
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error in get_reports: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 @router.get("/events/sales")

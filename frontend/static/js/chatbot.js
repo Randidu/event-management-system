@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = `message ${type}`;
         div.textContent = text;
-        body.insertBefore(div, typing); // Insert before typing indicator
+        body.insertBefore(div, typing);
         body.scrollTop = body.scrollHeight;
     }
 

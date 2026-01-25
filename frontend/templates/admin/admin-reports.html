@@ -41,7 +41,8 @@
         <aside class="w-64 bg-[#1a1023] p-4 flex flex-col justify-between border-r border-white/10">
             <div class="flex flex-col gap-8">
                 <div class="flex items-center gap-3 px-2">
-                    <img id="sidebarAdminImg" src="https://i.pravatar.cc/40?img=15" alt="Admin" class="w-10 h-10 rounded-full object-cover">
+                    <img id="sidebarAdminImg" src="https://i.pravatar.cc/40?img=15" alt="Admin"
+                        class="w-10 h-10 rounded-full object-cover">
                     <div>
                         <h1 id="sidebarAdminName" class="text-white text-base font-medium">Infinity Events</h1>
                         <p class="text-purple-300 text-sm">Admin Panel</p>
@@ -97,103 +98,104 @@
         <main class="flex-1 flex flex-col">
             <div class="py-3 px-8 flex items-center justify-between border-b border-[#362249] bg-[#1a1023]">
                 <h2 class="text-white text-lg font-bold">Reports</h2>
-                <img id="headerAdminImg" src="https://i.pravatar.cc/40?img=15" alt="User" class="w-10 h-10 rounded-full object-cover">
+                <img id="headerAdminImg" src="https://i.pravatar.cc/40?img=15" alt="User"
+                    class="w-10 h-10 rounded-full object-cover">
             </div>
             <div class="p-8 max-w-7xl mx-auto">
-            <!-- Page Heading -->
-            <div class="flex justify-between items-center mb-6">
-                <p class="text-4xl font-black">Reports</p>
-                <div class="flex items-center gap-2">
-                    <button
-                        class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
-                        <span class="material-symbols-outlined text-xl">calendar_today</span>
-                        <span>Last 30 Days</span>
-                        <span class="material-symbols-outlined text-xl">arrow_drop_down</span>
-                    </button>
-                    <button
-                        class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
-                        <span class="material-symbols-outlined text-xl">tune</span>
-                        <span>Filters</span>
-                    </button>
-                    <button
-                        class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition">
-                        <span class="material-symbols-outlined text-xl">download</span>
-                        <span>Export All</span>
-                    </button>
+                <!-- Page Heading -->
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-4xl font-black">Reports</p>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
+                            <span class="material-symbols-outlined text-xl">calendar_today</span>
+                            <span>Last 30 Days</span>
+                            <span class="material-symbols-outlined text-xl">arrow_drop_down</span>
+                        </button>
+                        <button
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition">
+                            <span class="material-symbols-outlined text-xl">tune</span>
+                            <span>Filters</span>
+                        </button>
+                        <button
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition">
+                            <span class="material-symbols-outlined text-xl">download</span>
+                            <span>Export All</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
+                        <p class="text-white/70 text-base font-medium mb-2">Total Revenue</p>
+                        <p class="text-3xl font-bold mb-2" id="totalRevenue">...</p>
+                        <p class="text-green-400 text-sm font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-base">calendar_today</span>Last 30 days
+                        </p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
+                        <p class="text-white/70 text-base font-medium mb-2">Tickets Sold</p>
+                        <p class="text-3xl font-bold mb-2" id="ticketsSold">...</p>
+                        <p class="text-green-400 text-sm font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-base">calendar_today</span>Last 30 days
+                        </p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
+                        <p class="text-white/70 text-base font-medium mb-2">New Users</p>
+                        <p class="text-3xl font-bold mb-2" id="newUsers">...</p>
+                        <p class="text-green-400 text-sm font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-base">calendar_today</span>Last 30 days
+                        </p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
+                        <p class="text-white/70 text-base font-medium mb-2">Open Support Tickets</p>
+                        <p class="text-3xl font-bold mb-2" id="openSupport">...</p>
+                        <p class="text-orange-400 text-sm font-medium flex items-center gap-1">
+                            <span class="material-symbols-outlined text-base">info</span>All Time
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event Performance -->
+                <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
+                    <p class="text-lg font-medium mb-2">Top Selling Events</p>
+                    <div class="flex gap-2 items-center mb-4">
+                        <p class="text-white/60 text-sm">Last 30 Days</p>
+                    </div>
+                    <div class="grid grid-flow-col gap-6 items-end justify-items-center h-56" id="eventChartContainer">
+                        <p class="text-white/50 col-span-full self-center">Loading chart...</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
-                    <p class="text-white/70 text-base font-medium mb-2">Total Revenue</p>
-                    <p class="text-3xl font-bold mb-2" id="totalRevenue">...</p>
-                    <p class="text-green-400 text-sm font-medium flex items-center gap-1">
-                        <span class="material-symbols-outlined text-base">calendar_today</span>Last 30 days
-                    </p>
+            <!-- Transactions Table -->
+            <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl overflow-hidden mt-8">
+                <div class="p-6">
+                    <h3 class="text-lg font-medium mb-1">Recent Transactions</h3>
+                    <p class="text-white/60 text-sm">A list of the most recent ticket purchases (Completed).</p>
                 </div>
-                <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
-                    <p class="text-white/70 text-base font-medium mb-2">Tickets Sold</p>
-                    <p class="text-3xl font-bold mb-2" id="ticketsSold">...</p>
-                    <p class="text-green-400 text-sm font-medium flex items-center gap-1">
-                        <span class="material-symbols-outlined text-base">calendar_today</span>Last 30 days
-                    </p>
-                </div>
-                <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
-                    <p class="text-white/70 text-base font-medium mb-2">New Users</p>
-                    <p class="text-3xl font-bold mb-2" id="newUsers">...</p>
-                    <p class="text-green-400 text-sm font-medium flex items-center gap-1">
-                        <span class="material-symbols-outlined text-base">calendar_today</span>Last 30 days
-                    </p>
-                </div>
-                <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
-                    <p class="text-white/70 text-base font-medium mb-2">Open Support Tickets</p>
-                    <p class="text-3xl font-bold mb-2" id="openSupport">...</p>
-                    <p class="text-orange-400 text-sm font-medium flex items-center gap-1">
-                        <span class="material-symbols-outlined text-base">info</span>All Time
-                    </p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-black/30">
+                            <tr>
+                                <th class="p-4 font-semibold text-sm text-white/80">ID</th>
+                                <th class="p-4 font-semibold text-sm text-white/80">User</th>
+                                <th class="p-4 font-semibold text-sm text-white/80">Event</th>
+                                <th class="p-4 font-semibold text-sm text-white/80">Date</th>
+                                <th class="p-4 font-semibold text-sm text-white/80">Amount</th>
+                                <th class="p-4 font-semibold text-sm text-white/80 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/10" id="transactionsBody">
+                            <tr>
+                                <td colspan="6" class="p-4 text-center text-white/50">Loading transactions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <!-- Event Performance -->
-            <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6">
-                <p class="text-lg font-medium mb-2">Top Selling Events</p>
-                <div class="flex gap-2 items-center mb-4">
-                    <p class="text-white/60 text-sm">Last 30 Days</p>
-                </div>
-                <div class="grid grid-flow-col gap-6 items-end justify-items-center h-56" id="eventChartContainer">
-                    <p class="text-white/50 col-span-full self-center">Loading chart...</p>
-                </div>
-            </div>
-    </div>
-
-    <!-- Transactions Table -->
-    <div class="bg-white/10 backdrop-blur border border-white/20 rounded-xl overflow-hidden mt-8">
-        <div class="p-6">
-            <h3 class="text-lg font-medium mb-1">Recent Transactions</h3>
-            <p class="text-white/60 text-sm">A list of the most recent ticket purchases (Completed).</p>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left">
-                <thead class="bg-black/30">
-                    <tr>
-                        <th class="p-4 font-semibold text-sm text-white/80">ID</th>
-                        <th class="p-4 font-semibold text-sm text-white/80">User</th>
-                        <th class="p-4 font-semibold text-sm text-white/80">Event</th>
-                        <th class="p-4 font-semibold text-sm text-white/80">Date</th>
-                        <th class="p-4 font-semibold text-sm text-white/80">Amount</th>
-                        <th class="p-4 font-semibold text-sm text-white/80 text-center">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-white/10" id="transactionsBody">
-                    <tr>
-                        <td colspan="6" class="p-4 text-center text-white/50">Loading transactions...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    </main>
+        </main>
     </div>
 
     <script>
@@ -209,9 +211,9 @@
 
             try {
                 // Fetch Last 30 Days by default
-                console.log('Fetching reports from:', `${API_BASE_URL}/admin/reports?days=30`);
+                console.log('Fetching report data...');
                 const res = await fetch(`${API_BASE_URL}/admin/reports?days=30`, {
-                    headers: { 
+                    headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     }
@@ -223,7 +225,7 @@
                     throw new Error(`Failed to fetch reports: ${res.status}`);
                 }
                 const data = await res.json();
-                console.log('Reports data loaded:', data);
+                console.log('Reports data loaded successfully');
 
                 updateUI(data);
 
@@ -234,10 +236,10 @@
                 document.getElementById('ticketsSold').textContent = 'Error';
                 document.getElementById('newUsers').textContent = 'Error';
                 document.getElementById('openSupport').textContent = 'Error';
-                
+
                 const chartContainer = document.getElementById('eventChartContainer');
                 chartContainer.innerHTML = `<p class="text-red-400 col-span-full self-center">Error loading data: ${error.message}</p>`;
-                
+
                 const tbody = document.getElementById('transactionsBody');
                 tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-red-400">Error loading transactions: ${error.message}</td></tr>`;
             }
